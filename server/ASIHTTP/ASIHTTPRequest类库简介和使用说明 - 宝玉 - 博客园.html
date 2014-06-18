@@ -1,0 +1,587 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0060)http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/style.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/dotey/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/dotey/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/dotey/wlwmanifest.xml">
+<script async="" type="text/javascript" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/gpt.js"></script><script src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'dotey', cb_enable_mathjax=false;</script>
+<script src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<script async="" type="text/javascript" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/pubads_impl_42.js"></script><script type="text/javascript" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/osd.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/dotey/">宝玉</a><br>
+		宝玉的blog
+	</div>
+</div>
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/dotey/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e5%ae%9d%e7%8e%89">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/dotey/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/dotey/rss"><img src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a>
+</div>
+<div id="mytopmenu">
+	
+		
+<div class="blogStats">随笔 - 50&nbsp;
+文章 - 1&nbsp;评论 - 511&nbsp;trackbacks - 4
+</div>
+	
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2014/05/01&#39;);return false;">&lt;</a></td><td align="center">2014年6月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2014/07/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td></tr><tr><td class="CalWeekendDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td class="CalWeekendDay" align="center">7</td></tr><tr><td class="CalWeekendDay" align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td class="CalWeekendDay" align="center">14</td></tr><tr><td class="CalWeekendDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalTodayDay" align="center">18</td><td align="center">19</td><td align="center">20</td><td class="CalWeekendDay" align="center">21</td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td class="CalWeekendDay" align="center">28</td></tr><tr><td class="CalWeekendDay" align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><a href="http://forums.asp.net/"><img src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/Forums-Developers.gif" border="0"></a><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/dotey/">宝玉</a><br>园龄：<a href="http://home.cnblogs.com/u/dotey/" title="入园时间：2004-04-04">10年2个月</a><br>荣誉：<a href="http://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="http://home.cnblogs.com/u/dotey/followers/">199</a><br>关注：<a href="http://home.cnblogs.com/u/dotey/followees/">6</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;367f310b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+
+
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/dotey/p/">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/dotey/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/dotey/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/dotey/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/dotey/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+<!--done-->
+
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/dotey/archive/2013/08.html">2013年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/dotey/archive/2013/07.html">2013年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/dotey/archive/2013/06.html">2013年6月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/dotey/archive/2013/05.html">2013年5月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/dotey/archive/2013/03.html">2013年3月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/dotey/archive/2012/09.html">2012年9月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/dotey/archive/2012/01.html">2012年1月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/dotey/archive/2011/06.html">2011年6月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/dotey/archive/2011/05.html">2011年5月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/dotey/archive/2010/05.html">2010年5月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/dotey/archive/2009/10.html">2009年10月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_11" class="listitem" href="http://www.cnblogs.com/dotey/archive/2009/05.html">2009年5月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_12" class="listitem" href="http://www.cnblogs.com/dotey/archive/2005/08.html">2005年8月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_13" class="listitem" href="http://www.cnblogs.com/dotey/archive/2005/07.html">2005年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_14" class="listitem" href="http://www.cnblogs.com/dotey/archive/2005/01.html">2005年1月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_15" class="listitem" href="http://www.cnblogs.com/dotey/archive/2004/11.html">2004年11月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_16" class="listitem" href="http://www.cnblogs.com/dotey/archive/2004/10.html">2004年10月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_17" class="listitem" href="http://www.cnblogs.com/dotey/archive/2004/09.html">2004年9月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_18" class="listitem" href="http://www.cnblogs.com/dotey/archive/2004/08.html">2004年8月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_19" class="listitem" href="http://www.cnblogs.com/dotey/archive/2004/05.html">2004年5月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_20" class="listitem" href="http://www.cnblogs.com/dotey/archive/2004/04.html">2004年4月 (12)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">文章分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/dotey/category/10581.html">asp.net forums中文(1)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">相册</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_2_Link_0" class="listitem" rel="nofollow" href="http://www.cnblogs.com/dotey/gallery/9205.html">技术图片</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_2_Link_1" class="listitem" rel="nofollow" href="http://www.cnblogs.com/dotey/gallery/1191.html">生活照</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">网友Blog</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_3_Link_0" class="listitem" rel="nofollow" href="http://cnblogs.com/zzbird%20" target="_blank">喳喳鸟</a></li>
+			
+				</ul>
+			
+	
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dotey/archive/2011/05/12/2043939.html#2896730">1. Re:基于Xcode4开发第一个iPhone程序：“Hello World”</a></li>
+    <li class="recent_comment_body">我找不到- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{// Return YES for supported orientationsreturn YES;}这个......</li>
+    <li class="recent_comment_author">--zym520</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2884865">2. Re:ASIHTTPRequest类库简介和使用说明</a></li>
+    <li class="recent_comment_body">写得不错啊！如果请求有传参数啥的没写就是了。</li>
+    <li class="recent_comment_author">--coooliang</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dotey/archive/2011/06/09/2075954.html#2871820">3. Re:第二个iPhone应用程序：“Say Hello”</a></li>
+    <li class="recent_comment_body">从北京漫长</li>
+    <li class="recent_comment_author">--BLilly</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dotey/archive/2013/05/09/3070185.html#2853191">4. Re:基于MMSeg算法的中文分词类库</a></li>
+    <li class="recent_comment_body">哦，找到原因了，代码中有一个Bug，导致无论如何都会使用MaxWordSeg！修改了就好了！</li>
+    <li class="recent_comment_author">--hhsky</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dotey/archive/2013/05/09/3070185.html#2853158">5. Re:基于MMSeg算法的中文分词类库</a></li>
+    <li class="recent_comment_body">你好！我在做测试的时候发现分词好的词只有2字词，想三字词、成语等都无法分解出来?是何原因，能否帮助我？</li>
+    <li class="recent_comment_author">--hhsky</li>
+</ul>
+</div>
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园.html">1. ASIHTTPRequest类库简介和使用说明(91415)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2011/05/12/2043939.html">2. 基于Xcode4开发第一个iPhone程序：“Hello World”(54604)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2005/01/07/88013.html">3. 让论坛也可以像outlook2003一样有新帖子/留言Popup提示(33033)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2011/06/09/2075954.html">4. 第二个iPhone应用程序：“Say Hello”(20306)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2011/05/11/2042000.html">5. iOS平台XML解析类库对比和安装说明(10971)</a></li></ul></div>
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/dotey/archive/2011/05/12/2043939.html">1. 基于Xcode4开发第一个iPhone程序：“Hello World”(52)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2011/06/09/2075954.html">2. 第二个iPhone应用程序：“Say Hello”(47)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2010/05/07/1729958.html">3. 把技术卖给不懂技术的人(37)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2004/10/31/58941.html">4. CnForums 1.0 Beta1发布(23)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2013/03/08/2949153.html">5. 我也简单谈下《Web应用的缓存设计模式》(22)</a></li></ul></div>
+</div>
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/dotey/archive/2011/05/12/2043939.html">1. 基于Xcode4开发第一个iPhone程序：“Hello World”(33)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2011/06/09/2075954.html">2. 第二个iPhone应用程序：“Say Hello”(26)</a></li><li><a href="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园.html">3. ASIHTTPRequest类库简介和使用说明(21)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2010/05/07/1729958.html">4. 把技术卖给不懂技术的人(13)</a></li><li><a href="http://www.cnblogs.com/dotey/archive/2013/03/08/2949153.html">5. 我也简单谈下《Web应用的缓存设计模式》(11)</a></li></ul></div>
+</div></div><script type="text/javascript">loadBlogSideColumn();</script></div>		
+	
+</div>
+<div id="centercontent">
+	
+
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="cb_post_title_url" class="postTitle2" href="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园.html">ASIHTTPRequest类库简介和使用说明</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><p>官方网站： <a href="http://allseeing-i.com/ASIHTTPRequest/">http://allseeing-i.com/ASIHTTPRequest/</a> 。可以从上面下载到最新源码，以及获取到相关的资料。</p>
+<p>使用iOS SDK中的HTTP网络请求API，相当的复杂，调用很繁琐，ASIHTTPRequest就是一个对CFNetwork API进行了封装，并且使用起来非常简单的一套API，用Objective-C编写，可以很好的应用在Mac OS X系统和iOS平台的应用程序中。ASIHTTPRequest适用于基本的HTTP请求，和基于REST的服务之间的交互。</p>
+<p>ASIHTTPRequest功能很强大，主要特色如下：</p>
+<ul>
+  <li>l 通过简单的接口，即可完成向服务端提交数据和从服务端获取数据的工作</li>
+
+  <li>l 下载的数据，可存储到内存中或直接存储到磁盘中</li>
+
+  <li>l 能上传本地文件到服务端</li>
+
+  <li>l 可以方便的访问和操作请求和返回的Http头信息</li>
+
+  <li>l 可以获取到上传或下载的进度信息，为应用程序提供更好的体验</li>
+
+  <li>l 支持上传或下载队列，并且可获取队列的进度信息</li>
+
+  <li>l 支持基本、摘要和NTLM身份认证，在同一会话中授权凭证会自动维持，并且可以存储在Keychain（Mac和iOS操作系统的密码管理系统）中</li>
+
+  <li>l 支持Cookie</li>
+
+  <li>l 当应用（iOS 4+）在后台运行时，请求可以继续运行</li>
+
+  <li>l 支持GZIP压缩数据</li>
+
+  <li>l 内置的ASIDownloadCache类，可以缓存请求返回的数据，这样即使没有网络也可以返回已经缓存的数据结果</li>
+
+  <li>l ASIWebPageRequest –可以下载完整的网页，包括包含的网页、样式表、脚本等资源文件，并显示在UIWebView /WebView中。任意大小的页面都可以无限期缓存，这样即使没有网络也可以离线浏览</li>
+
+  <li>l 支持客户端证书</li>
+
+  <li>l 支持通过代理发起Http请求</li>
+
+  <li>l 支持带宽限制。在iOS平台，可以根据当前网络情况来自动决定是否限制带宽，例如当使用WWAN(GPRS/Edge/3G)网络时限制，而当使用WIFI时不做任何限制</li>
+
+  <li>l 支持断点续传</li>
+
+  <li>l 支持同步和异步请求</li>
+</ul>
+<h5>2.1.1安装说明</h5>
+<p>如果想在iOS项目中使用ASIHTTPRequest，需要在项目中进行简单的配置，步骤如下：</p>
+<h6>1) 添加文件</h6>
+<p>往一个Xcode项目中添加第三方类库文件，有两种方式：</p>
+<p>1. 第一种方式，在Finder中打开需要添加到文件或文件夹，在Xcode中打开要添加文件的项目，然后选中要添加的文件或文件夹，将它从Finder中拖到Xcode中，然后释放。在弹出的对话框中，如果文件已经拷贝到了项目文件目录中，则不需要选中“Copy items”的复选框；如果文件没有拷贝到项目文件目录，就需要选中“Copy items”的复选框，这样Xcode会自动把文件复制到项目文件目录下。如下图所示：<br>
+<a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/201105101123203963.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image002" border="0" alt="clip_image002" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123202534.gif" width="614" height="484"></a><br>
+<a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/201105101123201978.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image004" border="0" alt="clip_image004" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123205325.gif" width="640" height="432"></a></p>
+<p>2. 第二种方式，在Xcode中，在要添加文件的分组下点右键，选中“Add Files to “My Project”…”菜单，在弹出的文件浏览对话框中选中要添加到文件或文件夹。如果要添加文件已经拷贝到了项目文件目录中，则不需要选中“Copy items”的复选框；如果文件没有拷贝到项目文件目录，就需要选中“Copy items”的复选框，这样Xcode会自动把文件复制到项目文件目录下。如下图所示：<br>
+<a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/201105101123203897.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image006" border="0" alt="clip_image006" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123218880.gif" width="603" height="484"></a><br>
+<a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/201105101123218324.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image008" border="0" alt="clip_image008" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123214944.gif" width="501" height="480"></a></p>
+<p>根据上面的说明，添加ASIHTTPRequest相关文件到Xcode项目中，所需文件列表如下：</p>
+<p>ASIHTTPRequestConfig.h</p>
+<p>ASIHTTPRequestDelegate.h</p>
+<p>ASIProgressDelegate.h</p>
+<p>ASICacheDelegate.h</p>
+<p>ASIHTTPRequest.h</p>
+<p>ASIHTTPRequest.m</p>
+<p>ASIDataCompressor.h</p>
+<p>ASIDataCompressor.m</p>
+<p>ASIDataDecompressor.h</p>
+<p>ASIDataDecompressor.m</p>
+<p>ASIFormDataRequest.h</p>
+<p>ASIInputStream.h</p>
+<p>ASIInputStream.m</p>
+<p>ASIFormDataRequest.m</p>
+<p>ASINetworkQueue.h</p>
+<p>ASINetworkQueue.m</p>
+<p>ASIDownloadCache.h</p>
+<p>ASIDownloadCache.m</p>
+<p>ASIAuthenticationDialog.h</p>
+<p>ASIAuthenticationDialog.m</p>
+<p>Reachability.h (在源码的 External/Reachability 目录下)</p>
+<p>Reachability.m (在源码的 External/Reachability 目录下)</p>
+<h6>2) 链接相关类库</h6>
+<p>1. 选中项目</p>
+<p>2. 选中目标</p>
+<p>3. 跳转到“Build Phases”标签</p>
+<p>4. 展开“Link Binary With Libraries”分组</p>
+<p>5. 点击“+”添加类库</p>
+<p>如下图所示：</p>
+<p><a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/201105101123216339.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image010" border="0" alt="clip_image010" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123211322.gif" width="640" height="469"></a></p>
+<p>6. 从列表中选择CFNetwork.framework，然后点击“Add”按钮。</p>
+<p><a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/20110510112321766.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image012" border="0" alt="clip_image012" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123213798.gif" width="339" height="480"></a></p>
+<p>7. 按照上一步相同的方法添加：SystemConfiguration.framework, MobileCoreServices.framework,CoreGraphics.framework和libz.1.2.3.dylib这几个类库。</p>
+<p>8. 添加完后，可以将添加好的一起类库拖到Xcode项目的Frameworks目录下<br>
+<a href="http://images.cnblogs.com/cnblogs_com/dotey/201105/201105101123226829.gif"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="clip_image014" border="0" alt="clip_image014" src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/201105101123228225.gif" width="640" height="469"></a></p>
+<h5>2.1.2使用说明</h5>
+<p>ASIHTTPRequest有很多功能，所有功能说明都可以在其官方网站的相关文档中查到，限于篇幅，本章仅简单介绍一下如何使用ASIHTTPRequest来进行同步Http请求和异步Http请求。在后面的章节中，我们还会用到它的一些其他功能。</p>
+<p>在使用ASIHTTPRequest之前，请确认已经正确安装，然后在需要应用它的代码文件头部，加入：</p>
+<p>#import “ASIHTTPRequest.h”</p>
+<p>这样就可以在代码中使用ASIHTTPRequest相关的类。</p>
+<h6>创建一个同步请求</h6>
+<p>这是ASIHTTPRequest最简单的一种使用模式，发送<b>startSynchronous</b>消息后即开始在同一线程中执行HTTP请求，线程将一直等待直到请求结束（请求成功或者失败）。通过检查<b>error</b>属性可以判断请求是否成功或者有错误发生。</p>
+<p>要获取返回的文本信息，调用<b>responseString</b>方法。如果下载的是二进制文件，例如图片、MP3，则调用<b>responseData</b>方法，可以得到一个NSData对象。</p>
+<p>- (IBAction)grabURL:(id)sender</p>
+<p>{</p>
+<p>NSURL *url = [NSURL URLWithString:@"http://allseeing-i.com"];</p>
+<p>ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];</p>
+<p>[request startSynchronous];</p>
+<p>NSError *error = [request error];</p>
+<p>if (!error) {</p>
+<p>NSString *response = [request responseString];</p>
+<p>}</p>
+<p>}</p>
+<p>一般情况下，应该优先使用异步请求代替同步请求，当在主线程中使用ASIHTTPRequest同步请求，应用程序的界面会锁定，无法进行任何操作，直到请求完成。</p>
+<h6>创建一个异步请求</h6>
+<p>上例中的同步请求，如果换成异步方式来调用，请求是在后台线程中运行，当请求执行完后再通知调用的线程。这样不会导致主线程进行网络请求时，界面被锁定等情况。</p>
+<p>- (IBAction)grabURLInBackground:(id)sender</p>
+<p>{</p>
+<p>NSURL *url = [NSURL URLWithString:@"http://allseeing-i.com"];</p>
+<p>ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];</p>
+<p>[request setDelegate:self];</p>
+<p>[request startAsynchronous];</p>
+<p>}</p>
+<p>- (void)requestFinished:(ASIHTTPRequest *)request</p>
+<p>{</p>
+<p>// 当以文本形式读取返回内容时用这个方法</p>
+<p>NSString *responseString = [request responseString];</p>
+<p>// 当以二进制形式读取返回内容时用这个方法</p>
+<p>NSData *responseData = [request responseData];</p>
+<p>}</p>
+<p>- (void)requestFailed:(ASIHTTPRequest *)request</p>
+<p>{</p>
+<p>NSError *error = [request error];</p>
+<p>}</p>
+</div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e5%ae%9d%e7%8e%89" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dotey/" target="_blank"><img src="./ASIHTTPRequest类库简介和使用说明 - 宝玉 - 博客园_files/20130527203149.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dotey/">宝玉</a><br>
+<a href="http://home.cnblogs.com/u/dotey/followees">关注 - 6</a><br>
+<a href="http://home.cnblogs.com/u/dotey/followers">粉丝 - 199</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">21</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/dotey/archive/2010/05/07/1729958.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/dotey/archive/2010/05/07/1729958.html" title="发布于2010-05-07 17:51">把技术卖给不懂技术的人</a><br><a href="http://www.cnblogs.com/dotey/archive/2011/05/11/2042000.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/dotey/archive/2011/05/11/2042000.html" title="发布于2011-05-11 09:14">iOS平台XML解析类库对比和安装说明</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2011-05-10 11:18</span> <a href="http://www.cnblogs.com/dotey/">宝玉</a> 阅读(<span id="post_view_count">91417</span>) 评论(<span id="post_comment_count">17</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2041966" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#" onclick="AddToWz(2041966);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=926,cb_entryId=2041966,cb_blogApp=currentBlogApp,cb_blogUserGuid='367f310b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2011/5/10 11:18:00';loadViewCount(cb_entryId);</script>
+
+<a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<b>FeedBack:</b>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2091651" class="layer">#1楼</a><a name="2091651" id="comment_anchor_2091651"></a>&nbsp; <span class="comment_date">2011-05-10 12:03</span>&nbsp;<a id="a_comment_author_2091651" href="http://www.cnblogs.com/zhuqil/" target="_blank">麒麟</a> <a href="http://space.cnblogs.com/msg/send/%e9%ba%92%e9%ba%9f" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2091651" class="blog_comment_body">这东西相当不错啊！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2091651,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2091651,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2091651_avatar" style="display:none;">http://pic.cnitblog.com/face/u38542.png?id=15185941</span>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2092772" class="layer">#2楼</a><a name="2092772" id="comment_anchor_2092772"></a>&nbsp; <span class="comment_date">2011-05-11 11:26</span>&nbsp;<a id="a_comment_author_2092772" href="http://home.cnblogs.com/u/299413/" target="_blank">dengjinfeng</a> <a href="http://space.cnblogs.com/msg/send/dengjinfeng" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2092772" class="blog_comment_body">很好，表达的很清晰！ 希望博主能多分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2092772,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2092772,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2092848" class="layer">#3楼</a><a name="2092848" id="comment_anchor_2092848"></a>&nbsp; <span class="comment_date">2011-05-11 12:25</span>&nbsp;<a id="a_comment_author_2092848" href="http://www.cnblogs.com/Logen/" target="_blank">Hsiun</a> <a href="http://space.cnblogs.com/msg/send/Hsiun" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2092848" class="blog_comment_body">不错，一直在用</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2092848,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2092848,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2092848_avatar" style="display:none;">http://pic.cnitblog.com/face/u38569.jpg</span>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2204899" class="layer">#4楼</a><a name="2204899" id="comment_anchor_2204899"></a>&nbsp; <span class="comment_date">2011-09-22 09:09</span>&nbsp;<a id="a_comment_author_2204899" href="http://www.cnblogs.com/startup/" target="_blank">青怪</a> <a href="http://space.cnblogs.com/msg/send/%e9%9d%92%e6%80%aa" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2204899" class="blog_comment_body">不知道为什么,我在添加类库的时候找不到CFNetwork.framework <br> MobileCoreServices.framework,CoreGraphics.framework,只找到了SystemConfiguration.framework和libz.1.2.3.dylib<br><br>我用的是Apple.Xcode.v4.0.2.and.iOS.SDK.v4.3.MacOSX.ISO-CORE</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2204899,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2204899,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2204899_avatar" style="display:none;">http://pic.cnitblog.com/face/u142384.jpg</span>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2254212" class="layer">#5楼</a><a name="2254212" id="comment_anchor_2254212"></a>&nbsp; <span class="comment_date">2011-11-26 14:26</span>&nbsp;<a id="a_comment_author_2254212" href="http://www.cnblogs.com/hubj/" target="_blank">alex hu</a> <a href="http://space.cnblogs.com/msg/send/alex+hu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2254212" class="blog_comment_body">requestFinished这个名称是固定的吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2254212,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2254212,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2348949" class="layer">#6楼</a><a name="2348949" id="comment_anchor_2348949"></a>&nbsp; <span class="comment_date">2012-04-06 16:58</span>&nbsp;<a id="a_comment_author_2348949" href="http://home.cnblogs.com/u/351810/" target="_blank">墓志铭123</a> <a href="http://space.cnblogs.com/msg/send/%e5%a2%93%e5%bf%97%e9%93%ad123" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2348949" class="blog_comment_body">有帮助 谢谢了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2348949,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2348949,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2377475" class="layer">#7楼</a><a name="2377475" id="comment_anchor_2377475"></a>&nbsp; <span class="comment_date">2012-05-15 14:37</span>&nbsp;<a id="a_comment_author_2377475" href="http://www.cnblogs.com/maxfong/" target="_blank">Maxfong</a> <a href="http://space.cnblogs.com/msg/send/Maxfong" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2377475" class="blog_comment_body">表达的很好，顶顶。。 不过这图片保存的gif了吧？用png就清楚了～</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2377475,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2377475,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2377475_avatar" style="display:none;">http://pic.cnitblog.com/face/u319284.jpg?id=10134323</span>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2391594" class="layer">#8楼</a><a name="2391594" id="comment_anchor_2391594"></a>&nbsp; <span class="comment_date">2012-06-02 10:34</span>&nbsp;<a id="a_comment_author_2391594" href="http://www.cnblogs.com/leadfast/" target="_blank">我给你传答案</a> <a href="http://space.cnblogs.com/msg/send/%e6%88%91%e7%bb%99%e4%bd%a0%e4%bc%a0%e7%ad%94%e6%a1%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2391594" class="blog_comment_body">受教了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2391594,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2391594,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2391594_avatar" style="display:none;">http://pic.cnitblog.com/face/u131121.jpg</span>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2432624" class="layer">#9楼</a><a name="2432624" id="comment_anchor_2432624"></a>&nbsp; <span class="comment_date">2012-07-22 21:12</span>&nbsp;<a id="a_comment_author_2432624" href="http://home.cnblogs.com/u/390761/" target="_blank">猪猪海洋吖</a> <a href="http://space.cnblogs.com/msg/send/%e7%8c%aa%e7%8c%aa%e6%b5%b7%e6%b4%8b%e5%90%96" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2432624" class="blog_comment_body">我没有找到libz.1.2.3.dylib吖，我只有libz.1.2.5.dylib和libz.1.1.3.dylib是版本的问题么？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2432624,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2432624,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2448760" class="layer">#10楼</a><a name="2448760" id="comment_anchor_2448760"></a>&nbsp; <span class="comment_date">2012-08-15 10:18</span>&nbsp;<a id="a_comment_author_2448760" href="http://home.cnblogs.com/u/437777/" target="_blank">qingyu</a> <a href="http://space.cnblogs.com/msg/send/qingyu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2448760" class="blog_comment_body">请问ASIHTTPRequst能实现图片上传么，试了n久也没试出来，代理方法提示成功，但是服务器不显示图片。。。在网上找了几天，也没见有成功案例的，大家贴出来的程序大同小异，就那么几句（看着不太靠谱哦），各种问题都有，跟我一样问题的也有，恳求博主大发慈悲能不能详细讲解下上传图片的技巧啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448760,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448760,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2448767" class="layer">#11楼</a><a name="2448767" id="comment_anchor_2448767"></a>[<span class="louzhu">楼主</span>]&nbsp; <span class="comment_date">2012-08-15 10:23</span>&nbsp;<a id="a_comment_author_2448767" href="http://www.cnblogs.com/dotey/" target="_blank">宝玉</a> <a href="http://space.cnblogs.com/msg/send/%e5%ae%9d%e7%8e%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2448767" class="blog_comment_body"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2448760" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2448760);">@</a>qingyu<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2448760" title="查看引用原文">引用</a></legend>请问ASIHTTPRequst能实现图片上传么，试了n久也没试出来，代理方法提示成功，但是服务器不显示图片。。。在网上找了几天，也没见有成功案例的，大家贴出来的程序大同小异，就那么几句（看着不太靠谱哦），各种问题都有，跟我一样问题的也有，恳求博主大发慈悲能不能详细讲解下上传图片的技巧啊</fieldset><br>ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];<br>[request setPostValue:@"Ben" forKey:@"first_name"];<br>[request setPostValue:@"Copsey" forKey:@"last_name"];<br>[request setFile:@"/Users/ben/Desktop/ben.jpg" forKey:@"photo"];<br><br><a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use" target="_blank">http://allseeing-i.com/ASIHTTPRequest/How-to-use</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448767,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448767,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2448767_avatar" style="display:none;">http://pic.cnitblog.com/face/564/20130527203149.png</span>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2448788" class="layer">#12楼</a><a name="2448788" id="comment_anchor_2448788"></a>&nbsp; <span class="comment_date">2012-08-15 10:50</span>&nbsp;<a id="a_comment_author_2448788" href="http://home.cnblogs.com/u/437777/" target="_blank">qingyu</a> <a href="http://space.cnblogs.com/msg/send/qingyu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2448788" class="blog_comment_body">试过了，这个不就是你给的链接里的源码了，里边的方法都使过了，不行啊，</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448788,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448788,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2448797" class="layer">#13楼</a><a name="2448797" id="comment_anchor_2448797"></a>&nbsp; <span class="comment_date">2012-08-15 11:04</span>&nbsp;<a id="a_comment_author_2448797" href="http://home.cnblogs.com/u/437777/" target="_blank">qingyu</a> <a href="http://space.cnblogs.com/msg/send/qingyu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2448797" class="blog_comment_body">请问下，如果    [request setDidFinishSelector:@selector(uploadFinished:)]; 方法已经执行，是不是说明post流程已经走完了，但是服务器不显示图片，是不是还要做什么后续工作</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2448797,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2448797,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2459941" class="layer">#14楼</a><a name="2459941" id="comment_anchor_2459941"></a>&nbsp; <span class="comment_date">2012-08-30 12:51</span>&nbsp;<a id="a_comment_author_2459941" href="http://home.cnblogs.com/u/442767/" target="_blank">likid1412</a> <a href="http://space.cnblogs.com/msg/send/likid1412" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2459941" class="blog_comment_body"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2432624" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2432624);">@</a>猪猪海洋吖<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2432624" title="查看引用原文">引用</a></legend>我没有找到libz.1.2.3.dylib吖，我只有libz.1.2.5.dylib和libz.1.1.3.dylib是版本的问题么？</fieldset><br>是的。你可以参考这个帖子的demo <a href="http://www.cocoachina.com/bbs/read.php?tid=98532&keyword=%CD%F8%C2%E7" target="_blank">http://www.cocoachina.com/bbs/read.php?tid=98532&amp;keyword=%CD%F8%C2%E7</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2459941,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2459941,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2564068" class="layer">#15楼</a><a name="2564068" id="comment_anchor_2564068"></a>&nbsp; <span class="comment_date">2012-11-27 15:51</span>&nbsp;<a id="a_comment_author_2564068" href="http://www.cnblogs.com/supercheng/" target="_blank">super_chen</a> <a href="http://space.cnblogs.com/msg/send/super_chen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2564068" class="blog_comment_body">感谢楼主的分享，相当实用！<br>大家有有什么疑问的话，可以进IOS中高级开发群：118623167 和大家交流分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2564068,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2564068,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2586838" class="layer">#16楼</a><a name="2586838" id="comment_anchor_2586838"></a>&nbsp; <span class="comment_date">2012-12-26 14:08</span>&nbsp;<a id="a_comment_author_2586838" href="http://home.cnblogs.com/u/276070/" target="_blank">hhb19900618</a> <a href="http://space.cnblogs.com/msg/send/hhb19900618" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2586838" class="blog_comment_body">我想问一下 为什么 - (IBAction)grabURL:(id)sender 函数中没加上 [request setDelegate:self]; 这句？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2586838,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2586838,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#2884865" class="layer">#17楼</a><a name="2884865" id="comment_anchor_2884865"></a><span id="comment-maxId" style="display:none;">2884865</span><span id="comment-maxDate" style="display:none;">2014/2/28 10:57:59</span>&nbsp; <span class="comment_date">2014-02-28 10:57</span>&nbsp;<a id="a_comment_author_2884865" href="http://home.cnblogs.com/u/608285/" target="_blank">coooliang</a> <a href="http://space.cnblogs.com/msg/send/coooliang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a></div>
+				<div align="left"><div id="comment_body_2884865" class="blog_comment_body">写得不错啊！如果请求有传参数啥的没写就是了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2884865,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2884865,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/dotey/archive/2011/05/10/2041966.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = true;var googletag = googletag || {};googletag.cmd = googletag.cmd || [];
+    fixPostBodyFormat();
+</script>
+<div id="ad_under_post_holder">
+<script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +'//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+<script type="text/javascript">
+    try {
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1346480159711-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C2_sitehome', [468, 60], 'div-gpt-ad-1346479110744-1').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    <script type="text/javascript">
+    try{
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1346480159711-0'); });
+    } catch (e) { }
+    </script>
+    <div id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/210742/" target="_blank">毕加索《蓝色房间》惊现画中画：暗藏神秘男子</a><br> ·  <a href="http://news.cnblogs.com/n/210741/" target="_blank">公司上市，谁家员工吃肉、谁家闻味？</a><br> ·  <a href="http://news.cnblogs.com/n/210740/" target="_blank">快播之死：百度视频推动，腾讯出面举报</a><br> ·  <a href="http://news.cnblogs.com/n/210739/" target="_blank">比尔·盖茨发布Twitter消息称与马云共商慈善</a><br> ·  <a href="http://news.cnblogs.com/n/210738/" target="_blank">支付宝钱包未来公交计划：直接刷手机乘公交地铁</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/200253/" target="_blank">扁平和简约来袭</a><br> ·  <a href="http://kb.cnblogs.com/page/208616/" target="_blank">前端开发中使用”有限状态机“解决复杂的交互问题</a><br> ·  <a href="http://kb.cnblogs.com/page/210323/" target="_blank">开发团队的效率</a><br> ·  <a href="http://kb.cnblogs.com/page/209987/" target="_blank">存储系统的那些事</a><br> ·  <a href="http://kb.cnblogs.com/page/209869/" target="_blank">你是编程中的“快枪手”还是“慢悠悠”？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    $.ajax({ url: 'http://counter.cnblogs.com/blog/post/' + cb_entryId, type: 'get', dataType: 'script', cache: true });
+});
+</script>
+<script type="text/javascript">    
+</script>
+</div>
+
+	
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2014 宝玉 Powered by: <a href="http://www.cnblogs.com/" class="footerlink">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/" class="footerlink">沪江博客</a><br>
+</div>
+</div>
+
+
+
+
+
+<iframe id="google_osd_static_frame_6971669339109" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe></body></html>
