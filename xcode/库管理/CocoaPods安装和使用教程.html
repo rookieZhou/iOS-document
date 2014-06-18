@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://code4app.com/article/cocoapods-install-usage -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./CocoaPods安装和使用教程_files/saved_resource" charset="utf-8"></script><script src="./CocoaPods安装和使用教程_files/ujian.js" charset="utf-8" id="uyan_script"></script><script src="./CocoaPods安装和使用教程_files/style5.js" charset="utf-8" id="uyan_script"></script><script src="./CocoaPods安装和使用教程_files/saved_resource(1)" charset="utf-8" id="uyan_script"></script>
+<meta charset="utf-8">
+<title>CocoaPods安装和使用教程</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+    background-color: white;
+    margin: 20px 13px 50px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+a:hover {
+    color: #0050a3;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+    margin: 20px 0 10px 0;
+}
+h3 {
+    font-size: 18px;
+    margin: 20px 0 10px 0;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:20px auto 50px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+#code4app-logo{
+    float: right;
+    display: block;
+    width: 187px;
+    height: 41px;
+}
+#article-discuss{
+    float: left;
+    width: 854px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+</style>
+
+
+<style type="text/css">#uyan_cmt_box{width: 100% !important;}#uyan_star{display: none !important;}#uyan_cmty_btn{display: none !important;}#uyan_login_btn{display: block !important;}#uyan_usp{display: none !important;}.uyan_st_slog{right: 162px !important;}#uyan_ddword{display: none !important;}#uyan_info_sync{display: none !important;}</style></head>
+<body>
+<h1>
+    CocoaPods安装和使用教程
+    <a href="http://code4app.com/" target="_blank" id="code4app-logo" title="Code4App"><img src="./CocoaPods安装和使用教程_files/code4app_logo_1102.png" alt="Code4App LOGO"></a>
+</h1>
+
+<p>Code4App 原创文章。转载请注明出处：<a href="./CocoaPods安装和使用教程_files/CocoaPods安装和使用教程.html" target="_blank">http://code4app.com/article/cocoapods-install-usage</a></p>
+
+<h2>目录</h2>
+
+<ul>
+<li><a href="http://code4app.com/article/cocoapods-install-usage#cocoapods">CocoaPods是什么？</a></li>
+<li><a href="http://code4app.com/article/cocoapods-install-usage#install">如何下载和安装CocoaPods？</a></li>
+<li><a href="http://code4app.com/article/cocoapods-install-usage#usage">如何使用CocoaPods？</a>
+
+    <ul>
+        <li><a href="http://code4app.com/article/cocoapods-install-usage#usage1">场景1：利用CocoaPods，在项目中导入AFNetworking类库</a></li>
+        <li><a href="http://code4app.com/article/cocoapods-install-usage#usage2">场景2：如何正确编译运行一个包含CocoPods类库的项目</a></li>
+    </ul>
+</li>
+</ul>
+
+
+<h2 id="cocoapods">CocoaPods是什么？</h2>
+
+<p>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库，“子子孙孙无穷尽也”，这也许是比较特殊的情况。总之小编的意思就是，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。如果能有什么工具能解决这些恼人的问题，那将“善莫大焉”。所以，你需要 CocoaPods。</p>
+
+<p>CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了。</p>
+
+<h2 id="install">如何下载和安装CocoaPods？</h2>
+
+<p>在安装CocoaPods之前，首先要在本地安装好Ruby环境。至于如何在Mac中安装好Ruby环境，请google一下，本文不再涉及。</p>
+
+<p>假如你在本地已经安装好Ruby环境，那么下载和安装CocoaPods将十分简单，只需要一行命令。在Terminator（也就是终端）中输入以下命令（注意，本文所有命令都是在终端中输入并运行的。什么，你不知道什么是终端？那请小编吃饭，小编告诉你）：</p>
+
+<pre><code>sudo gem install cocoapods
+</code></pre>
+
+<p>但是，且慢。如果你在天朝，在终端中敲入这个命令之后，会发现半天没有任何反应。原因无他，因为那堵墙阻挡了cocoapods.org。（你会问，我靠，这都要墙！是的，小编也纳闷。）</p>
+
+<p>但是，是的，又但是（不过是个可喜的“但是”）。我们可以用淘宝的Ruby镜像来访问cocoapods。按照下面的顺序在终端中敲入依次敲入命令：</p>
+
+<pre><code>$ gem sources --remove https://rubygems.org/
+//等有反应之后再敲入以下命令
+$ gem sources -a http://ruby.taobao.org/
+</code></pre>
+
+<p>为了验证你的Ruby镜像是并且仅是taobao，可以用以下命令查看：</p>
+
+<pre><code>$ gem sources -l
+</code></pre>
+
+<p>只有在终端中出现下面文字才表明你上面的命令是成功的：</p>
+
+<pre><code>*** CURRENT SOURCES ***
+
+http://ruby.taobao.org/
+</code></pre>
+
+<p>上面所有的命令完成之时，在小编的终端上是这个的样子：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_1.png" alt="Figure 1"></p>
+
+<p>这时候，你再次在终端中运行：</p>
+
+<pre><code>$ sudo gem install cocoapods
+</code></pre>
+
+<p>等上十几秒钟，CocoaPods就可以在你本地下载并且安装好了，不再需要其他设置。</p>
+
+<p>敲入以上命令时，小编终端上是这个样子的（由于太长，仅截取前面一部分）：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_11.png" alt="Figure 2"></p>
+
+<p>看到这里，你心里会不会说，我靠！太爽了，这么容易就可以下载并且安装好了！是的，小编也是这么想的。CocoPods就是这么简单，使用也十分简单。继续往下看吧。</p>
+
+<h2 id="usage">如何使用CocoaPods？</h2>
+
+<p>好了，安装好CocoPods之后，接下来就是使用它。所幸，使用CocoPods和安装它一样简单，也是通过一两行命令就可以搞定。</p>
+
+<p>小编在这里用两种使用场景来具体说明如何使用CocoaPods。</p>
+
+<h3 id="usage1">场景1：利用CocoaPods，在项目中导入AFNetworking类库</h3>
+
+<p>AFNetworking类库在GitHub地址是：<a href="https://github.com/AFNetworking/AFNetworking">https://github.com/AFNetworking/AFNetworking</a></p>
+
+<p>为了确定AFNetworking是否支持CocoaPods，可以用CocoaPods的搜索功能验证一下。在终端中输入：</p>
+
+<pre><code>$ pod search AFNetworking
+</code></pre>
+
+<p>过几秒钟之后，你会在终端中看到关于AFNetworking类库的一些信息。比如：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_12.png" alt="Figure 3"></p>
+
+<p>这说明，AFNetworking是支持CocoaPods，所以我们可以利用CocoaPods将AFNetworking导入你的项目中。</p>
+
+<p>首先，我们需要在我们的项目中加入CocoaPods的支持。你可以跟随小编的步骤，先利用Xcode创建一个名字CocoaPodsDemo的项目，用于以下的教程。创建好之后，在继续下一步之前，小编先截图，看看项目没有支持CocoaPods时的项目Xcode目录结构：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_13.png" alt="Figure 4"></p>
+
+<p>上图等一下要跟项目支持CocoaPods之后的项目Xcode目录结构做对比。</p>
+
+<p>你看到这里也许会问，CocoaPods为什么能下载AFNetworking呢，而不是下载其他类库呢？这个问题的答案是，有个文件来控制CocoaPods该下载什么。这个文件就叫做“Podfile”（注意，一定得是这个文件名，而且没有后缀）。你创建一个Podfile文件，然后在里面添加你需要下载的类库，也就是告诉CocoaPods，“某某和某某和某某某，快到碗里来！”。每个项目只需要一个Podfile文件。</p>
+
+<p>好吧，废话少说，我们先创建这个神奇的PodFile。在终端中进入（cd命令）你项目所在目录，然后在当前目录下，利用vim创建Podfile，运行：</p>
+
+<pre><code>$ vim Podfile
+</code></pre>
+
+<p>然后在Podfile文件中输入以下文字：</p>
+
+<pre><code>platform :ios, '7.0'
+pod "AFNetworking", "~&gt; 2.0"
+</code></pre>
+
+<p>注意，这段文字不是小编凭空生成的，可以在AFNetworking的github页面找到。这两句文字的意思是，当前AFNetworking支持的iOS最高版本是iOS 7.0, 要下载的AFNetworking版本是2.0。</p>
+
+<p>然后保存退出。vim环境下，保存退出命令是：</p>
+
+<pre><code>:wq
+</code></pre>
+
+<p>这时候，你会发现你的项目目录中，出现一个名字为Podfile的文件，而且文件内容就是你刚刚输入的内容。注意，Podfile文件应该和你的工程文件.xcodeproj在同一个目录下。</p>
+
+<p>这时候，你就可以利用CocoPods下载AFNetworking类库了。还是在终端中的当前项目目录下，运行以下命令：</p>
+
+<pre><code>$ pod install 
+</code></pre>
+
+<p>因为是在你的项目中导入AFNetworking，这就是为什么这个命令需要你进入你的项目所在目录中运行。</p>
+
+<p>运行上述命令之后，小编的终端出现以下信息：</p>
+
+<pre><code>EricmatoMacBook-Pro:CocoaPodsDemo ericwang$ pod install
+Analyzing dependencies
+Downloading dependencies
+Installing AFNetworking (2.0.2)
+Generating Pods project
+Integrating client project
+
+[!] From now on use `CocoaPodsDemo.xcworkspace`.
+</code></pre>
+
+<p>注意最后一句话，意思是：以后打开项目就用 CocoaPodsDemo.xcworkspace 打开，而不是之前的.xcodeproj文件。</p>
+
+<p>你也许会郁闷，为什么会出现.xcodeproj文件呢。这正是你刚刚运行<code>$ pod install</code>命令产生的新文件。除了这个文件，你会发现还多了另外一个文件“Podfile.lock”和一个文件夹“Pods”。
+点击 CocoaPodsDemo.xcworkspace 打开之后工程之后，项目Xcode目录结构如下图：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_14.png" alt="Figure 5"></p>
+
+<p>你会惊喜地发现，AFNetwoking已经成功导入项目了（红框部分）！</p>
+
+<p>现在，你就可以开始使用AFNetworking.h啦。可以稍微测试一下，在你的项目任意代码文件中输入：</p>
+
+<pre><code>#import &lt;AFNetworking.h&gt;
+或者
+#import "AFNetworking.h"
+</code></pre>
+
+<p>然后编译，看看是否出错。如果你严格按照小编上述的步骤来，是不可能出错的啦。</p>
+
+<p>至此，CocoPods的第一个应用场景讲述完毕。别看小编写了这么多，其实过程是十分简单的。总结一下就是：</p>
+
+<ol>
+<li>先在项目中创建Podfile，Podfile的内容是你想导入的类库。一般类库的原作者会告诉你导入该类库应该如何写Podfile；</li>
+<li>运行命令：<code>`$ pod install</code>.</li>
+</ol>
+
+
+<p>下面，小编继续讲述第二种使用场景。</p>
+
+<h3 id="usage2">场景2：如何正确编译运行一个包含CocoPods类库的项目</h3>
+
+<p>你也许曾经遇到过（特别是新手iOS开发者）这种情况，好不容易在GitHub上找到一份代码符合自己想需求，兴冲冲下载下来，一编译，傻眼了，发现有各种各样错误。一看，原来是缺失了各种其他第三方类库。这时候莫慌，你再仔细一看，会发现你下载的代码包含了Podfile。没错，这意味着你可以用CocoaPods很方便下载所需要的类库。</p>
+
+<p>下面，小编以代码 <a href="https://github.com/UrbanApps/UAAppReviewManager">UAAppReviewManager</a> 为例来说明如何正确编译运行一个包含CocoPods类库的项目。</p>
+
+<p>UAAppReviewManager是一个能够让你方便地将提醒用户评分的功能加入你的应用中。当你去UAAppReviewManager的GitHub地址下载这份代码之后，打开Example工程（UAAppReviewManagerExample），编译，你会发现Xcode报告一大堆错误，基本都是说你编译的这份代码找不到某某头文件，这就意味着你要成功编译UAAppReviewManager的Example代码，必须先导入一些第三方类库。同时你会发现在UAAppReviewManagerExample文件夹下面有三个跟CocosPods相关的文件（文件夹）：Podfile，Podfile.lock和Pods，如下图：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_15.png" alt="Figure 6"></p>
+
+<p>用</p>
+
+<p>这时候，打开终端，进入UAAppReviewManagerExample所在的目录，也就是和Podfile在同一目录下，和场景1一样，输入以下命令（由于已经有Podfile，所以不需要再创建Podfile）：</p>
+
+<pre><code>$ pod update
+</code></pre>
+
+<p>过几秒（也许需要十几秒，取决于你的网络状况）之后，终端出现：</p>
+
+<pre><code>Analyzing dependencies
+Fetching podspec for `UAAppReviewManager` from `../`
+Downloading dependencies
+Installing UAAppReviewManager (0.1.6)
+Generating Pods project
+Integrating client project
+
+[!] From now on use `UAAppReviewManagerExample.xcworkspace`.
+</code></pre>
+
+<p>这时候，再回到UAAppReviewManagerExample文件夹看一看，会看到多了一个文件UAAppReviewManagerExample.xcworkspace：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_16.png" alt="Figure 7"></p>
+
+<p>根据终端的信息提示，你以后就需用新产生的UAAppReviewManagerExample.xcworkspace来运行这个Example代码了。</p>
+
+<p>打开UAAppReviewManagerExample.xcworkspace，编译运行，成功！如下图：</p>
+
+<p><img src="./CocoaPods安装和使用教程_files/5273c20b6803fac658000000_17.png" alt="Figure 8"></p>
+
+<p>注意，这里有个小问题，如果刚刚你不是输入<code>$ pod update</code>，而是输入<code>$ pod install</code>，会发现类库导入不成功，并且终端出现下面提示：</p>
+
+<pre><code>[!] Required version (UAAppReviewManager (from `../`)) not found for `UAAppReviewManager`.
+Available versions: 0.1.6
+</code></pre>
+
+<p>这里的意思大概是Podfile文件过期，类库有升级，但是Podfile没有更改。<code>$ pod install</code>只会按照Podfile的要求来请求类库，如果类库版本号有变化，那么将获取失败。但是 <code>$ pod update</code>会更新所有的类库，获取最新版本的类库。而且你会发现，如果用了 <code>$ pod update</code>，再用 <code>$ pod install</code> 就成功了。</p>
+
+<p>那你也许会问，什么时候用 <code>$ pod install</code>，什么时候用 <code>$ pod update</code> 呢，我又不知道类库有没有新版本。好吧，那你每次直接用 <code>$ pod update</code> 算了。或者先用 <code>$ pod install</code>，如果不行，再用 <code>$ pod update</code>。</p>
+
+<p>好了，小编就啰嗦到这里吧。上述都只是CocoaPods的最基本用法。要继续研究CocoaPods其他高级用法，请点击这里<a href="https://github.com/CocoaPods/CocoaPods/wiki">CocoaPods Wiki</a> 。</p>
+
+<p>当然，如果你觉得小编上面的叙述有问题，或者你有补充，可以发邮件给小编：<a href="mailto:admin@code4app.com">admin@code4app.com</a> 。</p>
+
+<p>另外，如果你希望小编写其他iOS技术类的文章，也可以发信给小编。</p>
+<div id="article-discuss">
+    <div id="uyan_frame"><div id="uyan_cmt_box" style="width: 100%; font-family: &#39;Microsoft YaHei&#39;,arial,tahoma,宋体,sans-serif; position: relative; float: left;"><div id="uyan_top" style="height: 30px; font-size: 12px; font-weight: bold;"><div id="uyan_like" style="float: left; padding-right: 13px; padding-top: 2px; width: 88px;"><a id="uyan_vu" onclick="UYAN.voteUD(&#39;uu&#39;);" style="background: url(&#39;http://v2.uyan.cc/code/images/like.png&#39;) no-repeat scroll 19px 5px #999; border-radius: 3px 3px 3px 3px; color: #F2F2F2; cursor: pointer; float: left; font-weight: normal; height: 16px; padding: 3px; width: 48px;"><img src="./CocoaPods安装和使用教程_files/upDig.png" style="float: left; padding: 2px 5px 0 2px; border: 0 none;"></a><a id="uyan_vd" onclick="UYAN.voteUD(&#39;du&#39;);" style="background-color: #999; border-radius: 3px 3px 3px 3px; color: #F2F2F2; cursor: pointer; float: left; font-weight: normal; height: 16px; margin-left: 5px; padding: 3px; width: 16px;"><img src="./CocoaPods安装和使用教程_files/downDig.png" style="float: left; padding: 3px 0 0 2px;"></a><div style="clear: both;"></div></div><div id="uyan_count" style="font-size: 12px; color: #888888; float: left; font-weight: normal; padding: 5px 5px 0 0;">共有<span id="uyan_vun">34</span>人喜欢&nbsp;&nbsp;共<span id="uyan_acn">35</span>条评论</div><a id="uyan_login_btn" onclick="UYAN.login();" style="background-color: #999; border-radius: 3px 3px 3px 3px; color: #EEEEEE; cursor: pointer; float: right; font-size: 13px; font-weight: bold; height: 20px; margin-left: 5px; margin-top: 2px; height: 16px; line-height: 17px; padding: 3px 15px; text-shadow: 0 1px 0 #646464;">登录</a><a id="uyan_cmty_btn" onclick="UYAN.cmty();" style="background-color: #999; border-radius: 3px 3px 3px 3px; color: #EEEEEE; cursor: pointer; float: right; font-size: 13px; font-weight: bold; height: 20px; margin-left: 5px; margin-top: 2px; height: 16px; line-height: 17px; padding: 3px 15px; text-shadow: 0 1px 0 #646464;">社区</a><div style="clear: both;"></div></div><div id="uyan_usp" style="margin-bottom: 10px;"><div style="font-size: 13px; height: 26px; overflow: hidden;"><a id="uyan_uname_txt_t" style="color: #5874af; cursor: pointer; display: block; float: left; font-weight: bold; margin: 6px 0 0 0; text-decoration: none; font-size: 16px; line-height: 17px;" href="javascript:;"></a><div style="background: url(&#39;http://v2.uyan.cc/code/images/medalIcon.png&#39;) no-repeat scroll 0 2px transparent; float: left; height: 20px; margin: 6px 0 0 10px; padding-left: 15px; line-height: 18px;"><div id="uyan_utname_edit" style="display: none;"><div style="color: #333333; float: left; padding-right: 4px;">头衔:</div><input id="uyan_utname" type="text" value="" style="color: #777777; float: left; height: 12px; padding: 1px 3px; width: 100px;"><a onclick="UYAN.setUtname();" style="background-color: #8BAD50; border: 1px solid #799E3C; border-radius: 3px 3px 3px 3px; color: #FFFFFF; cursor: pointer; float: left; margin-left: 3px; padding: 0 10px; text-align: center; text-decoration: none;">确定</a><a onclick="UYAN.changeUtname();" style="color: #AAAAAA; cursor: pointer; float: left; margin-left: 6px;">取消</a></div><div id="uyan_utname_txt"><div id="uyan_utname_show" style="color: #444444; float: left; padding-right: 5px;"></div><a onclick="UYAN.changeUtname();" style="color: #5874af; cursor: pointer; float: left; text-decoration: none;">编辑头衔</a></div></div><div style="background: url(&#39;http://v2.uyan.cc/code/images/emailIcon.png&#39;) no-repeat scroll 0 0 transparent; float: left; height: 20px; margin: 6px 0 0 10px; padding-left: 19px; line-height: 18px;"><div id="uyan_femail_edit" style="display: none;"><div style="color: #333333; float: left; padding-right: 4px;">邮箱:</div><input id="uyan_femail" type="text" value="" style="color: #777777; float: left; height: 12px; padding: 1px 3px; width: 100px;"><a onclick="UYAN.setFemail();" style="background-color: #8BAD50; border: 1px solid #799E3C; border-radius: 3px 3px 3px 3px; color: #FFFFFF; cursor: pointer; float: left; margin-left: 3px; padding: 0 10px; text-align: center; text-decoration: none;">确定</a><a onclick="UYAN.changeFemail();" style="color: #AAAAAA; cursor: pointer; float: left; margin-left: 6px;">取消</a></div><div id="uyan_femail_txt"><div id="uyan_femail_show" style="color: #444444; float: left; padding-right: 5px;"></div><a onclick="UYAN.changeFemail();" style="color: #5874af; cursor: pointer; float: left; text-decoration: none;">跟踪回复</a></div></div><div style="clear: both;"></div></div><div style="padding: 4px 0;"><div id="uyan_uacn" style="font-size: 12px; float: left; padding: 0 10px 0 0;">0条评论</div><div id="uyan_uvon" style="font-size: 12px; float: left; padding: 0 10px 0 0;">0次被喜欢</div><div style="clear: both;"></div></div><div style="clear: both;"></div></div><div id="uyan_star" style="height: 22px; padding: 0 0 0 60px; overflow: hidden;"><div style="float: left;"><a id="uyan_vs_1" onclick="UYAN.voteStar(1);" onmouseover="UYAN.cagStar(1);" onmouseout="UYAN.cagStar(0);" style="background: url(&#39;http://v2.uyan.cc/code/images/star_un.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_2" onclick="UYAN.voteStar(2);" onmouseover="UYAN.cagStar(2);" onmouseout="UYAN.cagStar(0);" style="background: url(&#39;http://v2.uyan.cc/code/images/star_un.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_3" onclick="UYAN.voteStar(3);" onmouseover="UYAN.cagStar(3);" onmouseout="UYAN.cagStar(0);" style="background: url(&#39;http://v2.uyan.cc/code/images/star_un.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_4" onclick="UYAN.voteStar(4);" onmouseover="UYAN.cagStar(4);" onmouseout="UYAN.cagStar(0);" style="background: url(&#39;http://v2.uyan.cc/code/images/star_un.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_5" onclick="UYAN.voteStar(5);" onmouseover="UYAN.cagStar(5);" onmouseout="UYAN.cagStar(0);" style="background: url(&#39;http://v2.uyan.cc/code/images/star_un.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><div style="clear: both;"></div></div></div><div id="uyan_loginot" style="padding: 0 0 3px 60px;"><div style="clear: both;"></div></div><div style="height: 78px; overflow: hidden; padding: 0 0 20px 0; _padding: 0;"><div style="float: left; border-radius: 6px 6px 6px 6px; width: 50px; height: 50px; overflow: hidden; margin-right: 10px;"><img id="uyan_uface" style="width: 50px; height: 50px;" src="./CocoaPods安装和使用教程_files/duface.png"></div><div style="padding: 0 0 0 60px; overflow: visible;"><div onclick="UYAN.hidIntro(this.firstChild);" style="height: 60px; background: url(&#39;http://v2.uyan.cc/code/images/textareabg.png&#39;) repeat-x scroll 0 0 #FFFFFF; border: 1px solid #d7d7d7; border-radius: 4px 4px 4px 4px; padding: 7px; position: relative; overflow: hidden; cursor: text;"><textarea id="uyan_comment" onkeyup="UYAN.checkTxt(this, 140);" onkeydown="UYAN.checkTxt(this, 140);" onfocus="UYAN.hidIntro(this);" onblur="UYAN.shoIntro(this);" style="background: none repeat scroll 0 0 #FFFFFF; padding: 0; box-shadow: 0 0; color: #BDBBBB; border: 0; z-index: 90; overflow: hidden; float: left; font-size: 13px; font-family: &#39;Microsoft YaHei&#39;,arial,tahoma,宋体,sans-serif; resize: none; height: 60px; display: block; outline: none; word-wrap: break-word; margin: 0;">请输入你的评论</textarea><pre style="width: 100%; font-size: 13px; left: 0; line-height: 18px; position: absolute; top: 0; visibility: hidden; word-wrap: break-word; white-space: pre-wrap;" id="uyan_cmt_cnt"></pre></div><div style="clear: both;"></div></div><div id="uyan_smile" onclick="UYAN.shoSmile(this);" style="display: none; background: url(&#39;http://v2.uyan.cc/code/images/emotion.png&#39;) no-repeat scroll 6px 2px #FFFFFF; color: #3A82FF; cursor: pointer; font-size: 11px; height: 17px; left: 70px; position: relative; top: -2px; width: 60px; z-index: 5500; border: 1px solid #d7d7d7; border-top: none; border-radius: 2px; margin: 0; line-height: 20px; padding-bottom: 2px; font-family: &#39;Microsoft YaHei&#39;,arial,tahoma,宋体,sans-serif; text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表情</div></div><div id="uyan_ssmile" style="margin-left: 60px; margin-top: -20px; _margin-top: 0; position: absolute; z-index: 9999; display: none;"><div style="border: 1px solid #989999; border-radius: 5px; width: 322px; height: 160px; background: #fff; font-size: 12px; padding: 6px;"><ul style="margin: 5px 0 0 0; padding: 0; height: 24px;"><li id="uyan_ssmile_df" onclick="UYAN.shoSmile(this, &#39;df&#39;);" style="float: left; list-style: none; line-height: 22px; background: url(&#39;http://v2.uyan.cc/code/images/smileb.gif&#39;) no-repeat scroll 0 center transparent; color: #fff; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">默认表情</li><li id="uyan_ssmile_al" onclick="UYAN.shoSmile(this, &#39;al&#39;);" style="float: left; list-style: none; line-height: 22px; background: none repeat scroll 0 center transparent; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">阿狸</li></ul><ul id="uyan_ssmile_list" style="margin: 0; padding: 0; width: 310px; border-top: 1px solid #d3e4f0; border-left: 1px solid #d3e4f0; margin: 5px 0 0 5px;"></ul></div></div><div style="color: #D2D2D2; height: 20px; font-size: 13px; position: absolute; z-index: 100; margin-right: 10px; margin-top: -42px; right: 0;"><span id="uyan_tts">500</span></div><div id="uyan_stat_btn" style="position: relative; height: 40px; overflow: hidden; margin-top: -20px; _margin-top: 0;"><a id="uyan_cmt_btn" onmouseover="UYAN.cagBtn(&#39;on&#39;, this);" onmouseout="UYAN.cagBtn(&#39;out&#39;, this);" style="background: url(&#39;http://v2.uyan.cc/code/images/buttonLarge.png&#39;) repeat-x scroll 0 0 transparent; border: 1px solid #d0cfcf; border-radius: 5px 5px 5px 5px; color: #666; cursor: pointer; float: right; font-size: 13px; font-weight: bold; height: 24px; line-height: 21px; margin: 4px 0 0; padding: 3px 25px 1px; text-align: center; text-shadow: 0 1px 0 #FFFFFF;" onclick="UYAN.addCmt(this);">发&nbsp;&nbsp;布</a><div id="uyan_ottype" style="float: right; padding: 11px 15px 0 3px;"><div style="color: #AAAAAA; float: right; font-size: 12px; padding-left: 5px;"><span id="uyan_vis" style="float: right; line-height: 18px;">&nbsp;&nbsp;或<span style="text-decoration: underline; cursor: pointer;" onclick="UYAN.login();">游客留言</span></span><span onmouseover="UYAN.show(&#39;uyan_slog&#39;);" onmouseout="UYAN.hide(&#39;uyan_slog&#39;);" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/arrow.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginRenren();" title="使用人人账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/renren.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginTQq();" title="使用腾讯微博账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/tqq.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginQq();" title="使用QQ账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/qq.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginTSina();" title="使用新浪微博账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/tsina.png" style="margin: 1px 2px 0;"></span></div><div style="clear: both;"></div></div><div style="clear: both;"></div></div><div id="uyan_slog" class="uyan_st_slog" onmouseover="UYAN.show(this);" onmouseout="UYAN.hide(this);" style="background-color: #FFFFFF; border-color: #d3d2d2; border-width: 1px 1px 2px; border-style: solid; position: absolute; z-index: 90000; padding: 1px 3px; display: none; width: 20px;"><div onclick="UYAN.loginKaixin001();" title="kaixin001" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="./CocoaPods安装和使用教程_files/kaixin001.png"></div><div onclick="UYAN.loginTSohu();" title="sohu" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="./CocoaPods安装和使用教程_files/tsohu.png"></div><div onclick="UYAN.loginT163();" title="163" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="./CocoaPods安装和使用教程_files/t163.png"></div></div><div id="uyan_sort" style="color: #424242; font-size: 12px;"><div style="height: 28px; overflow: hidden; float: left;"><a id="uyan_sort_name" onclick="UYAN.cmtSort();" style="background: url(&#39;http://v2.uyan.cc/code/images/sorttype.png&#39;) no-repeat scroll right 7px transparent; color: #424242; cursor: pointer; display: block; float: left; font-size: 12px; padding-right: 15px;">按时间排序</a></div><div style="clear: both;"></div></div><div id="uyan_sort_box" style="background-color: #FFFFFF; border-color: #d3d2d2; border-width: 1px 1px 2px; border-style: solid; left: 15px; position: absolute; width: 115px; z-index: 90000; display: none;"><div style="color: #9797C4; font-size: 12px; font-weight: normal; padding-bottom: 2px; padding-left: 21px; padding-top: 4px; height: 16px;">排序方式:</div><a id="uyan_sort_time" onclick="UYAN.cmtSort(0);" style="color: rgb(28, 28, 28); cursor: pointer; display: block; font-size: 12px; padding-bottom: 2px; padding-left: 21px; padding-top: 2px; height: 16px; font-weight: bold; background: url(http://v2.uyan.cc/code/images/currentSort.png) 8px 8px no-repeat scroll transparent;">按时间排序</a><a id="uyan_sort_hot" onclick="UYAN.cmtSort(1);" style="color: #1C1C1C; cursor: pointer; display: block; font-size: 12px; padding-bottom: 2px; padding-left: 21px; padding-top: 2px; height: 16px;">按热度排序</a></div><div id="uyan_cmt_list">	<div id="uyan_cmt_15424748" onmouseover="UYAN.changeS(this, &#39;on&#39;, &#39;15424748&#39;);" onmouseout="UYAN.changeS(this, &#39;out&#39;, &#39;15424748&#39;);" style="border-top: 1px solid #D7D7D7; padding: 15px 0;">		<div style="position: relative; float: left; border-radius: 6px 6px 6px 6px; width: 50px; height: 50px; margin-right: 10px;">			<a href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F1642126795" style="cursor: pointer; text-decoration: none; white-space: inherit;" target="_blank">				<img style="border: 0 none; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.22); border-radius: 4px; width: 50px; height: 50px;" onload="UYAN.loadUface(this, &#39;http://tp4.sinaimg.cn/1642126795/50/5616756663/1&#39;, &#39;http://v2.uyan.cc/code/images/duface.png&#39;);" src="./CocoaPods安装和使用教程_files/1" onerror="UYAN.noUface(this, &#39;http://v2.uyan.cc/code/images/duface.png&#39;);">			</a>			<span style="bottom: -4px; position: absolute; right: -5px;">				<a title="新浪微博" style="cursor: pointer; text-decoration: none; background: url(&#39;http://v2.uyan.cc/code/images/stsina.png&#39;) no-repeat scroll 0 0 transparent; background-position: 0 0; opacity: 1; display: block; float: left; height: 16px !important; line-height: 100px; opacity: 0.8; overflow: hidden; width: 16px !important;" href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F1642126795" target="_blank"></a>			</span>		</div>		<div style="padding-left: 60px;">			<div style="color: #303030; font-size: 13px; line-height: 18px; height: 20px;">				<a id="uyan_cmt_uname_15424748" class="uyan_cmt_uname" href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F1642126795" target="_blank" style="color: #2B8CE6; cursor: pointer; float: left; text-decoration: none; padding-right: 6px;">Tomppp</a>								<span class="uyan_cmt_ufromname" style="color: #aaaaaa; float: left;">(<a style="color: #aaaaaa; text-decoration: none;" href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F1642126795" target="_blank">新浪微博</a>)</span>				<div id="uyan_star_15424748" style="float: right; display: none;"></div>			</div>			<div class="uyan_cmt_txt" style="color: #303030; font-size: 13px; line-height: 18px; word-wrap: break-word; text-align: left;">get了一个新技能, 感谢~</div>			<div class="uyan_cmt_exp" style="padding: 5px 5px 0 0; line-height: 14px;">				<a id="uyan_exp_rpy_15424748" onclick="UYAN.addRpy(15424748);" onmouseover="UYAN.mouseOO(this.nextSibling, &#39;rpy.png&#39;);" onmouseout="UYAN.mouseOO(this.nextSibling, &#39;rpy2.png&#39;);" style="color: #999999; cursor: pointer; display: block; float: right; font-size: 11px; padding: 0 4px 0 0;">回复</a><a onclick="UYAN.addRpy(15424748);" onmouseover="UYAN.mouseOO(this, &#39;rpy.png&#39;);" onmouseout="UYAN.mouseOO(this, &#39;rpy2.png&#39;);" style="background: url(&#39;http://v2.uyan.cc/code/images/rpy2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; float: right; height: 13px; margin-right: 4px; margin-top: 0px; width: 14px;"></a>				<a onclick="UYAN.cmtUD(&#39;du&#39;, 15424748);" style="color: #999999; cursor: pointer; display: none; float: right; font-size: 11px; padding: 0 10px 0 0;">踩<span id="uyan_cd_15424748" style="padding-left: 3px;"></span></a>				<a id="uyan_cdw_15424748" onclick="UYAN.cmtUD(&#39;du&#39;, 15424748);" style="background: url(&#39;http://v2.uyan.cc/code/images/downDig2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: none; float: right; height: 13px; margin-right: 4px; margin-top: 3px; width: 13px;"></a>				<a onclick="UYAN.cmtUD(&#39;uu&#39;, 15424748);" style="color: #999999; cursor: pointer; display: block; float: right; font-size: 11px; padding: 0 10px 0 0;">顶<span id="uyan_cu_15424748" style="padding-left: 3px;"></span></a>				<a id="uyan_cuw_15424748" onclick="UYAN.cmtUD(&#39;uu&#39;, 15424748);" style="background: url(&#39;http://v2.uyan.cc/code/images/upDig2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; float: right; height: 13px; margin-right: 4px; margin-top: 0px; width: 13px;"></a>								<div style="color: #999999; float: left; font-size: 11px; padding: 0 10px 0 0;">6月5日 16:47</div>				<div style="clear: both;"></div>			</div>		</div>		<div style="clear: both;"></div>	</div>	<div id="uyan_cmt_14722239" onmouseover="UYAN.changeS(this, &#39;on&#39;, &#39;14722239&#39;);" onmouseout="UYAN.changeS(this, &#39;out&#39;, &#39;14722239&#39;);" style="border-top: 1px solid #D7D7D7; padding: 15px 0;">		<div style="position: relative; float: left; border-radius: 6px 6px 6px 6px; width: 50px; height: 50px; margin-right: 10px;">			<a href="http://s.uyan.cc/?u=http%3A%2F%2Ft.qq.com%2Fyiwanji520" style="cursor: pointer; text-decoration: none; white-space: inherit;" target="_blank">				<img style="border: 0 none; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.22); border-radius: 4px; width: 50px; height: 50px;" onload="UYAN.loadUface(this, &#39;http://app.qlogo.cn/mbloghead/773a6931b7f2ecb1a9c4/50&#39;, &#39;http://v2.uyan.cc/code/images/duface.png&#39;);" src="./CocoaPods安装和使用教程_files/50" onerror="UYAN.noUface(this, &#39;http://v2.uyan.cc/code/images/duface.png&#39;);">			</a>			<span style="bottom: -4px; position: absolute; right: -5px;">				<a title="腾讯微博" style="cursor: pointer; text-decoration: none; background: url(&#39;http://v2.uyan.cc/code/images/stqq.png&#39;) no-repeat scroll 0 0 transparent; background-position: 0 0; opacity: 1; display: block; float: left; height: 16px !important; line-height: 100px; opacity: 0.8; overflow: hidden; width: 16px !important;" href="http://s.uyan.cc/?u=http%3A%2F%2Ft.qq.com%2Fyiwanji520" target="_blank"></a>			</span>		</div>		<div style="padding-left: 60px;">			<div style="color: #303030; font-size: 13px; line-height: 18px; height: 20px;">				<a id="uyan_cmt_uname_14722239" class="uyan_cmt_uname" href="http://s.uyan.cc/?u=http%3A%2F%2Ft.qq.com%2Fyiwanji520" target="_blank" style="color: #2B8CE6; cursor: pointer; float: left; text-decoration: none; padding-right: 6px;">易万军</a>								<span class="uyan_cmt_ufromname" style="color: #aaaaaa; float: left;">(<a style="color: #aaaaaa; text-decoration: none;" href="http://s.uyan.cc/?u=http%3A%2F%2Ft.qq.com%2Fyiwanji520" target="_blank">腾讯微博</a>)</span>				<div id="uyan_star_14722239" style="float: right; display: none;"></div>			</div>			<div class="uyan_cmt_txt" style="color: #303030; font-size: 13px; line-height: 18px; word-wrap: break-word; text-align: left;">cocoapods 生成的项目怎么改名啊？现在改了名字之后不能编译啊</div>			<div class="uyan_cmt_exp" style="padding: 5px 5px 0 0; line-height: 14px;">				<a id="uyan_exp_rpy_14722239" onclick="UYAN.addRpy(14722239);" onmouseover="UYAN.mouseOO(this.nextSibling, &#39;rpy.png&#39;);" onmouseout="UYAN.mouseOO(this.nextSibling, &#39;rpy2.png&#39;);" style="color: #999999; cursor: pointer; display: block; float: right; font-size: 11px; padding: 0 4px 0 0;">回复</a><a onclick="UYAN.addRpy(14722239);" onmouseover="UYAN.mouseOO(this, &#39;rpy.png&#39;);" onmouseout="UYAN.mouseOO(this, &#39;rpy2.png&#39;);" style="background: url(&#39;http://v2.uyan.cc/code/images/rpy2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; float: right; height: 13px; margin-right: 4px; margin-top: 0px; width: 14px;"></a>				<a onclick="UYAN.cmtUD(&#39;du&#39;, 14722239);" style="color: #999999; cursor: pointer; display: none; float: right; font-size: 11px; padding: 0 10px 0 0;">踩<span id="uyan_cd_14722239" style="padding-left: 3px;"></span></a>				<a id="uyan_cdw_14722239" onclick="UYAN.cmtUD(&#39;du&#39;, 14722239);" style="background: url(&#39;http://v2.uyan.cc/code/images/downDig2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: none; float: right; height: 13px; margin-right: 4px; margin-top: 3px; width: 13px;"></a>				<a onclick="UYAN.cmtUD(&#39;uu&#39;, 14722239);" style="color: #999999; cursor: pointer; display: block; float: right; font-size: 11px; padding: 0 10px 0 0;">顶<span id="uyan_cu_14722239" style="padding-left: 3px;"></span></a>				<a id="uyan_cuw_14722239" onclick="UYAN.cmtUD(&#39;uu&#39;, 14722239);" style="background: url(&#39;http://v2.uyan.cc/code/images/upDig2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; float: right; height: 13px; margin-right: 4px; margin-top: 0px; width: 13px;"></a>								<div style="color: #999999; float: left; font-size: 11px; padding: 0 10px 0 0;">5月15日 11:34</div>				<div style="clear: both;"></div>			</div>		</div>		<div style="clear: both;"></div>	</div>	<div id="uyan_cmt_14558694" onmouseover="UYAN.changeS(this, &#39;on&#39;, &#39;14558694&#39;);" onmouseout="UYAN.changeS(this, &#39;out&#39;, &#39;14558694&#39;);" style="border-top: 1px solid #D7D7D7; padding: 15px 0;">		<div style="position: relative; float: left; border-radius: 6px 6px 6px 6px; width: 50px; height: 50px; margin-right: 10px;">			<a href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F2755018511" style="cursor: pointer; text-decoration: none; white-space: inherit;" target="_blank">				<img style="border: 0 none; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.22); border-radius: 4px; width: 50px; height: 50px;" onload="UYAN.loadUface(this, &#39;http://tp4.sinaimg.cn/2755018511/50/5663858421/1&#39;, &#39;http://v2.uyan.cc/code/images/duface.png&#39;);" src="./CocoaPods安装和使用教程_files/1(1)" onerror="UYAN.noUface(this, &#39;http://v2.uyan.cc/code/images/duface.png&#39;);">			</a>			<span style="bottom: -4px; position: absolute; right: -5px;">				<a title="新浪微博" style="cursor: pointer; text-decoration: none; background: url(&#39;http://v2.uyan.cc/code/images/stsina.png&#39;) no-repeat scroll 0 0 transparent; background-position: 0 0; opacity: 1; display: block; float: left; height: 16px !important; line-height: 100px; opacity: 0.8; overflow: hidden; width: 16px !important;" href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F2755018511" target="_blank"></a>			</span>		</div>		<div style="padding-left: 60px;">			<div style="color: #303030; font-size: 13px; line-height: 18px; height: 20px;">				<a id="uyan_cmt_uname_14558694" class="uyan_cmt_uname" href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F2755018511" target="_blank" style="color: #2B8CE6; cursor: pointer; float: left; text-decoration: none; padding-right: 6px;">骑驴追火箭丶Onery</a>								<span class="uyan_cmt_ufromname" style="color: #aaaaaa; float: left;">(<a style="color: #aaaaaa; text-decoration: none;" href="http://s.uyan.cc/?u=http%3A%2F%2Fweibo.com%2F2755018511" target="_blank">新浪微博</a>)</span>				<div id="uyan_star_14558694" style="float: right; display: none;"></div>			</div>			<div class="uyan_cmt_txt" style="color: #303030; font-size: 13px; line-height: 18px; word-wrap: break-word; text-align: left;">下载好慢的啊 是什么原因呢 我下载AFNetworking得几个小时呢</div>			<div class="uyan_cmt_exp" style="padding: 5px 5px 0 0; line-height: 14px;">				<a id="uyan_exp_rpy_14558694" onclick="UYAN.addRpy(14558694);" onmouseover="UYAN.mouseOO(this.nextSibling, &#39;rpy.png&#39;);" onmouseout="UYAN.mouseOO(this.nextSibling, &#39;rpy2.png&#39;);" style="color: #999999; cursor: pointer; display: block; float: right; font-size: 11px; padding: 0 4px 0 0;">回复</a><a onclick="UYAN.addRpy(14558694);" onmouseover="UYAN.mouseOO(this, &#39;rpy.png&#39;);" onmouseout="UYAN.mouseOO(this, &#39;rpy2.png&#39;);" style="background: url(&#39;http://v2.uyan.cc/code/images/rpy2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; float: right; height: 13px; margin-right: 4px; margin-top: 0px; width: 14px;"></a>				<a onclick="UYAN.cmtUD(&#39;du&#39;, 14558694);" style="color: #999999; cursor: pointer; display: none; float: right; font-size: 11px; padding: 0 10px 0 0;">踩<span id="uyan_cd_14558694" style="padding-left: 3px;"></span></a>				<a id="uyan_cdw_14558694" onclick="UYAN.cmtUD(&#39;du&#39;, 14558694);" style="background: url(&#39;http://v2.uyan.cc/code/images/downDig2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: none; float: right; height: 13px; margin-right: 4px; margin-top: 3px; width: 13px;"></a>				<a onclick="UYAN.cmtUD(&#39;uu&#39;, 14558694);" style="color: #999999; cursor: pointer; display: block; float: right; font-size: 11px; padding: 0 10px 0 0;">顶<span id="uyan_cu_14558694" style="padding-left: 3px;">4</span></a>				<a id="uyan_cuw_14558694" onclick="UYAN.cmtUD(&#39;uu&#39;, 14558694);" style="background: url(&#39;http://v2.uyan.cc/code/images/upDig2.png&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; float: right; height: 13px; margin-right: 4px; margin-top: 0px; width: 13px;"></a>								<div style="color: #999999; float: left; font-size: 11px; padding: 0 10px 0 0;">5月5日 22:40</div>				<div style="clear: both;"></div>			</div>		</div>		<div style="clear: both;"></div>	</div><div id="uyan_more_cmt" onclick="UYAN.showMore(this, 1);" onmouseover="UYAN.changeMore(&#39;on&#39;, this);" onmouseout="UYAN.changeMore(&#39;out&#39;, this);" style="cursor: pointer; background: none repeat scroll 0 0 #fcfcfc; height: 28px; line-height: 28px; display: block; border: 1px solid #dcdcdc; margin-top: 15px; margin-bottom: 10px; text-align: center; border-radius: 3px; font-size: 13px; color: #424242; text-decoration: none;">查看更多评论<img src="./CocoaPods安装和使用教程_files/arrow.png" style="padding-left: 4px; border: none; display: inline;"></div></div><div class="ujian-uyan"><div style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;background-color:#FFFFFF;"><div style="padding: 0; margin: 0; border: none; clear: both; display: block;"><div style="font-family:&#39;Helvetica Neue&#39;,helvetica,arial,sans-serif;font-size:16px;margin: 0; border: none; padding: 10px 0 5px 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold;color:#333333;"><div style="border-bottom:1px dashed #CCCCCC; padding-bottom:5px;">更多热评文章</div></div><div style="clear: both; border: none; margin: 0 0 0 -1px; padding: 0; overflow: hidden; _zoom: 1;"><div style="width:47%; float:left;margin-right:2%;"><a href="http://code4app.com/ios/Preferences-Setting/4ffbb1ab6803fa582e000000" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://code4app.com/ios/Preferences-Setting/4ffbb1ab6803fa582e000000&#39;;}, 50); return true;" onmousedown="this.href=&#39;http://e.ujian.cc/?code=984aTH2qWRlruwDVGCJ57sCezwQU0wIrshAZWrAwzfHGXidOyi%2FD6vbFA6Pj8aUyiB34M%2FS4%2FVu%2BFajYS%2FiygaznhZ6YwOe0bZnFc1sos39XJURIbaxlX4amnI8%2Bq1rlU%2BBTbkOsw776Pc3kNbh6kkRpJ2W9nq%2BLSbotRT2FItnfheqFmGwbIDado5a3sa4MgWE8DtmDw7Jok1Mn%2Bts2Haxhh%2FP88ge8Z1NOeFbiZ6WWw7FtroQVlSkxg2egjUxlKloo8JJtFW55rmWuhcSIWw&#39;; return true;" onmouseover="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;#E6F3DE&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" onmouseout="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" title="iOS / iPhone / iPad 提供一个很简单的API利用NSUserDefaults保存用户设置的参数代码 Preferences Setting" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #DDDDDD; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="./CocoaPods安装和使用教程_files/22.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:&#39;Helvetica Neue&#39;,helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">iOS / iPhone / iPad 提供一个很简单的API利用NSUserDefaults保存用户设置的参数代码 Preferences Setting</div></li></a><div style="clear:both"></div></div><div style="width:47%; float:left;"><a href="http://code4app.com/ios/Drop-Down-Control/50cfdc716803fa4008000001" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://code4app.com/ios/Drop-Down-Control/50cfdc716803fa4008000001&#39;;}, 50); return true;" onmousedown="this.href=&#39;http://e.ujian.cc/?code=53e0IQdK47SCuJEH8%2BHmPjHCYTrt%2F%2BFuj7EZqH9ZYDk1ItOJWw9sB9kheo0tuLoqkIo9nT3wk%2F5TGobbL%2FGT%2B%2BTxSRnYgIxZO%2FqDgFqITF0h%2F0AuVOqcf2VoX9u87voZRgPeF6utJbQbdDvM%2FdkNnl3IsYSlaCGychNvvVvkPJ5wTup5pU80YBxpf44ztzCr1UlGqDXHp6HUotkPdzSUh6MEkbpOPQ1%2FROWNBu%2BN4vsIiV7U53oJOld4mzW0YzgV%2BGCarN%2BQ3X8M0zYawY4&#39;; return true;" onmouseover="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;#E6F3DE&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" onmouseout="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" title="iOS / iPhone / iPad 实现下拉菜单效果，点击/松开按钮，下拉菜单弹出/收回代码 Drop Down Control" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #DDDDDD; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="./CocoaPods安装和使用教程_files/10.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:&#39;Helvetica Neue&#39;,helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">iOS / iPhone / iPad 实现下拉菜单效果，点击/松开按钮，下拉菜单弹出/收回代码 Drop Down Control</div></li></a><div style="clear:both"></div></div><div style="width:47%; float:left;margin-right:2%;"><a href="http://code4app.com/ios/When-Tapped-View/4fb9def46803fa397f000000" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://code4app.com/ios/When-Tapped-View/4fb9def46803fa397f000000&#39;;}, 50); return true;" onmousedown="this.href=&#39;http://e.ujian.cc/?code=c66476HwgHBjxwqkg392aEG9haN4wRTV%2FEcVmHLuJs1LSJLNcM02IPntiYf1FE1Xr2%2Fv1gQrAW8kJm%2BVLhPpSy8MOQI87B3QYl%2FodCU%2BugIWptYSwk%2BUgYL62LtkBxb5P%2FBxnaV7htnz754RnSJOr26oUyRpZyZYgbrFx1F4U9FVPZA2C4TKZEk5O%2BZOJbtWtyHpWoeALmotI4HZUhsDwAZwgZgHKRtjKOmT8GRnb%2F3F%2BGN3lZIu7pKWfq2A7cpwoZVTeljD1R1R0Ink4w&#39;; return true;" onmouseover="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;#E6F3DE&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" onmouseout="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" title="iOS / iPhone / iPad 十分方便给任意UIView对象加上点击动作响应事件代码 When Tapped View" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #DDDDDD; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="./CocoaPods安装和使用教程_files/mini_445e4a0a6cca4dc014cb_120_120.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:&#39;Helvetica Neue&#39;,helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">iOS / iPhone / iPad 十分方便给任意UIView对象加上点击动作响应事件代码 When Tapped View</div></li></a><div style="clear:both"></div></div><div style="width:47%; float:left;"><a href="http://code4app.com/ios/Sound-Recorder/4f9252d606f6e71769000000" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://code4app.com/ios/Sound-Recorder/4f9252d606f6e71769000000&#39;;}, 50); return true;" onmousedown="this.href=&#39;http://e.ujian.cc/?code=892dFXkcMp%2BlP88CNg55vWGKVTzyl%2BBkB9RZbEJ9M7GKO%2FJMHpgDrESHSC1T73bsYvfqpstygjiNSBbEoUH4FtVF1yPymuutAjtEGNKGqbluhHrPgEvZ5PEKn%2F%2BNLzBf8uisW7yxAxQM9QYkcVgicJJNcoN0KRqGbOQenHhPOat7eJvuJTVsgF39xu56xcGmpkILTLxqJw870K3HcE2LxiZMvJrEOJMWDJ0DsodAPafaVPuTR7plwCmIFQGBLauYbNbmv8RMO%2BviglM&#39;; return true;" onmouseover="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;#E6F3DE&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" onmouseout="this.getElementsByTagName(&#39;li&#39;)[0].style.backgroundColor=&#39;&#39;;this.getElementsByTagName(&#39;div&#39;)[1].style.color=&#39;#333333&#39;;" title="iOS / iPhone / iPad 实现录音功能代码 Sound Recorder" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #DDDDDD; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="./CocoaPods安装和使用教程_files/mini_2ead9e3a3bba46ce68cf_120_120.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:&#39;Helvetica Neue&#39;,helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">iOS / iPhone / iPad 实现录音功能代码 Sound Recorder</div></li></a><div style="clear:both"></div></div></div></div></div></div><div style="float: right; font-size: 12px; padding: 20px 8px 10px 0;">    <a style="color: #aaaaaa; text-decoration: none;" target="_blank" title="社会化评论是什么？" href="http://www.uyan.cc/">友言[?]</a>    </div>    <div style="clear: both;"></div></div><div id="uyan_rpy" style="display: none; padding-left: 60px; padding-top: 10px;"><div style="height: 78px; overflow: hidden; padding: 0 0 20px 0; _padding: 0;"><div style="float: left; border-radius: 6px 6px 6px 6px; width: 38px; height: 38px; overflow: hidden; margin-right: 10px;"><img id="uyan_uface_r" style="width: 38px; height: 38px;" src="./CocoaPods安装和使用教程_files/duface.png"></div><div style="padding: 0 0 0 48px; overflow: visible;"><div onclick="UYAN.hidIntro(this.firstChild, uyan_smile_region);" style="height: 60px; background: url(&#39;http://v2.uyan.cc/code/images/textareabg.png&#39;) repeat-x scroll 0 0 #FFFFFF; border: 1px solid #d7d7d7; border-radius: 4px 4px 4px 4px; padding: 7px; position: relative; overflow: hidden; cursor: text;"><textarea id="uyan_comment" onkeyup="UYAN.checkTxt(this, 140, uyan_tts_region);" onkeydown="UYAN.checkTxt(this, 140, uyan_tts_region);" onfocus="UYAN.hidIntro(this, uyan_smile_region);" onblur="UYAN.shoIntro(this, uyan_smile_region);" style="background: none repeat scroll 0 0 #FFFFFF; padding: 0; box-shadow: 0 0; color: #BDBBBB; border: 0; z-index: 90; overflow: hidden; float: left; font-size: 13px; font-family: &#39;Microsoft YaHei&#39;,arial,tahoma,宋体,sans-serif; resize: none; height: 60px; display: block; outline: none; word-wrap: break-word; margin: 0;">请输入你的评论</textarea><pre style="width: 100%; font-size: 13px; left: 0; line-height: 18px; position: absolute; top: 0; visibility: hidden; word-wrap: break-word; white-space: pre-wrap;" id="uyan_cmt_cnt"></pre></div><div style="clear: both;"></div></div><div id="uyan_smile" onclick="UYAN.shoSmile(this, &#39;&#39;, uyan_smile_region);" style="display: none; background: url(&#39;http://v2.uyan.cc/code/images/emotion.png&#39;) no-repeat scroll 6px 2px #FFFFFF; color: #3A82FF; cursor: pointer; font-size: 11px; height: 17px; left: 58px; position: relative; top: -2px; width: 60px; z-index: 5500; border: 1px solid #d7d7d7; border-top: none; border-radius: 2px; margin: 0; line-height: 20px; padding-bottom: 2px; font-family: &#39;Microsoft YaHei&#39;,arial,tahoma,宋体,sans-serif; text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表情</div></div><div id="uyan_ssmile" style="margin-left: 48px; margin-top: -20px; _margin-top: 0; position: absolute; z-index: 9999; display: none;"><div style="border: 1px solid #989999; border-radius: 5px; width: 322px; height: 160px; background: #fff; font-size: 12px; padding: 6px;"><ul style="margin: 5px 0 0 0; padding: 0; height: 24px;"><li id="uyan_ssmile_df" onclick="UYAN.shoSmile(this, &#39;df&#39;, uyan_smile_region);" style="float: left; list-style: none; line-height: 22px; background: url(&#39;http://v2.uyan.cc/code/images/smileb.gif&#39;) no-repeat scroll 0 center transparent; color: #fff; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">默认表情</li><li id="uyan_ssmile_al" onclick="UYAN.shoSmile(this, &#39;al&#39;, uyan_smile_region);" style="float: left; list-style: none; line-height: 22px; background: none repeat scroll 0 center transparent; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">阿狸</li></ul><ul id="uyan_ssmile_list" style="margin: 0; padding: 0; width: 310px; border-top: 1px solid #d3e4f0; border-left: 1px solid #d3e4f0; margin: 5px 0 0 5px;"></ul></div></div><div style="color: #D2D2D2; height: 20px; font-size: 13px; position: absolute; z-index: 100; margin-right: 10px; margin-top: -42px; right: 0;"><span id="uyan_tts">140</span></div><div id="uyan_stat_btn_r" style="position: relative; height: 40px; overflow: hidden; margin-top: -20px; _margin-top: 0;"><a id="uyan_cmt_btn" onmouseover="UYAN.cagBtn(&#39;on&#39;, this);" onmouseout="UYAN.cagBtn(&#39;out&#39;, this);" style="background: url(&#39;http://v2.uyan.cc/code/images/buttonLarge.png&#39;) repeat-x scroll 0 0 transparent; border: 1px solid #d0cfcf; border-radius: 5px 5px 5px 5px; color: #666; cursor: pointer; float: right; font-size: 13px; font-weight: bold; height: 24px; line-height: 21px; margin: 4px 0 0; padding: 3px 25px 1px; text-align: center; text-shadow: 0 1px 0 #FFFFFF;" onclick="UYAN.addCmt(this, uyan_comment_region);">回&nbsp;&nbsp;复</a><div style="float: right; padding: 11px 15px 0 3px;"><div style="color: #AAAAAA; float: right; font-size: 12px; padding-left: 5px;"><span id="uyan_vis" style="float: right; line-height: 18px;">&nbsp;&nbsp;或<span style="text-decoration: underline; cursor: pointer;" onclick="UYAN.login();">游客留言</span></span><span onmouseover="UYAN.show(&#39;uyan_slog&#39;);" onmouseout="UYAN.hide(&#39;uyan_slog&#39;);" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/arrow.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginRenren();" title="使用人人账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/renren.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginTQq();" title="使用腾讯微博账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/tqq.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginQq();" title="使用QQ账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/qq.png" style="margin: 1px 2px 0;"></span><span onclick="UYAN.loginTSina();" title="使用新浪微博账号登陆" style="float: right; cursor: pointer;"><img src="./CocoaPods安装和使用教程_files/tsina.png" style="margin: 1px 2px 0;"></span></div><div style="clear: both;"></div></div><div style="clear: both;"></div></div><div id="uyan_slog" class="uyan_st_slog" onmouseover="UYAN.show(this);" onmouseout="UYAN.hide(this);" style="background-color: #FFFFFF; border-color: #d3d2d2; border-width: 1px 1px 2px; border-style: solid; position: absolute; z-index: 90000; padding: 1px 3px; display: none; width: 20px;"><div onclick="UYAN.loginKaixin001();" title="kaixin001" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="./CocoaPods安装和使用教程_files/kaixin001.png"></div><div onclick="UYAN.loginTSohu();" title="sohu" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="./CocoaPods安装和使用教程_files/tsohu.png"></div><div onclick="UYAN.loginT163();" title="163" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="./CocoaPods安装和使用教程_files/t163.png"></div></div></div><div style="clear: both;"></div><div id="uyan_box" style="font-family: &#39;Microsoft YaHei&#39;; display: none; top: 0px; left: 0px; z-index: 9999999; opacity: 1; empty-cells: show; position: absolute; background: none repeat scroll 0 0 #FFFFFF; text-align: left;"><table cellspacing="0" cellpadding="0" border="0" style="border: none; width: auto; line-height: normal;"><tbody><tr><td style="background: url(&#39;http://v2.uyan.cc/code/images/boxnw.png&#39;) repeat scroll 0 0 transparent; height: 10px; padding: 0; width: 10px; opacity: 0.5;"></td><td style="background-color: black; height: 10px; opacity: 0.3; padding: 0; filter: alpha(opacity=60);"></td><td onclick="UYAN.hideBox();" style="background: url(&#39;http://v2.uyan.cc/code/images/boxclose.png&#39;) no-repeat scroll 0 0 transparent; _background: url(&#39;http://v2.uyan.cc/code/images/boxclose.gif&#39;) no-repeat scroll 0 0 transparent; cursor: pointer; display: block; height: 23px; position: absolute; right: -8px; top: -8px; width: 23px; z-index: 100000; padding: 0;"></td></tr><tr><td style="background-color: black; opacity: 0.6; padding: 0; width: 10px; opacity: 0.3; filter: alpha(opacity=60);"></td><td style="background-color: white; padding: 0;"><div id="uyan_box_cnt"></div></td><td style="background-color: black; opacity: 0.6; padding: 0; width: 10px; opacity: 0.3; filter: alpha(opacity=60);"></td></tr><tr><td style="background: url(&#39;http://v2.uyan.cc/code/images/boxsw.png&#39;) repeat scroll 0 0 transparent; height: 10px; padding: 0; width: 10px; opacity: 0.5;"></td><td style="background-color: black; height: 10px; opacity: 0.3; padding: 0; filter: alpha(opacity=60);"></td><td style="background: url(&#39;http://v2.uyan.cc/code/images/boxse.png&#39;) repeat scroll 0 0 transparent; height: 10px; padding: 0; width: 10px; opacity: 0.5;"></td></tr></tbody></table></div><div id="uyan_cmty" style="display: none;"><div style="width: 520px;"><div style="border-bottom: 1px solid #b6b5b5; background: #eeeeee; color: #666; font-size: 16px; height: 22px; padding: 10px 0;"><span id="uyan_sdm_name" style="float: left; padding-left: 25px; text-shadow: 0 1px 0 #fff;">code4app.com</span></div><div style="color: #666;"><div style="background: url(&#39;http://v2.uyan.cc/code/images/commentWeb.png&#39;) no-repeat 20px 13px; border-right: 1px solid #EEEEEE; float: left; height: 49px; padding-left: 70px; padding-top: 6px; width: 102px;"><span id="uyan_dacn" style="font-size: 18px;">963</span><br><span style="font-size: 12px;">评论数</span></div><div style="background: url(&#39;http://v2.uyan.cc/code/images/likeWeb.png&#39;) no-repeat 24px 10px; border-right: 1px solid #EEEEEE; float: left; height: 49px; padding-left: 70px; padding-top: 6px; width: 102px;"><span id="uyan_dvun" style="font-size: 18px;">738</span><br><span style="font-size: 12px;">喜欢数</span></div><div style="background: url(&#39;http://v2.uyan.cc/code/images/humanWeb.png&#39;) no-repeat 27px 13px; border-right: 1px solid #EEEEEE; float: left; height: 49px; padding-left: 70px; padding-top: 6px; width: 102px;"><span id="uyan_daun" style="font-size: 18px;">512</span><br><span style="font-size: 12px;">用户数</span></div><div style="clear: both;"></div></div><div id="uyan_cmty_info_tmp" style="border-top: 1px solid #CCCCCC; padding: 10px 20px; font-size: 15px; color: #555555;">数据正在加载中...</div><div style="background-color: #F0F0F0; border-top: 1px solid #CCCCCC; height: 20px; padding-top: 6px;"><a target="_blank" href="http://www.uyan.cc/" style="color: #6B6B6B; cursor: pointer; display: block; float: right; font-family: Arial, Helvetica, sans-serif; font-size: 11px; margin-right: 15px; text-decoration: none;">友言</a><div style="clear: both;"></div></div></div></div><div id="uyan_login" style="display: none;"><div style="border-bottom: 1px solid #b6b5b5; background: #eeeeee; color: #666; font-size: 16px; height: 22px; padding: 10px 0;"><span style="padding-left: 25px; text-shadow: 0 1px 0 #fff; font-weight: 600;">社会化帐号登录</span></div><div style="width: 429px; padding: 22px;"><h2 style="margin: 0; font-size: 14px; font-weight: normal; color: #666; padding-left: 25px; padding-bottom: 5px; background: none repeat scroll 0 center transparent;">点击按钮，使用社交帐号评论</h2><div id="uyan_loginom" style="padding-bottom: 20px;"><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用新浪微博账号登陆" onclick="UYAN.loginTSina();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用新浪微博账号登陆" border="0" style="display: block; float: left; width: 16px; height: 16px;" src="./CocoaPods安装和使用教程_files/tsina.png">&nbsp;&nbsp;新浪微博</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用人人网账号登陆" onclick="UYAN.loginRenren();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用人人网账号登陆" border="0" style="display: block; float: left; width: 16px; height: 16px;" src="./CocoaPods安装和使用教程_files/renren.png">&nbsp;&nbsp;人人网</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用腾讯微博账号登陆" onclick="UYAN.loginTQq();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用腾讯微博账号登陆" border="0" style="display: block; float: left; width: 16px; height: 16px;" src="./CocoaPods安装和使用教程_files/tqq.png">&nbsp;&nbsp;腾讯微博</a></span><div style="clear: both;"></div></div><div id="uyan_vis_login"><h2 style="padding-top: 10px; border-top: 1px solid #ccc; margin: 0; font-size: 14px; font-weight: normal; color: #666; padding-left: 25px; margin-top: 15px; background: none repeat scroll 0 center transparent;">作为游客留言</h2><span style="height: 30px; display: block; padding-left: 54px; overflow: hidden; margin-top: 15px;"><p style="text-indent: 0; display: block; float: left; width: 58px; line-height: 30px; text-align: left; margin: 0; font-size: 14px; color: #666;">Email <span style="color: #ff0000;">*</span></p><input onkeyup="UYAN.syncEN();" onkeydown="UYAN.syncEN();" id="uyan_email_tmp" type="text" style="margin: auto; border: 1px solid #c1c1c1; color: #687793; float: left; height: 24px; line-height: 24px; padding: 2px 8px; width: 230px; border-radius: 5px;"></span><span style="height: 30px; display: block; padding-left: 54px; overflow: hidden; margin-top: 18px;"><p style="text-indent: 0; display: block; float: left; width: 58px; line-height: 30px; text-align: left; margin: 0; font-size: 14px; color: #666;">昵&nbsp;&nbsp;称</p><input onfocus="UYAN.nnbg(&#39;h&#39;);" onblur="UYAN.nnbg(&#39;s&#39;);" id="uyan_uname_tmp" type="text" style="margin: auto; background: #f2f2f2; border: 1px solid #c1c1c1; color: #687793; float: left; height: 24px; line-height: 24px; padding: 2px 8px; width: 230px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15) inset;"></span><span style="height: 30px; display: block; padding-left: 54px; overflow: hidden; margin-top: 15px; width: 306px;"><div id="uyan_login_warn_tmp" style="color: #ff0000; float: left; font-family: Arial, Helvetica, sans-serif; font-size: 13px; padding-right: 15px; padding-top: 8px; text-align: right; width: 150px;"></div><input onclick="UYAN.loginEmail();" type="submit" style="margin: auto; background: url(&#39;http://v2.uyan.cc/code/images/btn.jpg&#39;) no-repeat; width: 86px; height: 26px; border: none; font-size: 14px; font-weight: bold; color: #666; float: right; cursor: pointer;" value="登录"></span></div></div></div><div style="background-color: #FFFFFF; border-color: #D3D2D2; border-style: solid; border-width: 1px 1px 2px; height: 130px; position: absolute; top: 23px; width: 135px; z-index: 99999; display: none;"><div style="color: #9797C4; font-size: 12px; font-weight: normal; padding: 4px 0 4px 10px; line-height: 18px;">顶并分享到:</div><div style="padding: 3px 0;"><input id="sinaShareBox" style="float: left; margin: 2px 5px 0 10px; padding: 0;" type="checkbox"><div style="background: url(&#39;http://v2.uyan.cc/code/images/tsina.png&#39;) no-repeat scroll 0 0 transparent; color: #494949; float: left; height: 18px; line-height: 18px; font-size: 12px; font-weight: normal; padding-left: 18px;">新浪微博</div><div style="clear: both;"></div></div><div style="padding: 3px 0;"><input id="sinaShareBox" style="float: left; margin: 2px 5px 0 10px; padding: 0;" type="checkbox"><div style="background: url(&#39;http://v2.uyan.cc/code/images/tsina.png&#39;) no-repeat scroll 0 0 transparent; color: #494949; float: left; height: 18px; line-height: 18px; font-size: 12px; font-weight: normal; padding-left: 18px;">新浪微博</div><div style="clear: both;"></div></div><div style="padding: 3px 0;"><input id="sinaShareBox" style="float: left; margin: 2px 5px 0 10px; padding: 0;" type="checkbox"><div style="background: url(&#39;http://v2.uyan.cc/code/images/tsina.png&#39;) no-repeat scroll 0 0 transparent; color: #494949; float: left; height: 18px; line-height: 18px; font-size: 12px; font-weight: normal; padding-left: 18px;">新浪微博</div><div style="clear: both;"></div></div><div style="padding: 5px 0 0 10px;"><a style="border: 1px solid #D0CFCF; background: url(&#39;http://v2.uyan.cc/code/images/buttonLarge.png&#39;) repeat-x; border-radius: 3px 3px 3px 3px; color: #666; font-weight: bold; cursor: pointer; font-weight: normal; float: left; font-size: 12px; height: 20px; line-height: 22px; overflow: hidden; padding: 0 18px;">顶</a><a style="background-color: #FFFFFF; border: 1px solid #FFFFFF; color: #737373; height: 20px; line-height: 22px; overflow: hidden; cursor: pointer; display: block; float: left; font-size: 12px; font-weight: normal; padding: 0 18px;">取消</a><div style="clear: both; height: 1px; overflow: hidden;"></div></div></div></div>
+    <script type="text/javascript">
+        var uyan_config = {
+            'title':'#iOS文章#CocoaPods安装和使用教程 @code4app', 
+            'url':'http://code4app.com/article/cocoapods-install-usage',
+            'du':'code4app.com', 
+            'su':'article_cocoapods-install-usage'
+        };
+    </script>
+    <script type="text/javascript" id="UYScript" src="./CocoaPods安装和使用教程_files/iframe.js" async=""></script>
+    <!-- UY END -->
+</div>
+
+</body></html>
