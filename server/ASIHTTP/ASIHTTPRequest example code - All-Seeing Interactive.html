@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://allseeing-i.com/ASIHTTPRequest/How-to-use -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width;">
+<meta name="description" content="An overview of the main features with usage examples">
+<meta name="keywords" content="ASIHTTPRequest iPhone Mac Objective-C CFNetwork NSURLConnection NSURLDownload">
+<link rel="pingback" href="http://allseeing-i.com/Ping-Back">
+<title>ASIHTTPRequest example code - All-Seeing Interactive</title>
+<link rel="stylesheet" href="./ASIHTTPRequest example code - All-Seeing Interactive_files/styles.css" type="text/css" media="all">
+<!--[if gte IE 7]>
+<link rel="stylesheet" href="/css/ie.css" type="text/css" />
+<![endif]-->
+<link rel="shortcut icon" href="http://allseeing-i.com/favicon.ico" type="image/png">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/ASI-Blog?format=xml">
+</head>
+<body>
+<script>
+document.createElement('header');
+document.createElement('footer');
+document.createElement('section');
+document.createElement('nav');
+document.createElement('article');
+</script>
+<h1 id="important_message">
+<span>Please note that I am no longer working on this library - you may want to consider using something else for new projects. :)</span>
+</h1>
+<div id="container" class="docs asihttprequest">
+<header>
+<a href="http://allseeing-i.com/" title="Home"><img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/smallerlogo.png" id="logo" alt="All-Seeing Interactive Logo"></a>
+
+<div>
+<h1>ASIHTTPRequest documentation</h1>
+<h3>Last updated: 15th May 2011 (v1.8.1)</h3>
+
+<nav>
+<ul>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest">About</a></li>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest/Setup-instructions">Setup instructions</a></li>
+<li class="selected"><a href="./ASIHTTPRequest example code - All-Seeing Interactive_files/ASIHTTPRequest example code - All-Seeing Interactive.html">How to use it</a></li>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest/S3">Amazon S3</a></li>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest/Cloud-Files">Rackspace Cloud Files</a></li>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest/ASIWebPageRequest">ASIWebPageRequest</a></li>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest/Changelog">Changelog</a></li>
+<li><a href="http://allseeing-i.com/ASIHTTPRequest/Who-is-using-it">Who is using it?</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+
+
+<article class="big">
+
+<nav id="contents">
+<label for="jump">Jump to ➪</label>
+
+<select id="jump" onchange="document.location=this.options[this.selectedIndex].value;">
+
+<optgroup label="Creating and running requests">
+<option value="#creating_a_synchronous_request">Creating a synchronous request</option>
+<option value="#creating_an_asynchronous_request">Creating an asynchronous request</option>
+<option value="#using_blocks">Using blocks</option>
+<option value="#using_a_queue">Using a queue</option>
+<option value="#handling_success_and_failure_for_multiple_requests">Handling success and failure for multiple requests</option>
+<option value="#about_ASINetworkQueues">About ASINetworkQueues</option>
+<option value="#cancelling_an_asychronous_request">Cancelling an asynchronous request</option>
+<option value="#safely_handling_delegate_deallocation">Safely handling the delegate being deallocated before the request has finished</option>
+</optgroup>
+
+
+
+<optgroup label="Sending data">
+<option value="#setting_request_headers">Setting request headers</option>
+<option value="#sending_a_form_post_with_ASIFormDataRequest">Sending a form POST with ASIFormDataRequest</option>
+<option value="#put_requests_and_custom_posts">PUT requests and custom POSTs</option>
+</optgroup>
+
+
+
+<optgroup label="Downloading data">
+<option value="#downloading_the_response_directly_to_a_file">Downloading the response directly to a file</option>
+<option value="#handling_the_response_data_as_it_arrives">Handling the response data as it arrives</option>
+<option value="#reading_the_HTTP_status_code">Reading the HTTP status code</option>
+<option value="#reading_response_headers">Reading response headers</option>
+<option value="#handling_text_encodings">Handling text encodings</option>
+<option value="#handling_redirection">Handling redirection</option>
+</optgroup>
+
+
+
+<optgroup label="Tracking progress">
+<option value="#tracking_progress">Introduction</option>
+<option value="#tracking_download_progress_for_a_single_request">Tracking download progress for a single request</option>
+<option value="#tracking_download_progress_for_a_set_of_requests">Tracking download progress for a set of requests</option>
+<option value="#tracking_upload_progress_for_a_single_request">Tracking upload progress for a single request</option>
+<option value="#tracking_upload_progress_for_a_set_of_requests">Tracking upload progress for a set of requests</option>
+<option value="#accurate_progress_vs_simple_progress">Accurate progress vs simple progress</option>
+<option value="#custom_progress_tracking">Custom progress tracking</option>
+</optgroup>
+
+
+
+<optgroup label="Handling HTTP authentication">
+<option value="#handling_http_authentication">Introduction</option>
+<option value="#specifying_a_username_and_password_to_use_in_the_url">Specifying a username and password to use in the URL</option>
+<option value="#setting_a_username_and_password_to_use_on_the_request">Setting a username and password to use on the request</option>
+<option value="#storing_credentials_in_the_keychain">Storing credentials in the keychain</option>
+<option value="#storing_credentials_in_the_session">Storing credentials in the session</option>
+<option value="#ntlm_authentication">NTLM authentication</option>
+<option value="#using_delegation_to_provide_credentials">Using delegation to provide credentials</option>
+<option value="#using_the_built_in_authentication_dialog">Using the built-in authentication dialog (currently iOS only)</option>
+<option value="#presenting_credentials_before_the_server_asks_for_them">Presenting credentials before the server asks for them</option>
+</optgroup>
+
+
+
+<optgroup label="Cookies">
+<option value="#persistent_cookies">Persistent cookies</option>
+<option value="#handling_cookies_yourself">Handling cookies yourself</option>
+</optgroup>
+
+
+
+<optgroup label="Handling compressed responses, and compressing request bodies">
+<option value="#using_gzip_to_handle_compressed_response_data">Using gzip to handle compressed response data</option>
+<option value="#on-the-fly_inflating">On-the-fly inflating of gzipped responses</option>
+<option value="#using_gzip_to_compress_request_bodies">Using gzip to compress request bodies</option>
+</optgroup>
+
+
+
+<optgroup label="Resuming interrupted downloads">
+<option value="#resuming_interrupted_downloads">How to resume downloads</option>
+</optgroup>
+
+
+
+<optgroup label="Streaming request bodies directly from disk">
+<option value="#streaming_request_bodies_directly_from_disk">Introduction</option>
+<option value="#streaming_and_ASIFormDataRequest">ASIFormDataRequests</option>
+<option value="#streaming_on_regular_ASIHTTPRequests">Regular ASIHTTPRequests</option>
+</optgroup>
+
+
+
+<optgroup label="Using a download cache">
+<option value="#using_a_download_cache">Introduction</option>
+<option value="#about_cache_policies">About cache policies</option>
+<option value="#about_storage_policies">About storage polices</option>
+<option value="#other_cache_related_features">Other cache-related features</option>
+<option value="#writing_your_own_cache">Writing your own cache</option>
+</optgroup>
+
+<optgroup label="Throttling bandwidth">
+<option value="#throttling_bandwidth">How to use bandwidth throttling</option>
+</optgroup>
+
+<optgroup label="Client certificates">
+<option value="#client_certificates">How to use client certificates</option>
+</optgroup>
+
+<optgroup label="Working with proxies">
+<option value="#working_with_proxies">Introduction</option>
+<option value="#authenticating_proxies">Authenticating proxies</option>
+<option value="#manually_specifying_credentials_for_the_proxy">Manually specifying credentials for the proxy</option>
+<option value="#using_delegation_to_ask_for_proxy_credentials">Using delegation to ask for proxy credentials</option>
+<option value="#using_the_built_in_proxy_authentication_dialog">Using the built-in authentication dialog (currently iOS only)</option>
+</optgroup>
+
+
+
+<optgroup label="Miscellanous features">
+<option value="#user_agent">Customising the user agent</option>
+<option value="#background_downloads_ios">Continuing a request when your app enters the background on iOS</option>
+<option value="#monitoring_network_activity">Monitoring network activity</option>
+<option value="#disabling_automatic_updates_to_the_network_activity_indicator">Disabling automatic updates to the network activity indicator (iOS only)</option>
+<option value="#automatically_retry_requests_when_they_time_out">Automatically retry requests when they time out</option>
+<option value="#configuring_persistent_connections">Configuring persistent connections</option>
+<option value="#forcing_the_use_of_HTTP1.0">Forcing the use of HTTP 1.0</option>
+<option value="#disabling_secure_certificate_validation">Disabling secure certificate validation</option>
+</optgroup>
+
+<optgroup label="Debugging options">
+<option value="#debugging_options">Information on ASIHTTPRequest’s debug flags</option>
+</optgroup>
+
+</select>
+
+</nav>
+
+<section>
+
+<h2>Creating and running requests</h2>
+
+<h3 id="creating_a_synchronous_request">Creating a synchronous request</h3>
+
+<p>The simplest way to use ASIHTTPRequest. Sending the <strong>startSynchronous</strong>
+message will execute the request in the same thread, and return control
+when it has completed (successfully or otherwise).</p>
+
+<p>Check for problems by inspecting the <strong>error</strong> property.</p>
+
+<p>To get the response as a string, call the <strong>responseString</strong> method.
+Don’t use this for binary data - use <strong>responseData</strong> to get an NSData object, or, for larger files,
+set your request to download to a file with the <strong>downloadDestinationPath</strong> property.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">IBAction</span><span style="color: #002200;">)</span>grabURL<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>sender
+<span style="color: #002200;">{</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com"</span><span style="color: #002200;">]</span>;
+  <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+  <span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSError_Class/"><span style="color: #400080;">NSError</span></a> <span style="color: #002200;">*</span>error <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request error<span style="color: #002200;">]</span>;
+  <span style="color: #a61390;">if</span> <span style="color: #002200;">(</span><span style="color: #002200;">!</span>error<span style="color: #002200;">)</span> <span style="color: #002200;">{</span>
+    <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>response <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseString<span style="color: #002200;">]</span>;
+  <span style="color: #002200;">}</span>
+<span style="color: #002200;">}</span></code></pre>
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>In general, you should use asynchronous requests in preference to synchronous requests. When you use ASIHTTPRequest synchronously from the main thread, your application’s user interface will lock up and become unusable for the duration of the request.</p>
+</div>
+</aside>
+
+
+<h3 id="creating_an_asynchronous_request">Creating an asynchronous request</h3>
+
+<p>Does the same thing as the previous example, but the request runs in the background.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">IBAction</span><span style="color: #002200;">)</span>grabURLInBackground<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>sender
+<span style="color: #002200;">{</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com"</span><span style="color: #002200;">]</span>;
+   <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request setDelegate<span style="color: #002200;">:</span>self<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request startAsynchronous<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span>
+&nbsp;
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>requestFinished<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>request
+<span style="color: #002200;">{</span>
+   <span style="color: #11740a; font-style: italic;">// Use when fetching text data</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>responseString <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseString<span style="color: #002200;">]</span>;
+&nbsp;
+   <span style="color: #11740a; font-style: italic;">// Use when fetching binary data</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/"><span style="color: #400080;">NSData</span></a> <span style="color: #002200;">*</span>responseData <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseData<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span>
+&nbsp;
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>requestFailed<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>request
+<span style="color: #002200;">{</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSError_Class/"><span style="color: #400080;">NSError</span></a> <span style="color: #002200;">*</span>error <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request error<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span></code></pre>
+<p>Note that we set the delegate property of the request so we can receive notification when the request completes or fails.</p>
+
+<p>This is the simplest way to create an asynchronous request, and it will run in a global NSOperationQueue behind the scenes. For more complex operations (such as tracking progress across multiple requests), you might want to create your own queue, which is what we’ll cover next.</p>
+
+<h3 id="using_blocks">Using blocks</h3>
+
+<p>As of v1.8, we can do the same thing using blocks, on platforms that support them:</p>
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">IBAction</span><span style="color: #002200;">)</span>grabURLInBackground<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>sender
+<span style="color: #002200;">{</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com"</span><span style="color: #002200;">]</span>;
+   __block <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request setCompletionBlock<span style="color: #002200;">:^</span><span style="color: #002200;">{</span>
+      <span style="color: #11740a; font-style: italic;">// Use when fetching text data</span>
+      <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>responseString <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseString<span style="color: #002200;">]</span>;
+&nbsp;
+      <span style="color: #11740a; font-style: italic;">// Use when fetching binary data</span>
+      <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/"><span style="color: #400080;">NSData</span></a> <span style="color: #002200;">*</span>responseData <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseData<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">}</span><span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request setFailedBlock<span style="color: #002200;">:^</span><span style="color: #002200;">{</span>
+      <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSError_Class/"><span style="color: #400080;">NSError</span></a> <span style="color: #002200;">*</span>error <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request error<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">}</span><span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request startAsynchronous<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span></code></pre>
+<p>Note the use of the <em>__block</em> qualifier when we declare the request, this is important! It tells the block not to retain the request, which is important in preventing a retain-cycle, since the request will always retain the block.</p>
+
+<h3 id="using_a_queue">Using a queue</h3>
+
+<p>This example does the same thing again, but we’ve created an NSOperationQueue for our request.</p>
+
+<p>Using an NSOperationQueue (or ASINetworkQueue, see below) you create yourself gives you more control over asynchronous requests. When using a queue, only a certain number of requests can run at the same time. If you add more requests than the queue’s <strong>maxConcurrentOperationCount</strong> property, requests will wait for others to finish before they start.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">IBAction</span><span style="color: #002200;">)</span>grabURLInTheBackground<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>sender
+<span style="color: #002200;">{</span>
+   <span style="color: #a61390;">if</span> <span style="color: #002200;">(</span><span style="color: #002200;">!</span><span style="color: #002200;">[</span>self queue<span style="color: #002200;">]</span><span style="color: #002200;">)</span> <span style="color: #002200;">{</span>
+      <span style="color: #002200;">[</span>self setQueue<span style="color: #002200;">:</span><span style="color: #002200;">[</span><span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSOperationQueue_Class/"><span style="color: #400080;">NSOperationQueue</span></a> alloc<span style="color: #002200;">]</span> init<span style="color: #002200;">]</span> autorelease<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;
+   <span style="color: #002200;">}</span>
+&nbsp;
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com"</span><span style="color: #002200;">]</span>;
+   <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request setDelegate<span style="color: #002200;">:</span>self<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request setDidFinishSelector<span style="color: #002200;">:</span><span style="color: #a61390;">@selector</span><span style="color: #002200;">(</span>requestDone<span style="color: #002200;">:</span><span style="color: #002200;">)</span><span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request setDidFailSelector<span style="color: #002200;">:</span><span style="color: #a61390;">@selector</span><span style="color: #002200;">(</span>requestWentWrong<span style="color: #002200;">:</span><span style="color: #002200;">)</span><span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span><span style="color: #002200;">[</span>self queue<span style="color: #002200;">]</span> addOperation<span style="color: #002200;">:</span>request<span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">//queue is an NSOperationQueue</span>
+<span style="color: #002200;">}</span>
+&nbsp;
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>requestDone<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>request
+<span style="color: #002200;">{</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>response <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseString<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span>
+&nbsp;
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>requestWentWrong<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>request
+<span style="color: #002200;">{</span>
+   <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSError_Class/"><span style="color: #400080;">NSError</span></a> <span style="color: #002200;">*</span>error <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request error<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span>
+&nbsp;</code></pre>
+<p>In the above sample, ‘queue’ is a retained NSOperationQueue property of our controller.</p>
+
+<p>We’re setting custom selectors that will be called when the request
+succeeds or fails. If you don’t set these, the defaults
+(<strong>requestFinished:</strong> and <strong>requestFailed:</strong>) will be used, as in the previous example.</p>
+
+
+<h3 id="handling_success_and_failure_for_multiple_requests">Handling success and failure for multiple requests in delegate methods</h3>
+
+<p>If you need to handle success and failure on many different types of
+request, you have several options:</p>
+
+<ol>
+<li>If your requests are all of the same broad type, but you want to distinguish between them, you can set the <strong>userInfo</strong> NSDictionary property of each request with your own custom data that you can read in your finished / failed delegate methods. For simpler cases, you can set the request’s <strong>tag</strong> property instead. Both of these properties are for your own use, and are not sent to the server.</li>
+<li>If you need to handle success and failure in a completely different way for each request, set a different setDidFinishSelector / setDidFailSelector for each request</li>
+<li>For more complex situations, or where you want to parse the response in the background, create a minimal subclass of ASIHTTPRequest for each type of request, and override <strong>requestFinished:</strong> and <strong>failWithError:</strong>.</li>
+</ol>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>It’s best to avoid using the request’s URL to distinguish between different requests in your delegate methods, because the URL property can change when a request is redirected. If you really want to use the request URL, use [request originalURL] instead - this will always be the first url the request connected to.</p>
+</div>
+</aside>
+
+
+<h3 id="about_ASINetworkQueues">About ASINetworkQueues</h3>
+
+<p>ASINetworkQueue is a subclass of NSOperationQueue that provides some additional functionality.</p>
+
+<p>Its primary purpose is to allow you to track the upload and/or download progress of a whole queue (<a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#progress">Read more about progress tracking</a>).</p>
+
+<p>In addition, ASINetworkQueues provide some extra delegate method selectors:</p>
+
+<ul>
+<li><strong>requestDidStartSelector</strong><br>
+Called each time a request in the queue begins running. You can use this as an alternative to specifying a didStartSelector and setting a delegate on requests you add to the queue</li>
+<li><strong>requestDidReceiveResponseHeadersSelector</strong><br>
+Called each time a request in the queue receives response headers from the server. For large downloads, this may be some time before the request actually completes. You can use this as an alternative to specifying a didReceiveResponseHeadersSelector and setting a delegate on requests you add to the queue</li>
+<li><strong>requestDidFinishSelector</strong><br>
+Called each time a request in the queue completes successfully. You can use this as an alternative to specifying a didFinishSelector and setting a delegate on requests you add to the queue</li>
+<li><strong>requestDidFailSelector</strong><br>
+Called each time a request in the queue fails. You can use this as an alternative to specifying a didFailSelector and setting a delegate on requests you add to the queue</li>
+<li><strong>queueDidFinishSelector</strong><br>
+Called when the whole queue has completed, whether individual requests failed or succeeded.</li>
+</ul>
+
+<p>To use these, set the delegate of the queue (rather than the delegate of the request) to the controller that implements the methods that these selectors represent.</p>
+
+<br>
+
+<p>ASINetworkQueues work slightly differently from NSOperationQueues, in that requests added to them will not start running immediately. When using an ASINetworkQueue, add all the operations you want to run, then call <strong>[queue go]</strong>. When you start a queue with <a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#accurate_progress_vs_simple_progress">accurate progress turned on</a>, it will first perform a HEAD request for all the GET requests in the queue to get the total size of the data to be downloaded. Once it has the total size, it can accurately show the total progress, and the real requests will start.</p>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>What happens when you add a request to an ASINetworkQueue that has already been started?</strong></p>
+<p>If you are using an ASINetworkQueue to track the overall progress of several requests, overall progress will move backwards to take account of each new request <em>only when that request starts running</em>. An ASINetworkQueue will not perform a HEAD request for requests added after the queue is started, so if you are adding many requests to a running queue at once, the overall progress will not update immediately.</p>
+<p>If a queue is already running, you do not need to call [queue go] again.</p>
+</div>
+</aside>
+
+<br>
+
+<p>When a request in an ASINetworkQueue fails, the queue will by default cancel all other requests. You can disable this behaviour with <strong>[queue setShouldCancelAllRequestsOnFailure:NO]</strong>.</p>
+
+<p>ASINetworkQueues can only run ASIHTTPRequest operations, they cannot be used for generic operations. Attempting to add an NSOperation that is not an ASIHTTPRequest will generate an exception.</p>
+
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>There is a complete example here that shows the basics of creating and using an ASINetworkQueue:</p>
+<p><a href="http://gist.github.com/150447">http://gist.github.com/150447</a></p>
+</div>
+</aside>
+
+<h3 id="cancelling_an_asychronous_request">Cancelling an asynchronous request</h3>
+
+<p>To cancel an asynchronous request (either a request that was started with [request startAsynchronous] or a request running in a queue you created), call <strong>[request cancel]</strong>. Note that you cannot cancel a synchronous request.</p>
+
+<p>Note that when you cancel a request, the request will treat that as an error, and will call your delegate and/or queue’s failure delegate method. If you do not want this behaviour, set your delegate to nil before calling cancel, or use the <strong>clearDelegatesAndCancel</strong> method instead.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Cancels an asynchronous request</span>
+<span style="color: #002200;">[</span>request cancel<span style="color: #002200;">]</span>
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Cancels an asynchronous request, clearing all delegates and blocks first</span>
+<span style="color: #002200;">[</span>request clearDelegatesAndCancel<span style="color: #002200;">]</span>;</code></pre>
+<p>When using an ASINetworkQueue, all other requests will be cancelled when you cancel an individual request unless the queue’s <strong>shouldCancelAllRequestsOnFailure</strong> is NO (YES is the default).</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// When a request in this queue fails or is cancelled, other requests will continue to run</span>
+<span style="color: #002200;">[</span>queue setShouldCancelAllRequestsOnFailure<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Cancel all requests in a queue</span>
+<span style="color: #002200;">[</span>queue cancelAllOperations<span style="color: #002200;">]</span>;</code></pre>
+
+<h3 id="safely_handling_delegate_deallocation">Safely handling the delegate being deallocated before the request has finished</h3>
+
+<p>Requests don’t retain their delegates, so if there’s a chance your delegate may be deallocated while your request is running, it is vital that you clear the request’s delegate properties. In most circumstances, if your delegate is going to be deallocated, you probably also want to cancel request, since you no longer care about the request’s status.</p>
+
+<p>In the example below, our controller has an ASIHTTPRequest stored in a retained instance variable. We call the clearDelegatesAndCancel method in it’s dealloc implementation, just before we release our reference to the request:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Ddealloc method for our controller</span>
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>dealloc
+<span style="color: #002200;">{</span>
+   <span style="color: #002200;">[</span>request clearDelegatesAndCancel<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>request release<span style="color: #002200;">]</span>;
+   ...
+   <span style="color: #002200;">[</span>super dealloc<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span></code></pre>
+
+</section>
+<section>
+
+<h2>Sending data</h2>
+
+<h3 id="setting_request_headers">Setting request headers</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request addRequestHeader<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Referer"</span> value<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/"</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="sending_a_form_post_with_ASIFormDataRequest">Sending a form POST with ASIFormDataRequest</h3>
+
+<p>To send POST data in a manner compatible with web page forms, use the included <a href="http://github.com/pokeb/asi-http-request/blob/master/Classes/ASIFormDataRequest.h">ASIFormDataRequest subclass</a>. Data is posted in ‘application/x-www-form-urlencoded’ format, or ‘multipart/form-data’ format when uploading binary data or files. Data in files is read as needed from disk, so POSTing large files is OK, as long as your web server is setup to handle them.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Ben"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"first_name"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Copsey"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"last_name"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setFile<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/ben.jpg"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"photo"</span><span style="color: #002200;">]</span>;</code></pre>
+<p>ASIFormDataRequest will autodetect the mime type of files (on iOS 3.0 or later an Mac) added to the POST via setFile:forKey:, and include this in the mime headers sent to the server. If you prefer, you can use the longer form to override this:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Upload a file on disk</span>
+<span style="color: #002200;">[</span>request setFile<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/ben.jpg"</span> withFileName<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"myphoto.jpg"</span> andContentType<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"image/jpeg"</span>
+forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"photo"</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Upload an NSData instance</span>
+<span style="color: #002200;">[</span>request setData<span style="color: #002200;">:</span>imageData withFileName<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"myphoto.jpg"</span> andContentType<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"image/jpeg"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"photo"</span><span style="color: #002200;">]</span>;
+&nbsp;</code></pre>
+<p>You can send multiple values for the same parameter using the alternative <em>add</em> API:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request addPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Ben"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"names"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request addPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"George"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"names"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request addFile<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/ben.jpg"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"photos"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request addData<span style="color: #002200;">:</span>imageData withFileName<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"george.jpg"</span> andContentType<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"image/jpeg"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"photos"</span><span style="color: #002200;">]</span>;</code></pre>
+<p>See <a href="http://github.com/pokeb/asi-http-request/blob/master/Classes/ASIFormDataRequest.h">ASIFormDataRequest.h</a> for a full list of all the ways to add parameters to your POST.</p>
+
+
+<h3 id="put_requests_and_custom_posts">PUT requests and custom POSTs</h3>
+
+<p>If you want to send data via PUT, or want to send it with POST but prefer to create the POST body yourself, use appendPostData: or appendPostDataFromFile:.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request appendPostData<span style="color: #002200;">:</span><span style="color: #002200;">[</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"This is my data"</span> dataUsingEncoding<span style="color: #002200;">:</span>NSUTF8StringEncoding<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;
+<span style="color: #11740a; font-style: italic;">// Default becomes POST when you use appendPostData: / appendPostDataFromFile: / setPostBody:</span>
+<span style="color: #002200;">[</span>request setRequestMethod<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"PUT"</span><span style="color: #002200;">]</span>;</code></pre>
+<p>If you want to send large amounts of data and aren’t using an ASIFormDataRequest, see the <a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#streaming">information on streaming post bodies from disk</a> below.</p>
+
+</section>
+<section id="downloading_the_response_to_a_file">
+
+<h2>Downloading data</h2>
+
+<h3 id="downloading_the_response_directly_to_a_file">Downloading the response directly to a file</h3>
+
+<p>If the resource you are requesting is fairly large, you can save memory by downloading directly to a file. This way, ASIHTTPRequest won’t have to keep the whole response in memory at once.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setDownloadDestinationPath<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/my_file.txt"</span><span style="color: #002200;">]</span>;</code></pre>
+<p>When downloading data to a file using <strong>downloadDestinationPath</strong>, data will be saved in a temporary file while the request is in progress. This file’s path is stored in <strong>temporaryFileDownloadPath</strong>. When the request completes successfully, one of two things happen:</p>
+
+<ul>
+<li>If the data is gzip compressed (see <a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#gzip">information on gzip</a> compression), the compressed file will be uncompressed into downloadDestinationPath, and the temporary file will be deleted</li>
+<li>If the data is not compressed, the temporary file is moved to downloadDestinationPath, overwriting any previous file</li>
+</ul>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>Note that if the response body is empty, no file will be created. If there is a possibility that a request may return an empty body, make sure you check the file exists before you attempt to do anything with it.</p>
+</div>
+</aside>
+
+<h3 id="handling_the_response_data_as_it_arrives">Handling the response data as it arrives</h3>
+
+<p>If you need to process the response as it comes in (for example, you want to use a streaming parser to parse the response while it is still being downloaded), have your delegate implement <strong>request:didReceiveData:</strong> (see <a href="https://github.com/pokeb/asi-http-request/blob/master/Classes/ASIHTTPRequestDelegate.h">ASIHTTPRequestDelegate.h</a>). Note that when you do this, ASIHTTPRequest will not populate responseData or write the response to downloadDestinationPath - you must store the response yourself if you need to.</p>
+
+<h3 id="reading_the_HTTP_status_code">Reading the HTTP status code</h3>
+
+<p>ASIHTTPRequest doesn’t do anything special with most HTTP status codes (except redirection and authentication status codes, see below for more info), so
+it’s up to you to look out for problems (eg: 404) and make sure you act
+appropriately.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+<span style="color: #a61390;">int</span> statusCode <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseStatusCode<span style="color: #002200;">]</span>;
+<a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>statusMessage <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseStatusMessage<span style="color: #002200;">]</span>;</code></pre>
+<h3 id="reading_response_headers">Reading response headers</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+<a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>poweredBy <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><span style="color: #002200;">[</span>request responseHeaders<span style="color: #002200;">]</span> objectForKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"X-Powered-By"</span><span style="color: #002200;">]</span>;
+<a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>contentType <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><span style="color: #002200;">[</span>request responseHeaders<span style="color: #002200;">]</span> objectForKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Content-Type"</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="handling_text_encodings">Handling text encodings</h3>
+
+<p>ASIHTTPRequest will attempt to read the text encoding of the received data from the Content-Type header. If it finds a text encoding, it will set responseEncoding to the appropriate <a href="http://developer.apple.com/DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/doc/c_ref/NSStringEncoding">NSStringEncoding</a>. If it does not find a text encoding in the header, it will use the value of defaultResponseEncoding (this defaults to NSISOLatin1StringEncoding).</p>
+
+<p>When you call [request responseString], ASIHTTPRequest will attempt to create a string from the data it received, using responseEncoding as the source encoding.</p>
+
+<h3 id="handling_redirection">Handling redirection</h3>
+
+<p>ASIHTTPRequest will automatically redirect to a new URL when it encounters one of the following HTTP status codes, assuming a Location header was sent:</p>
+
+<ul>
+<li>301 Moved Permanently</li>
+<li>302 Found</li>
+<li>303 See Other</li>
+</ul>
+
+<p>When redirection occurs, the value of the response data (responseHeaders / responseCookies / responseData / responseString etc) will reflect the content received from the final location.</p>
+
+<p>Cookies set on any of the urls encountered during a redirection cycle will be stored in the global cookie store, and will be represented to the server on the redirected request when appropriate.</p>
+
+<p>You can turn off automatic redirection by setting the request’s <strong>shouldRedirect</strong> property to NO.</p>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>By default, automatic redirects always redirect using a GET request (with no body). This behaviour matches the way most browsers work, not the HTTP spec, which specifies that 301 and 302 redirects should use the original method.</p>
+<p>To preserve the original method (including the request body) for 301 and 302 redirects, set <strong>shouldUseRFC2616RedirectBehaviour</strong> to YES on the request before you start it.</p>
+</div>
+</aside>
+
+</section>
+<section id="progress">
+
+<h2 id="tracking_progress">Tracking progress</h2>
+
+<p>Each ASIHTTPRequest has two delegates that can be used for tracking progress - downloadProgressDelegate (for downloads) and uploadProgressDelegate (for uploads).</p>
+
+<p>Progress delegates can be NSProgressIndicators (Mac OS X) or
+UIProgressViews (iPhone). ASIHTTPRequest will automatically cater for
+the differences in the behaviour of these two classes. If you want, you can also use a custom class as a progress delegate, as long as it responds to setProgress:.</p>
+
+<ul>
+<li>If you are performing a single request, you set an upload and/or download progress delegate on that request</li>
+<li>If you are performing multiple requests in a queue, and you want to track overall progress for all requests in the queue, use a ASINetworkQueue and set the progress delegate of the queue</li>
+<li>If you want to do both of these at the same time, this is possible too (as of v0.97)</li>
+</ul>
+
+
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>IMPORTANT:</strong> If you are uploading to a site that
+requires authentication, the upload progress will be reset to its
+previous value every time it fails to supply valid authentication. For
+this reason, it is recommended that you only ever use an upload progress
+delegate when <strong>useSessionPersistence</strong> is YES (see below)
+when communicating with authenticating web servers, and ensure that you
+authenticate in another request before attempting to track the upload of
+a large amount of data.</p>
+</div>
+</aside>
+
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>Tracking progress for uploads where the request body is less than 128KB is currently not possible. For requests larger than 128KB, progress delegates will not receive information on the progress of the first 128KB of post data. This is because of limitations in the CFNetwork API. <del>I have filed a feature enhancement with Apple (bug id 6596016), hopefully they will modify CFNetwork in future to make this possible.</del></p>
+
+<p><strong>Update 21st June 2009: The wonderful folks at Apple were kind enough to address my bug report! In the iPhone 3.0 SDK, it looks like the buffer size has been reduced to 32KB, which makes accurate upload progress tracking a lot more reliable.</strong></p>
+
+</div>
+</aside>
+
+
+<h3 id="tracking_download_progress_for_a_single_request">Tracking download progress for a single request</h3>
+
+<p>In this example, myProgressIndicator is an NSProgressIndicator.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setDownloadProgressDelegate<span style="color: #002200;">:</span>myProgressIndicator<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Max: %f, Value: %f"</span>, <span style="color: #002200;">[</span>myProgressIndicator maxValue<span style="color: #002200;">]</span>,<span style="color: #002200;">[</span>myProgressIndicator doubleValue<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;</code></pre>
+<h3 id="tracking_download_progress_for_a_set_of_requests">Tracking download progress for a set of requests</h3>
+
+<p>In this example, myProgressIndicator is an UIProgressView, myQueue is an ASINetworkQueue.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>fetchThisURLFiveTimes<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>url
+<span style="color: #002200;">{</span>
+   <span style="color: #002200;">[</span>myQueue cancelAllOperations<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>myQueue setDownloadProgressDelegate<span style="color: #002200;">:</span>myProgressIndicator<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>myQueue setDelegate<span style="color: #002200;">:</span>self<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>myQueue setRequestDidFinishSelector<span style="color: #002200;">:</span><span style="color: #a61390;">@selector</span><span style="color: #002200;">(</span>queueComplete<span style="color: #002200;">:</span><span style="color: #002200;">)</span><span style="color: #002200;">]</span>;
+   <span style="color: #a61390;">int</span> i;
+   <span style="color: #a61390;">for</span> <span style="color: #002200;">(</span>i<span style="color: #002200;">=</span>0; i&lt;<span style="color: #2400d9;">5</span>; i<span style="color: #002200;">++</span><span style="color: #002200;">)</span> <span style="color: #002200;">{</span>
+      <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+      <span style="color: #002200;">[</span>myQueue addOperation<span style="color: #002200;">:</span>request<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">}</span>
+   <span style="color: #002200;">[</span>myQueue go<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span>
+&nbsp;
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>queueComplete<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASINetworkQueue.h"><span style="color: #3f7588;">ASINetworkQueue</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>queue
+<span style="color: #002200;">{</span>
+   NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Value: %f"</span>, <span style="color: #002200;">[</span>myProgressIndicator progress<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;
+<span style="color: #002200;">}</span></code></pre>
+<p>Notice that for ASINetworkQueues, we have to call [myQueue go] to start the queue.</p>
+
+<h3 id="tracking_upload_progress_for_a_single_request">Tracking upload progress for a single request</h3>
+
+<p>In this example, myProgressIndicator is an UIProgressView.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Ben"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"first_name"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Copsey"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"last_name"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUploadProgressDelegate<span style="color: #002200;">:</span>myProgressIndicator<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Value: %f"</span>,<span style="color: #002200;">[</span>myProgressIndicator progress<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;</code></pre>
+<h3 id="tracking_upload_progress_for_a_set_of_requests">Tracking upload progress for a set of requests</h3>
+
+<p>In this example, myProgressIndicator is an NSProgressIndicator, myQueue is an ASINetworkQueue.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>uploadSomethingFiveTimes<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>url
+<span style="color: #002200;">{</span>
+   <span style="color: #002200;">[</span>myQueue cancelAllOperations<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>myQueue setUploadProgressDelegate<span style="color: #002200;">:</span>myProgressIndicator<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>myQueue setDelegate<span style="color: #002200;">:</span>self<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">[</span>myQueue setRequestDidFinishSelector<span style="color: #002200;">:</span><span style="color: #a61390;">@selector</span><span style="color: #002200;">(</span>queueComplete<span style="color: #002200;">:</span><span style="color: #002200;">)</span><span style="color: #002200;">]</span>;
+   <span style="color: #a61390;">int</span> i;
+   <span style="color: #a61390;">for</span> <span style="color: #002200;">(</span>i<span style="color: #002200;">=</span>0; i&lt;<span style="color: #2400d9;">5</span>; i<span style="color: #002200;">++</span><span style="color: #002200;">)</span> <span style="color: #002200;">{</span>
+      <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+      <span style="color: #002200;">[</span>request setPostBody<span style="color: #002200;">:</span><span style="color: #002200;">[</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Some data"</span> dataUsingEncoding<span style="color: #002200;">:</span>NSUTF8StringEncoding<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;
+      <span style="color: #002200;">[</span>myQueue addOperation<span style="color: #002200;">:</span>request<span style="color: #002200;">]</span>;
+   <span style="color: #002200;">}</span>
+   <span style="color: #002200;">[</span>myQueue go<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span>
+&nbsp;
+<span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">void</span><span style="color: #002200;">)</span>queueComplete<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASINetworkQueue.h"><span style="color: #3f7588;">ASINetworkQueue</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>queue
+<span style="color: #002200;">{</span>
+   NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Max: %f, Value: %f"</span>, <span style="color: #002200;">[</span>myProgressIndicator maxValue<span style="color: #002200;">]</span>,<span style="color: #002200;">[</span>myProgressIndicator doubleValue<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;
+<span style="color: #002200;">}</span></code></pre>
+<h3 id="accurate_progress_vs_simple_progress">Accurate progress vs simple progress</h3>
+
+<p>ASIHTTPRequest provides two approaches for displaying progress, simple progress, and accurate progress. They are controlled using the showAccurateProgress of ASIHTTPRequests and ASINetworkQueues. When you set showAccurateProgress on a request, it affects only that request. When you set it on a queue, it affects all requests in the queue.</p>
+
+<h4>Simple progress</h4>
+
+<p>When using simple progress, progress will update only when a request completes. For a single request, this means you get two progress updates - 0% complete, and 100% complete. For a queue with four requests, you would get five progress updates, 0%, 25%, 50%, 75% and 100%, with each increment representing a request that has completed.</p>
+
+<p>Simple progress (showAccurateProgress = NO) is the default for ASINetworkQueues, and is well suited to queues with a large number of small uploads / downloads.</p>
+
+<h4>Accurate progress</h4>
+
+<p>When using accurate progress, progress will be updated as bytes are sent or received. It is best for requests that send or receive a large amount of data, 	and will give a much better indication of how much data has been sent or received for requests that take some time.</p>
+
+<p>Using accurate progress will slightly degrade the performance of uploads, since progress delegates (which are likely to be UIProgressViews or NSProgressIndicators) will be redrawn much more frequently.</p>
+
+<p>Using accurate progress has a much greater effect on performance for downloads when using a queue, since the queue will first perform a HEAD request for each GET request it contains so it can determine the overall size of the data to be downloaded before downloading commences. Using accurate progress is highly recommended if you are downloading large files from a queue, but you should avoid it for queues that contain a large number of small downloads.</p>
+
+<p>Accurate progress (showAccurateProgress == YES) is the default for ASIHTTPRequests that run synchronously.</p>
+
+<h3 id="custom_progress_tracking">Custom progress tracking</h3>
+
+<p>The ASIProgressDelegate protocol defines all the ways a delegate can get updates on the progress of a request. In most situations, setting your uploadProgressDelegate and/or downloadProgressDelegate to an NSProgressIndicator or UIProgressView will be sufficient. However, if you want to perform more complex progress tracking, your progress delegates should implement the following methods in preference to setProgress: (iOS) or setDoubleValue: / setMaxValue: (Mac). These methods allow you get updates on the actual number of bytes that are sent or received, rather than the number between 0 and 1 you get for the simpler methods.</p>
+
+<h4>Methods for downloadProgressDelegates</h4>
+<ul>
+<li><strong>request:didReceiveBytes:</strong> will be called on your downloadProgressDelegate each time the request downloads a bit more data. (Note that this is distinct from the <strong>request:didReceiveData:</strong> method that you regular delegate may implement).</li>
+
+<li><strong>request:incrementDownloadSizeBy:</strong> will be called when the size of the download changes, with the passed parameter being the amount you should increase the size of the download by. This usually happens when the request receives response headers and finds out the size of the download.</li>
+
+</ul>
+
+<h4>Methods for uploadProgressDelegates</h4>
+<ul>
+<li><strong>request:didSendBytes:</strong> will be called on your uploadProgressDelegate each time the request has been able to send a bit more data. <strong>Important: This method will be called with a number less than zero </strong>when a request needs to remove upload progress (usually when it has uploaded the data, but failed authentication or needs to run again for some other reason).</li>
+
+<li><strong>request:incrementUploadSizeBy:</strong> will be called when the size of the upload changes. <strong>The passed size will frequently be below zero</strong>, as the request adjusts the upload size to take account of the size of the internal buffer used by the OS.</li>
+
+</ul>
+
+</section>
+<section id="authentication">
+
+<h2 id="handling_http_authentication">Handling HTTP authentication</h2>
+
+<p>If you’re connecting to a server that requires authentication, you might want to take a look at <a href="http://allseeing-i.com/ASIHTTPRequest/ASIHTTPRequest-AuthenticationProcess.pdf">this flowchart</a> that shows how ASIHTTPRequest finds and applies credentials to requests.</p>
+
+<h3 id="specifying_a_username_and_password_to_use_in_the_url">Specifying a username and password to use in the URL</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://username:password@allseeing-i.com/top_secret/"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;</code></pre>
+<h3 id="setting_a_username_and_password_to_use_on_the_request">Setting a username and password to use on the request</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/top_secret/"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUsername<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"username"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPassword<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"password"</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="storing_credentials_in_the_keychain">Storing credentials in the keychain</h3>
+
+<p>If you turn on <strong>keychainPersistence</strong>, any valid username and password
+supplied will be stored in the keychain. Subsequent requests will reuse
+the username and password from the keychain, even if you quit and
+relaunch the application.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/top_secret/"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUseKeychainPersistence<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUsername<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"username"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPassword<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"password"</span><span style="color: #002200;">]</span>;</code></pre>
+<p>If you want to use the keychain but would rather manage it yourself,
+you might find the class methods relating to the keychain in
+ASIHTTPRequest.h helpful.</p>
+
+<h3 id="storing_credentials_in_the_session">Storing credentials in the session</h3>
+
+<p>If <strong>useSessionPersistence</strong> is turned on (it is by default), ASIHTTPRequest stores credentials in memory and can re-use them for subsequent requests.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/top_secret/"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUsername<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"username"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPassword<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"password"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUseSessionPersistence<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">//Shouldn't be needed as this is the default</span>
+&nbsp;
+<span style="color: #11740a; font-style: italic;">//Should reuse our username and password</span>
+request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;</code></pre>
+<h3 id="ntlm_authentication">NTLM authentication</h3>
+
+<p>To authenticate with a Windows server that uses the NTLM scheme, you also need to specify the domain you are authenticating against.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://my.windows.server/top_secret/"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUsername<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"username"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPassword<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"password"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setDomain<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"my-domain"</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="using_delegation_to_provide_credentials">Using delegation to provide credentials</h3>
+
+<p>Rather than specifying authentication credentials in advance, you might prefer to let each request ask its delegate for credentials if it can’t find them in the session authentication cache or keychain. This might be helpful if you want to connect to a server where you aren’t sure in advance what kind of authentication (if any) will be required.</p>
+
+<p>Make sure your delegate implements authenticationNeededForRequest:, and ASIHTTPRequest will pause a request while it waits for the delegate to let it know what credentials to use. When you have the credentials you need, simply set them on the request, and call [request retryUsingSuppliedCredentials];. If you want to cancel, you must call [request cancelAuthentication]. This will cancel the request.</p>
+
+<p>As of v1.0.8, request delegates will  only receive one authenticationNeededForRequest: or proxyAuthenticationNeededForRequest: at once. Other requests requiring authentication will pause while the delegate handles the first request. If credentials are provided, any other requests currently in progress will attempt to reuse them, assuming they are valid for the url. If the delegate cancels authentication, and the queue’s shouldCancelAllRequestsOnFailure is YES, all the other requests will cancel without attempting to ask for credentials.</p>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>You cannot use the delegation pattern for authentication when using synchronous requests.</strong></p>
+<p>In older versions this would have caused your app to hang, as of v1.0.8 the delegate methods will no longer be called.</p>
+</div>
+</aside>
+
+
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/auth-dialog.png" alt="Picture of the proxy authentication dialog" class="r shadow" style="margin-top: 1.0em">
+
+<h3 id="using_the_built_in_authentication_dialog">Using the built-in authentication dialog (currently iOS only)</h3>
+
+<p>New in v1.0.8 is the ASIAuthenticationDialog class. This is primarily used for working with authenticating proxies (<a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#proxy_auth_dialog">see below</a>), but it can be used to ask the user for credentials for authenticating webservers.</p>
+
+<p>For the best user experience, most apps that connect to a single service should implement authenticationNeededForRequest: in their request delegates, or avoid the use of delegation-style authentication altogether. However, there may be some occasions when the use of ASIHTTPRequest’s standard authentication dialog for regular authentication may be advantageous:</p>
+
+<ul>
+<li>You don’t want to create your own login form</li>
+<li>You may need to fetch data from an external source, and aren’t certain if it will require authentication or not</li>
+</ul>
+
+<p>For these cases, set shouldPresentAuthenticationDialog to true on your requests, and, if your delegate does not implement authenticationNeededForRequest:, users will see the dialog.</p>
+
+<p>Only one dialog can appear at once, and other requests requiring authentication will pause while the dialog is visible. If credentials are provided, any other requests currently in progress will attempt to reuse them, assuming they are valid for the url. If the delegate cancels authentication, and the queue’s shouldCancelAllRequestsOnFailure is YES (as per the default), all the other requests will cancel without attempting to ask for credentials.</p>
+
+<p>The authentication dialog will not appear for synchronous requests.</p>
+
+<p>The dialog is partly modelled on the authentication dialog that Safari uses on the iPhone, and includes:</p>
+<ul>
+<li>A message to indicate these credentials are for a webserver (as opposed to a proxy)</li>
+<li>The hostname or IP of the server you are connecting to</li>
+<li>The authentication realm (if one was supplied)</li>
+<li>Fields to enter a username and password</li>
+<li>When connecting to a server that uses the NTLM scheme, the dialog also includes a field for the domain</li>
+<li>A note about whether the credentials are sent in plain text or not (ie: They are sent in plain text only when using Basic authentication without SSL)</li>
+</ul>
+<p>If you want to change the look and feel, subclass ASIHTTPRequest, and override showAuthenticationDialog to show your custom dialog or ASIAuthenticationDialog subclass.</p>
+
+<h3 id="presenting_credentials_before_the_server_asks_for_them">Presenting credentials before the server asks for them</h3>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>IMPORTANT</strong><br>
+Behaviour for this feature has changed in v1.8.1 for requests using Basic authentication, and you may need to update your code.</p>
+</div>
+</aside>
+
+<br>
+
+<p>ASIHTTPRequest can present credentials to the server (if it has credentials to use) when it first makes a request, rather than waiting for the server to ask for credentials. This can result in better performance for applications using authentication, since it avoids an extra request.</p>
+
+<p>To trigger this behaviour for requests using Basic authentication, you should manually set the request’s authenticationScheme to use Basic:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setAuthenticationScheme<span style="color: #002200;">:</span><span style="color: #002200;">(</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span><span style="color: #002200;">)</span>kCFHTTPAuthenticationSchemeBasic<span style="color: #002200;">]</span>;</code></pre>
+<p>For other authentication schemes, credentials can be presented before the server asks for them, but only after another request has successfully authenticated with the server.</p>
+
+<p>You may wish to disable this feature if:</p>
+
+<ul>
+<li>Your application may use multiple sets of credentials to talk to the same server at once</li>
+<li>Security is paramount for your application. Using this feature is inherently less secure, since credentials are sent before you have a chance to validate that you are connecting to the server you thought you were connecting to.</li>
+</ul>
+
+<p>To disable this feature, use this code:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setShouldPresentCredentialsBeforeChallenge<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;</code></pre>
+</section>
+<section id="cookies">
+
+<h2>Cookies</h2>
+
+<h3 id="persistent_cookies">Persistent cookies</h3>
+
+<p>ASIHTTPRequest allows you to use the global store shared by all Mac OS X applications that use the CFNetwork or NSURLRequest APIs. If <strong>useCookiePersistence</strong> is on (it is by default), cookies will be stored in the shared NSHTTPCookieStorage container, and reused on other requests automatically. It’s worth noting that ASIHTTPRequest might present cookies created in other applications if they are valid for a particular request.</p>
+
+<p>You can clear all cookies created during a session like so:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> setSessionCookies<span style="color: #002200;">:</span><span style="color: #a61390;">nil</span><span style="color: #002200;">]</span>;</code></pre>
+
+<p>In this case, ‘session cookies’ refers to ALL cookies created during a session, rather  cookies with no expiry date (often referred to as session cookies) that are removed when the application quits.</p>
+
+<p>Alternatively, the convenience class method <strong>clearSession</strong> will clear all cookies created during the session, along with any cached authentication data.</p>
+
+<h3 id="handling_cookies_yourself">Handling cookies yourself</h3>
+
+<p>If you prefer, you can turn off useCookiePersistence, and manage the set of cookies for a particular request manually:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">//Create a cookie</span>
+<a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSDictionary_Class/"><span style="color: #400080;">NSDictionary</span></a> <span style="color: #002200;">*</span>properties <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSMutableDictionary_Class/"><span style="color: #400080;">NSMutableDictionary</span></a> alloc<span style="color: #002200;">]</span> init<span style="color: #002200;">]</span> autorelease<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>properties setValue<span style="color: #002200;">:</span><span style="color: #002200;">[</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"Test Value"</span> encodedCookieValue<span style="color: #002200;">]</span> forKey<span style="color: #002200;">:</span>NSHTTPCookieValue<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>properties setValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"ASIHTTPRequestTestCookie"</span> forKey<span style="color: #002200;">:</span>NSHTTPCookieName<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>properties setValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">".allseeing-i.com"</span> forKey<span style="color: #002200;">:</span>NSHTTPCookieDomain<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>properties setValue<span style="color: #002200;">:</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSDate_Class/"><span style="color: #400080;">NSDate</span></a> dateWithTimeIntervalSinceNow<span style="color: #002200;">:</span><span style="color: #2400d9;">60</span><span style="color: #002200;">*</span><span style="color: #2400d9;">60</span><span style="color: #002200;">]</span> forKey<span style="color: #002200;">:</span>NSHTTPCookieExpires<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>properties setValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/asi-http-request/tests"</span> forKey<span style="color: #002200;">:</span>NSHTTPCookiePath<span style="color: #002200;">]</span>;
+<a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSHTTPCookie_Class/"><span style="color: #400080;">NSHTTPCookie</span></a> <span style="color: #002200;">*</span>cookie <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSHTTPCookie_Class/"><span style="color: #400080;">NSHTTPCookie</span></a> alloc<span style="color: #002200;">]</span> initWithProperties<span style="color: #002200;">:</span>properties<span style="color: #002200;">]</span> autorelease<span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">//This url will return the value of the 'ASIHTTPRequestTestCookie' cookie</span>
+url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ASIHTTPRequest/tests/read_cookie"</span><span style="color: #002200;">]</span>;
+request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setUseCookiePersistence<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setRequestCookies<span style="color: #002200;">:</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSMutableArray_Class/"><span style="color: #400080;">NSMutableArray</span></a> arrayWithObject<span style="color: #002200;">:</span>cookie<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">//Should be: I have 'Test Value' as the value of 'ASIHTTPRequestTestCookie'</span>
+NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"%@"</span>,<span style="color: #002200;">[</span>request responseString<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;</code></pre>
+</section>
+<section id="gzip">
+
+<h2>Handling compressed responses, and compressing request bodies</h2>
+
+<h3 id="using_gzip_to_handle_compressed_response_data">Using gzip to handle compressed response data</h3>
+
+<p>As of v0.9, ASIHTTPRequest will notify the server that it can accept data compressed using gzip. If you are upgrading ASIHTTPRequest in an existing project, see the <a href="http://allseeing-i.com/ASIHTTPRequest/Setup-instructions">setup instructions</a> for details of how to link with zlib.</p>
+
+<p>Many webservers can compress data before sending it to the client - this results in faster downloads and lower bandwidth use, at the cost of additional CPU time on the server (to compress the data) and on the client (to decompress the data). Generally speaking, only certain types of data will be compressed - many binary formats like JPEG, GIF, PNG, SWF and PDF already compress their data, so gzip compression is normally not used to send them to a client. Text files like web pages and XML documents are perfect candidates for gzip compression, since they often contain a large amount of repeated information.</p>
+
+<h4>How to setup apache to gzip data using mod_deflate</h4>
+
+<p>Apache 2.x and above comes with the mod_deflate extension that allows it to transparently compress certain types of data. To turn it on, you need to enable mod_deflate in your apache configuration file, and add the mod_deflate directives to your virtual host config, or to your .htaccess file. <a href="http://httpd.apache.org/docs/2.0/mod/mod_deflate.html">More information is available here</a>.</p>
+
+<h4>Using gzip in ASIHTTPRequest</h4>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">IBAction</span><span style="color: #002200;">)</span>grabURL<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>sender
+<span style="color: #002200;">{</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com"</span><span style="color: #002200;">]</span>;
+  <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+  <span style="color: #11740a; font-style: italic;">// YES is the default, you can turn off gzip compression by setting this to NO</span>
+  <span style="color: #002200;">[</span>request setAllowCompressedResponse<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;
+  <span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+  <span style="color: #a61390;">BOOL</span> <span style="color: #002200;">*</span>dataWasCompressed <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request isResponseCompressed<span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">// Was the response gzip compressed?</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/"><span style="color: #400080;">NSData</span></a> <span style="color: #002200;">*</span>compressedResponse <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request rawResponseData<span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">// Compressed data</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/"><span style="color: #400080;">NSData</span></a> <span style="color: #002200;">*</span>uncompressedData <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseData<span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">// Uncompressed data</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>response <span style="color: #002200;">=</span> <span style="color: #002200;">[</span>request responseString<span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">// Uncompressed data as a string</span>
+<span style="color: #002200;">}</span></code></pre>
+<p>When allowCompressedResponse is true, ASIHTTPRequest will add a Accept-Encoding header to the request specifying we can accept gzipped response data. If the response headers contain a Content-Encoding header that specifies the data is compressed, calls to <strong>responseData</strong> or <strong>responseString</strong> will uncompress the data before returning it. You can get the original compressed data by calling <strong>rawResponseData</strong>.</p>
+
+<h3 id="on-the-fly_inflating">On-the-fly inflating of gzipped responses</h3>
+
+<p>By default, ASIHTTPRequest will wait until a request finishes to inflate (uncompress) a gzipped response. By setting a request’s <strong>shouldWaitToInflateCompressedResponses</strong> property to NO, you can tell ASIHTTPRequest to inflate the data as is comes in. In some circumstances, this may result in a small speed boost, as data can be processed while a request is waiting for more of the response.</p>
+
+<p>This feature may be especially useful if you need to parse the response with a streaming parser (eg an XML or JSON parser). With this option enabled, you can feed inflated data directly to your parser as it comes in by implementing <strong>request:didReceiveData:</strong> in your delegate.</p>
+
+<p>Note that when shouldWaitToInflateCompressedResponses is set to NO, the raw (compressed) data will be discarded. See the comments in ASIHTTPRequest.h for more info.</p>
+
+<h3 id="using_gzip_to_compress_request_bodies">Using gzip to compress request bodies</h3>
+
+<p>New in v1.0.3 is gzip compression for request bodies. Using this feature, your applications can compress the content of POST / PUT operations by setting <strong>shouldCompressRequestBody</strong> to YES. shouldCompressRequestBody is NO by default.</p>
+
+<p>Apache’s mod_deflate can automatically inflate (decompress) gzipped request bodies when configured with <em>SetInputFilter DEFLATE</em> (<a href="http://httpd.apache.org/docs/2.0/mod/mod_deflate.html#input">More info</a>). This approach works for CGI content, but not when you are using an Apache module built as a RESOURCE filter (such as mod PHP). In these cases, you need to inflate the data yourself.</p>
+
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>ASIHTTPRequest cannot check if a server can accept a gzipped request body or not. Use this feature only if you are certain that the server you are talking to will understand a gzipped body.</p>
+<p>Avoid gzipping content that is in a format that already uses compression (eg JPEG/PNG/GIF/PDF/SWF), you may well find the gzipped version is larger than the original.</p>
+</div>
+</aside>
+
+
+</section>
+<section>
+
+<h2 id="resuming_interrupted_downloads">Resuming interrupted downloads</h2>
+
+<p>As of v0.94, ASIHTTPRequest can resume partial downloads.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">-</span> <span style="color: #002200;">(</span><span style="color: #a61390;">IBAction</span><span style="color: #002200;">)</span>resumeInterruptedDownload<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>sender
+<span style="color: #002200;">{</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span>
+    <span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ASIHTTPRequest/Tests/the_great_american_novel.txt"</span><span style="color: #002200;">]</span>;
+  <a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+&nbsp;
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>downloadPath <span style="color: #002200;">=</span> <span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/my_work_in_progress.txt"</span>;
+&nbsp;
+  <span style="color: #11740a; font-style: italic;">// The full file will be moved here if and when the request completes successfully</span>
+  <span style="color: #002200;">[</span>request setDownloadDestinationPath<span style="color: #002200;">:</span>downloadPath<span style="color: #002200;">]</span>;
+&nbsp;
+  <span style="color: #11740a; font-style: italic;">// This file has part of the download in it already</span>
+  <span style="color: #002200;">[</span>request setTemporaryFileDownloadPath<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/my_work_in_progress.txt.download"</span><span style="color: #002200;">]</span>;
+  <span style="color: #002200;">[</span>request setAllowResumeForFileDownloads<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;
+  <span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+&nbsp;
+  <span style="color: #11740a; font-style: italic;">//The whole file should be here now.</span>
+  <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> <span style="color: #002200;">*</span>theContent <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/"><span style="color: #400080;">NSString</span></a> stringWithContentsOfFile<span style="color: #002200;">:</span>downloadPath<span style="color: #002200;">]</span>;
+<span style="color: #002200;">}</span></code></pre>
+<p>This only works for downloading data to a file, and you must set <strong>allowResumeForFileDownloads</strong> to YES for:</p>
+<ul>
+<li>Any download you might want to resume in future (or ASIHTTPRequest will remove the temporary download file when it is cancelled or dealloced)</li>
+<li>Any download you want to resume</li>
+</ul>
+<p>Additionally, you must set a temporary download path yourself (<strong>setTemporaryFileDownloadPath</strong>), with the path of the partial data. New data will be appended to this file, and the file moved to <strong>downloadDestinationPath</strong> when the download completes successfully.</p>
+
+<p>Resuming works by reading the size of the file at temporaryFileDownloadPath, and then requesting the rest of the file using a <strong>Range: bytes=x</strong> HTTP header.</p>
+
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p>ASIHTTPRequest does not check for the presence of a <strong>Accept-Ranges</strong> header (because of the overhead of an additional HEAD request), so only use this feature when you are certain the that server you are connecting to supports partial downloads for the resource you want to download. </p>
+</div>
+</aside>
+
+</section>
+<section id="streaming">
+
+<h2 id="streaming_request_bodies_directly_from_disk">Streaming request bodies directly from disk</h2>
+
+<p>As of v0.96, ASIHTTPRequest can use files on disk as the request body. This means that it is no longer necessary to hold the request body in memory, which should result in a drastic reduction in memory usage for large POST/PUT operations.</p>
+
+<p>There are several ways you can use this feature:</p>
+
+<h3 id="streaming_and_ASIFormDataRequest">ASIFormDataRequests</h3>
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ignore"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIFormDataRequest.h"><span style="color: #3f7588;">ASIFormDataRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPostValue<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"foo"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"post_var"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setFile<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/bigfile.txt"</span> forKey<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"file"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;
+&nbsp;</code></pre><p>ASIFormDataRequests automatically use this feature when you use setFile:forKey:. The request will create a temporary file that will contain the full post body. Files are written a bit at a time to the relevant part of the body. The request is created using CFReadStreamCreateForStreamedHTTPRequest, using a read stream on the file as the source.</p>
+
+<h3 id="streaming_on_regular_ASIHTTPRequests">Regular ASIHTTPRequests</h3>
+
+<p>If you know your request is going to be large, turn on streaming from disk on the request:</p>
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setShouldStreamPostDataFromDisk<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;</code></pre>
+<p>In the example below, we add NSData objects to the post body one at a time. There are two methods for doing this - adding data from memory (appendPostData:), or appendPostDataFromFile: to add the contents of a file.</p>
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ignore"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setShouldStreamPostDataFromDisk<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request appendPostData<span style="color: #002200;">:</span>myBigNSData<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request appendPostDataFromFile<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/bigfile.txt"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;</code></pre>
+<p>In this example, we want to PUT a large file directly. We set setPostBodyFilePath ourselves, ASIHTTPRequest will use this file as the post body.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ignore"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setRequestMethod<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"PUT"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setPostBodyFilePath<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Desktop/another-big-one.txt"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setShouldStreamPostDataFromDisk<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request startSynchronous<span style="color: #002200;">]</span>;</code></pre>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>IMPORTANT</strong>: You should not use <strong>setPostBody</strong> in the same request as any of the methods described above - they are mutually exclusive. setPostBody should only be used if you want to build the request body yourself, and plan on keeping the request body in memory.</p>
+</div>
+</aside>
+
+</section>
+
+<section>
+
+<h2 id="using_a_download_cache">Using a download cache</h2>
+
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>The API for ASIDownloadCache and ASICacheDelegate has changed in v1.8, and you will need to update your code if you are updating from v1.7.</strong><br>In particular, the options available for cache policies are different, and you can now combine multiple cache policies for a single request.</p>
+</div>
+</aside>
+
+<br>
+
+<p>ASIHTTPRequest can automatically store downloaded data in a cache for use later. This can be helpful in many situations:</p>
+
+<ul>
+<li>You want to have access to the data when there is no internet connection and you can’t download it again</li>
+<li>You want to download something only if it has changed since you last downloaded it</li>
+<li>The content you are working with will never change, so you only want to download it once</li>
+</ul>
+
+<p>In previous versions of ASIHTTPRequest, handling the above situations would have meant storing the data manually yourself. Using a download cache may eliminate the need for writing any local storage mechanism yourself in some situations.</p>
+
+<p>ASIDownloadCache is a simple URL cache that can be used for caching the response of GET requests. To be eligible for response caching, requests must succeed (no error), and the server must have returned a 200 OK HTTP response code, or, as of v1.8.1, a 301, 302, 303 and 307 redirect status code.</p>
+
+<p>Turning on the response cache is easy:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> setDefaultCache<span style="color: #002200;">:</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> sharedCache<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;</code></pre>
+<p>After you’ve done this, all requests will use the cache automatically. If you prefer, you can set individual requests to use the shared cache on a case by case basis:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setDownloadCache<span style="color: #002200;">:</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> sharedCache<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;</code></pre>
+<p>You aren’t restricted to a single cache - you can create as many caches as you like. When you create a cache yourself, you must set the storage path for the cache - this should be a folder you have write access to:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code>&nbsp;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> <span style="color: #002200;">*</span>cache <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> alloc<span style="color: #002200;">]</span> init<span style="color: #002200;">]</span> autorelease<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>cache setStoragePath<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"/Users/ben/Documents/Cached-Downloads"</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Don't forget - you are responsible for retaining your cache!</span>
+<span style="color: #002200;">[</span>self setMyCache<span style="color: #002200;">:</span>cache<span style="color: #002200;">]</span>;
+&nbsp;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setDownloadCache<span style="color: #002200;">:</span><span style="color: #002200;">[</span>self myCache<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="about_cache_policies">About cache policies</h3>
+
+<p>Cache policies are the main way you control when information is stored in the cache, and when cached data will be used in preference to downloading the data again.</p>
+
+<p>The cache policy of individual requests can be controlled using a request’s cachePolicy property. Cache policies are defined using a bitmask, so you can combine multiple options to create the policy you want:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Always ask the server if there is new content available, </span>
+<span style="color: #11740a; font-style: italic;">// If the request fails, use data from the cache even if it should have expired.</span>
+<span style="color: #002200;">[</span>request setCachePolicy<span style="color: #002200;">:</span>ASIAskServerIfModifiedCachePolicy|ASIFallbackToCacheIfLoadFailsCachePolicy<span style="color: #002200;">]</span>;</code></pre>
+
+<p>You can use the following options to define a request’s cache policy:</p>
+
+<table class="details">
+<tbody><tr>
+<th>ASIUseDefaultCachePolicy</th>
+<td>The default cache policy. When you set a request to use this, it will use the cache’s defaultCachePolicy. ASIDownloadCache’s default cache policy is ‘ASIAskServerIfModifiedWhenStaleCachePolicy’. You should not combine this with other options.</td>
+</tr>
+<tr>
+<th>ASIDoNotReadFromCacheCachePolicy</th>
+<td>Requests will not read from the cache when using this option.</td>
+</tr>
+<tr>
+<th>ASIDoNotWriteToCacheCachePolicy</th>
+<td>Requests will not save to the cache when using this option.</td>
+</tr>
+<tr>
+<th>ASIAskServerIfModifiedWhenStaleCachePolicy</th>
+<td>This is the default cache policy for ASIDownloadCaches. When using this, requests will first look to see if a cached response is available in the cache. If there is no cached data, the request will proceed as normal.<br>If there is and the cached data has not expired, the request will use the cached data without contacting the server. If the cached data <em>has</em> expired, the request will perform a conditional GET to see if an updated version is available. If the server says the cached data is current, cached data will be used, and new data will not be downloaded. In this case, the cache’s expiry time will be updated to match the new expiry date from the server. If the server provided updated content, it will be downloaded, and the new data and expiry written to the cache.</td>
+</tr>
+<tr>
+<th>ASIAskServerIfModifiedCachePolicy</th>
+<td>This is the same as <em>ASIAskServerIfModifiedWhenStaleCachePolicy</em>, except that requests will always ask the server if updated data is available.</td>
+</tr>
+<tr>
+<th>ASIOnlyLoadIfNotCachedCachePolicy</th>
+<td>When using this option, cached data will always be used if it exists, even if it should have expired.</td>
+</tr>
+<tr>
+<th>ASIDontLoadCachePolicy</th>
+<td>When using this option, requests will succeed only if a response is already cached. If no response for a request is cached, the request will stop, and no error will be set on the request.</td>
+</tr>
+<tr>
+<th>ASIFallbackToCacheIfLoadFailsCachePolicy</th>
+<td>When using this option, requests will fallback to cached data if the request fails. If cached data is used after a failure, the request will succeed without error. You would normally use this option in combination with others, as it is only useful for specifying the behaviour to use when something goes wrong.</td>
+</tr>
+</tbody></table>
+
+<p>When you set the defaultCachePolicy property of a cache, all requests that use that cache will use that cache policy unless they have a custom cache policy set on themselves.</p>
+
+<h3 id="about_storage_policies">About storage polices</h3>
+
+<p>Storage policies allow you to define how long a cache will store a particular response. ASIHTTPRequest currently supports two storage policies:</p>
+
+<p><strong>ASICacheForSessionDurationCacheStoragePolicy</strong> is the default. Responses will be stored only for the duration of the session, and will be removed the first time the cache is used, or when [ASIHTTPRequest clearSession] is called.</p>
+
+<p>With <strong>ASICachePermanentlyCacheStoragePolicy</strong>, cached responses are stored permanently. To use this storage policy, set it on a request:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setCacheStoragePolicy<span style="color: #002200;">:</span>ASICachePermanentlyCacheStoragePolicy<span style="color: #002200;">]</span>;</code></pre>
+<p>To manually clear the cache, call <strong>clearCachedResponsesForStoragePolicy:</strong>, passing the storage policy for the cached data you want to remove:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> sharedCache<span style="color: #002200;">]</span> clearCachedResponsesForStoragePolicy<span style="color: #002200;">:</span>ASICachePermanentlyCacheStoragePolicy<span style="color: #002200;">]</span>;</code></pre>
+
+<h3 id="other_cache_related_features">Other cache-related features</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// When you turn shouldRespectCacheControlHeaders off, the cache will store responses even if the server </span>
+<span style="color: #11740a; font-style: italic;">// has explictly asked for them not be be cached (eg with a cache-control or pragma: no-cache header)</span>
+<span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> sharedCache<span style="color: #002200;">]</span> setShouldRespectCacheControlHeaders<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Set secondsToCache on the request to override any expiry date for the content set by the server, and store </span>
+<span style="color: #11740a; font-style: italic;">// this response in the cache until secondsToCache seconds have elapsed</span>
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setSecondsToCache<span style="color: #002200;">:</span><span style="color: #2400d9;">60</span><span style="color: #002200;">*</span><span style="color: #2400d9;">60</span><span style="color: #002200;">*</span><span style="color: #2400d9;">24</span><span style="color: #002200;">*</span><span style="color: #2400d9;">30</span><span style="color: #002200;">]</span>; <span style="color: #11740a; font-style: italic;">// Cache for 30 days</span>
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// After a request has run, didUseCachedResponse will return YES if the response was returned from the cache</span>
+<span style="color: #002200;">[</span>request didUseCachedResponse<span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Ask the cache for a path to store the response. This is the most efficient way to use a download cache, </span>
+<span style="color: #11740a; font-style: italic;">// since data doesn't have to be copied into the cache when the request completes.</span>
+<span style="color: #002200;">[</span>request setDownloadDestinationPath<span style="color: #002200;">:</span>
+   <span style="color: #002200;">[</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIDownloadCache.h"><span style="color: #3f7588;">ASIDownloadCache</span></a> sharedCache<span style="color: #002200;">]</span> pathToStoreCachedResponseDataForRequest<span style="color: #002200;">:</span>request<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;
+&nbsp;</code></pre>
+<h3 id="writing_your_own_cache">Writing your own cache</h3>
+
+<p>If you already have a download cache and would like to plug it in to ASIHTTPRequest, or you prefer to write your own, have your cache implement the <a href="http://github.com/pokeb/asi-http-request/blob/master/Classes/ASICacheDelegate.h">ASICacheDelegate</a> protocol.</p>
+
+</section>
+
+<section>
+
+<h2 id="throttling_bandwidth">Throttling bandwidth</h2>
+
+<p>As of v1.0.7, ASIHTTPRequest can throttle the bandwidth used by all requests to prevent it going over a user-defined limit. This may help iPhone applications that send or receive large amounts of data to make it through the app store review process.</p>
+
+<p>Throttling works by using a global limit (in bytes) for how much data can be received or transmitted in one second. All requests share this limit. As they send or receive data, ASIHTTPRequest keeps track of how much data has been sent or received in the last second. If one request exceeds the limit, any others running will also have to wait for the remainder of the current measurement period.</p>
+
+<p>On iOS, you can tell ASIHTTPRequest to automatically turn throttling on when using a WWAN (GPRS/Edge/3G) connection, and it will automatically turn it off when switching to WiFi.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Will limit bandwidth to the predefined default for mobile applications when WWAN is active.</span>
+<span style="color: #11740a; font-style: italic;">// Wi-Fi requests are not affected</span>
+<span style="color: #11740a; font-style: italic;">// This method is only available on iOS</span>
+<span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> setShouldThrottleBandwidthForWWAN<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Will throttle bandwidth based on a user-defined limit when when WWAN (not Wi-Fi) is active</span>
+<span style="color: #11740a; font-style: italic;">// This method is only available on iOS</span>
+<span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> throttleBandwidthForWWANUsingLimit<span style="color: #002200;">:</span><span style="color: #2400d9;">14800</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Will prevent requests from using more than the predefined limit for mobile applications.</span>
+<span style="color: #11740a; font-style: italic;">// Will limit ALL requests, regardless of whether Wi-Fi is in use or not - USE WITH CAUTION</span>
+<span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> setMaxBandwidthPerSecond<span style="color: #002200;">:</span>ASIWWANBandwidthThrottleAmount<span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Log how many bytes have been received or sent per second (average from the last 5 seconds)</span>
+NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"%qi"</span>,<span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> averageBandwidthUsedPerSecond<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;
+&nbsp;</code></pre>
+<aside class="info">
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/info.png" alt="">
+<div>
+<p><strong>IMPORTANT: Read this before enabling bandwidth throttling:</strong></p>
+<ul>
+<li><strong>Bandwidth throttling should be considered an experimental feature:  Use at your own risk.</strong></li>
+<li>Do not set the bandwidth limit too low - it’s probably best not to set it below ASIWWANBandwidthThrottleAmount</li>
+<li>The actual bandwidth used by your application will always be slightly more than the limit you have set, because the measured bandwidth does not include the bandwidth used by HTTP headers.</li>
+<li>The value of ASIWWANBandwidthThrottleAmount is not official, as far as I know, no bandwidth limit has been officially published.</li>
+<li>You should not turn on bandwidth throttling unless your application is likely to send or receive large amounts of data. It may be best to turn it only only while performing requests that download or upload a large amount of data, and leave it off at all other times.</li>
+<li>It probably goes without saying, but I make no guarantee your app won’t be rejected for using excessive bandwidth when you turn on throttling.</li>
+</ul>
+</div>
+</aside>
+
+</section>
+<section>
+
+<h2 id="client_certificates">Client certificates support</h2>
+
+<p>If your server requires the use of client certificates, as of v1.8 it is now possible to send them with your request.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Will send the certificate attached to the identity (identity is a SecIdentityRef)</span>
+<span style="color: #002200;">[</span>request setClientCertificateIdentity<span style="color: #002200;">:</span>identity<span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Add an additional certificate (where cert is a SecCertificateRef)</span>
+<span style="color: #002200;">[</span>request setClientCertificates<span style="color: #002200;">:</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/"><span style="color: #400080;">NSArray</span></a> arrayWithObject<span style="color: #002200;">:</span><span style="color: #002200;">(</span><span style="color: #a61390;">id</span><span style="color: #002200;">)</span>cert<span style="color: #002200;">]</span><span style="color: #002200;">]</span>;</code></pre>
+<p>There is a helper function in <a href="https://github.com/pokeb/asi-http-request/blob/master/Classes/Tests/ClientCertificateTests.m">ClientCertificateTests.m</a> in the iPhone / iPad sample app that can create a SecIdentityRef from PKCS12 data (this function only works on iOS).</p>
+
+</section>
+<section>
+
+<h2 id="working_with_proxies">Working with Proxies</h2>
+
+<p>ASIHTTPRequest can detect system proxy settings and automatically apply them to requests. As of v1.0.6, it also supports PAC file proxy configuration, and authenticating proxies.</p>
+
+<p>By default, ASIHTTPRequest will attempt to detect proxy settings automatically. However, should you wish, you can manually set proxy settings:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Configure a proxy server manually</span>
+<a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ignore"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setProxyHost<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"192.168.0.1"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setProxyPort<span style="color: #002200;">:</span><span style="color: #2400d9;">3128</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Alternatively, you can use a manually-specified Proxy Auto Config file (PAC)</span>
+<span style="color: #11740a; font-style: italic;">// (It's probably best if you use a local file)</span>
+<span style="color: #002200;">[</span>request setPACurl<span style="color: #002200;">:</span><span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"file:///Users/ben/Desktop/test.pac"</span><span style="color: #002200;">]</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="authenticating_proxies">Authenticating proxies</h3>
+
+<p>On Mac OS, ASIHTTPRequest can auto-detect credentials used for authenticating proxies if they are specified in System Preferences. On iOS, ASIHTTPRequest cannot auto-detect the credentials used for authenticating proxies, so you either have to set them manually, use delegation to ask your controller / the user for appropriate credentials, or let <a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#proxy_auth_dialog">ASIAuthenticationDialog</a> ask the user for them. Once valid proxy credentials have been obtained, they are stored in the keychain (when useKeychainPersistence is on) and are automatically reused.</p>
+
+<h3 id="manually_specifying_credentials_for_the_proxy">Manually specifying credentials for the proxy</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> <span style="color: #002200;">*</span>url <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/"><span style="color: #400080;">NSURL</span></a> URLWithString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"http://allseeing-i.com/ignore"</span><span style="color: #002200;">]</span>;
+<a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> <span style="color: #002200;">*</span>request <span style="color: #002200;">=</span> <span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> requestWithURL<span style="color: #002200;">:</span>url<span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setProxyHost<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"192.168.0.1"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setProxyPort<span style="color: #002200;">:</span><span style="color: #2400d9;">3128</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Set a username and password for authenticating proxies</span>
+<span style="color: #002200;">[</span>request setProxyUsername<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"bencopsey"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setProxyPassword<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"password"</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// For NTLM proxies, you can also set the domain (NTLM proxies are untested!)</span>
+<span style="color: #002200;">[</span>request setProxyDomain<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"la.la.land"</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="using_delegation_to_ask_for_proxy_credentials">Using delegation to ask for proxy credentials</h3>
+
+<p>This works in the same way as <a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#delegate_authentication">using delegates to provide credentials for regular authentication</a>, except that your delegate must respond to <strong>proxyAuthenticationNeededForRequest:</strong> (formerly proxyAuthorizationNeededForRequest:).</p>
+
+<img src="./ASIHTTPRequest example code - All-Seeing Interactive_files/proxy-auth-dialog.png" alt="Picture of the proxy authentication dialog" class="r shadow">
+
+<h3 id="using_the_built_in_proxy_authentication_dialog">Using the built-in authentication dialog (currently iOS only)</h3>
+
+<p>New in v1.0.8 is the ASIAuthenticationDialog class. This can be used to ask the user for credentials for authenticating webservers and proxies.</p>
+
+<p>If your delegate does not respond to proxyAuthenticationNeededForRequest:, by default, ASIHTTPRequest will show a dialog prompting the user to supply credentials. It appears by default for proxy servers so that all apps using ASIHTTPRequest can work with authenticating proxies without any additional effort on the part of the developer.</p>
+
+<p>The proxy authentication dialog will not appear for synchronous requests.</p>
+
+<p>If you prefer not to use the proxy authentication dialog, either implement proxyAuthenticationNeededForRequest: in your proxy, or set shouldPresentProxyAuthenticationDialog to false (in which case your application will not be able to connect to authenticating proxies). If you want to change the look and feel, subclass ASIHTTPRequest, and override showProxyAuthenticationDialog to show your custom dialog or ASIAuthenticationDialog subclass.</p>
+
+
+</section>
+<section>
+
+<h2>Miscellaneous features</h2>
+
+<h3 id="user_agent">Customising the user agent</h3>
+
+<p>To set the user agent your app will use, do this:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> setDefaultUserAgentString<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"MyApp 1.0"</span><span style="color: #002200;">]</span></code></pre>
+<p>If you do not set a user agent, ASIHTTPRequest will create one for you. An example (for a Mac OS application):</p>
+
+<p><em>My Application 1.0 (Macintosh; Mac OS X 10.5.7; en_GB)</em></p>
+
+<p>You can also set the user agent on a per-request basis:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setUserAgent<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"MyApp 1.0"</span><span style="color: #002200;">]</span></code></pre>
+<h3 id="background_downloads_ios">Continuing a request when your app enters the background on iOS</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// iOS 4+ only</span>
+<span style="color: #002200;">[</span>request setShouldContinueWhenAppEntersBackground<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="monitoring_network_activity">Monitoring network activity</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Log the average bandwidth used (in bytes) per second over the last 5 seconds</span>
+NSLog<span style="color: #002200;">(</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"%llu"</span>,<span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> averageBandwidthUsedPerSecond<span style="color: #002200;">]</span><span style="color: #002200;">)</span>;
+&nbsp;
+<span style="color: #a61390;">if</span> <span style="color: #002200;">(</span><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> isNetworkInUse<span style="color: #002200;">]</span><span style="color: #002200;">)</span> <span style="color: #002200;">{</span>
+	<span style="color: #11740a; font-style: italic;">// ASIHTTPRequest has requests in progress that are using the network</span>
+<span style="color: #002200;">}</span></code></pre>
+<h3 id="disabling_automatic_updates_to_the_network_activity_indicator">Disabling automatic updates to the network activity indicator (iOS only)</h3>
+
+<p>By default, ASIHTTPRequests will show the network activity indicator (in the status bar) on iOS devices when requests are using the network. If you prefer to manage this yourself, you can disable these updates:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span><a href="http://github.com/pokeb/asi-http-request/tree/master/Classes/ASIHTTPRequest.h"><span style="color: #3f7588;">ASIHTTPRequest</span></a> setShouldUpdateNetworkActivityIndicator<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;</code></pre>
+
+<h3 id="automatically_retry_requests_when_they_time_out">Automatically retry requests when they time out</h3>
+
+<p>Make requests retry a maximum of 2 times if they encounter a timeout:</p>
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setNumberOfTimesToRetryOnTimeout<span style="color: #002200;">:</span><span style="color: #2400d9;">2</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="configuring_persistent_connections">Configuring persistent connections</h3>
+
+<p>By default, ASIHTTPRequest will attempt to keep connections to a server open so that they can be reused by other requests to the same server (this generally results in significant speed boost, especially if you have many small requests). Persistent connections will be used automatically when connecting to an HTTP 1.1 server, or when the server sends a keep-alive header. Persistent connections are not used if the server explicitly sends a ‘Connection: close’ header. Additionally, ASIHTTPRequest will not use persistent connections for requests that include a body (eg POST/PUT) by default (as of v1.8.1). You can force the use of persistent connections for these request by manually setting the request method, then turning persistent connections back on:</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setRequestMethod<span style="color: #002200;">:</span><span style="color: #bf1d1a;">@</span><span style="color: #bf1d1a;">"PUT"</span><span style="color: #002200;">]</span>;
+<span style="color: #002200;">[</span>request setShouldAttemptPersistentConnection<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;</code></pre>
+<p>Many servers do not provide any information in response headers on how long to keep a connection open, and may close the connection at any time after a request is finished. If the server does not send any information about how long the connection should be used, ASIHTTPRequest will keep connections to a server open for 60 seconds after any request has finished using them. Depending on your server configuration, this may be too long, or too short.</p>
+
+<p>If this timeout is too long, the server may close the connection before the next request gets a chance to use it. When ASIHTTPRequest encounters an error that appears to be a closed connection, it will retry the request on a new connection.</p>
+
+<p>If this timeout is too short, and the server may be happy to keep the connection open for longer, but ASIHTTPRequest will needlessly open a new connection, which will incur a performance penalty.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #11740a; font-style: italic;">// Set the amount of time to hang on to a persistent connection before it should expire to 2 minutes</span>
+<span style="color: #002200;">[</span>request setPersistentConnectionTimeoutSeconds<span style="color: #002200;">:</span><span style="color: #2400d9;">120</span><span style="color: #002200;">]</span>;
+&nbsp;
+<span style="color: #11740a; font-style: italic;">// Disable persistent connections entirely</span>
+<span style="color: #002200;">[</span>request setShouldAttemptPersistentConnection<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="forcing_the_use_of_HTTP1.0">Forcing the use of HTTP 1.0</h3>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setUseHTTPVersionOne<span style="color: #002200;">:</span><span style="color: #a61390;">YES</span><span style="color: #002200;">]</span>;</code></pre>
+<h3 id="disabling_secure_certificate_validation">Disabling secure certificate validation</h3>
+
+<p>You may wish to use this for testing purposes if you have a self-signed secure certificate. I recommend purchasing a certificate from a trusted certificate authority and leaving certificate validation turned on for production applications.</p>
+
+<pre class="objc objc" style="font-family:monospace;"><code><span style="color: #002200;">[</span>request setValidatesSecureCertificate<span style="color: #002200;">:</span><span style="color: #a61390;">NO</span><span style="color: #002200;">]</span>;</code></pre>
+
+</section>
+<section>
+
+<h2 id="debugging_options">Debugging options</h2>
+
+<p>ASIHTTPRequest provides a few flags that may be helpful in debugging request behaviour. These can be found in <a href="https://github.com/pokeb/asi-http-request/blob/master/Classes/ASIHTTPRequestConfig.h">ASIHTTPRequestConfig.h</a>.</p>
+
+<p>When you turn on one of these flags, requests will print out information about what they are doing to the console.</p>
+
+<h4>DEBUG_REQUEST_STATUS</h4>
+<p>Prints information on the overall request lifecyle - starting, finishing upload, finishing download etc.</p>
+
+<h4>DEBUG_THROTTLING</h4>
+<p>Prints information on (roughly) how much bandwidth requests are using, and if requests are being throttled, information about how this is happening. In conjunction with DEBUG_REQUEST_STATUS, this can be helpful for debugging timeouts, as you can see the point at which a request stopped sending or receiving data.</p>
+
+<h4>DEBUG_PERSISTENT_CONNECTIONS</h4>
+<p>Prints information on how requests are re-using persistent connections. If you are seeing output like:</p>
+
+<pre><code>Request attempted to use connection #1, but it has been closed - will retry with a new connection</code></pre>
+
+<p>...this is an indication that the value you have for persistentConnectionTimeoutSeconds may be too high. See the <a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use#configuring_persistent_connections">notes on configuring persistent connections</a> for more info.</p>
+
+<h4>DEBUG_HTTP_AUTHENTICATION</h4>
+<p>New in v1.8.1: This prints out information on how how request are handling HTTP authentication (Basic, Digest or NTLM).</p>
+
+<h4>DEBUG_FORM_DATA_REQUEST</h4>
+<p>Prints a summary of the request body that an ASIFormDataRequest will send. This is only helpful when using ASIFormDataRequest.</p>
+
+</section>
+
+</article>
+<footer>
+<p id="copyright">© Ben Copsey, All-Seeing Interactive 2008-2011.</p>
+</footer>
+</div>
+
+</body></html>
