@@ -1,0 +1,423 @@
+@charset "utf-8";
+/* CSS Document */
+/*left*/
+#onecode{
+	width:728px;
+	float:left;
+	margin-top: 15px;
+	background-color:#FFF;
+}
+#title{
+	width:728px;
+	float:left;
+	font-size:26px;
+	margin-bottom: 10px;
+}
+#codeinfo{
+	width:728px;
+	float:left;
+}
+
+#infoul{
+	width:480px;
+	margin-left:18px;
+	float:left;
+}
+#infoul li{
+	float:left;
+	margin:3px 0;
+}
+.infoname{
+	width:60px;
+	float:left;
+	color:#999;
+}
+.info{
+	width:180px;
+	float:left;
+}
+.info2{
+	width:400px;
+}
+#downbox{
+	width:210px;
+	height:120px;
+	margin-left: 20px;
+	float:left;
+}
+#down a{
+	float:right;
+	width:189px;
+	height:50px;
+	padding-left: 20px;
+	line-height: 50px;
+	font-size: 16px;
+	margin-bottom:20px;
+	cursor:pointer;
+	background-color: #3498db;
+	color: #FFF;
+	text-align: center;
+	background-image: url(../img/download20.png);
+	background-position: 60px 15px;
+	background-repeat: no-repeat;
+}
+#down a:hover{
+	text-decoration: none;
+	background-color:#3498db;
+}
+#wblike{
+	position:absolute;
+	top:0;
+	right:10px;
+}
+
+#share{
+	width:180px;
+	height:18px;
+	margin-top:5px;
+	float:right;
+}
+
+#favbox{
+	width:209px;
+	float:right;
+	font-size:13px;
+}
+#favbtn{
+	height:16px;
+	padding:5px;
+	float:left;
+	background-color:#999;
+	cursor:pointer;
+	color:#FFF;
+}
+#favbtn:hover{
+	background-color:#3498db;
+	color:#FFF;
+}
+#favtips{
+	float:left;
+	height:16px;
+	padding-top:5px;
+	color:#999;
+	margin-left:10px;
+	display:none;
+}
+
+#codeintro{
+	width:728px;
+	margin-top:30px;
+	float:left;
+	font-size:13px;
+	font-weight:normal;
+	line-height: 20px;
+}
+#codeusage{
+	width:728px;
+	margin-top:30px;
+	float:left;
+	font-size:13px;
+	font-weight:normal;
+	line-height: 20px;
+	word-wrap:break-word;
+}
+#githubbox{
+	float:left;
+	width:726px;
+	margin-top:30px;
+	background-color: #fafafa;
+	font-family: helvetica,arial,sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+	border: 1px solid #ddd;
+	color: #666;
+	display: none;
+}
+#github-header{
+	float: left;
+	width:706px;
+	height: 26px;
+	padding: 4px 10px;
+	background-color: #DDD;
+}
+#github-logo{
+	float: left;
+	width: 54px;
+	height: 26px;
+	margin-right: 20px;
+}
+#github-repos-name{
+	float: left;
+	height: 26px;
+	line-height: 26px;
+	font-size: 16px;
+}
+#github-repos-data{
+	float: right;
+	height: 24px;
+	background-color: #FFF;
+	border: solid 1px #CCC;
+}
+#github-repos-data div{
+	float: left;
+	font-size: 13px;
+	height: 18px;
+	line-height: 18px;
+	padding: 3px 6px;
+}
+#github-repos-watch{
+	border-right: solid 1px #CCC;
+}
+#github-repos-description,#github-repos-update{
+	float: left;
+	width: 706px;
+	padding: 10px;
+}
+#github-repos-description{
+	border-bottom: solid 1px #CCC;
+}
+#github-repos-update{
+	background-color: #FFF;
+}
+
+#codeenv,#codevideo{
+	float:left;
+	width:708px;
+	margin-top:30px;
+	font-size:13px;
+	font-weight:normal;
+	line-height: 20px;
+}
+
+#videolist{
+	width:693px;
+	margin-left:15px;
+	float:left;
+}
+.onevideo{
+	width:693px;
+	float:left;
+	margin-bottom:10px;
+}
+
+#codephoto{
+	width:708px;
+	margin-top:30px;
+	float:left;
+}
+.codetitle{
+	width:708px;
+	margin-bottom:15px;
+	float:left;
+	font-size:16px;
+	font-weight:bolder;
+}
+#photoul{
+	width:693px;
+	margin-left:15px;
+	float:left;
+}
+#photoul li{
+	float:left;
+	width:320px;
+	height:480px;
+	text-align: center;
+	margin-right:20px;
+	margin-bottom:10px;
+	background-color:#FFF;
+	padding:2px;
+	border:solid 1px #ccc;
+}
+#photoul li img{
+	max-width: 320px;
+	max-height: 480px;
+}
+#relatedcode{
+	width:728px;
+	float:left;
+	margin-top:30px;
+}
+
+#relatedcodeul{
+	width:698px;
+	margin:0 15px;
+	float:left;
+}
+#relatedcodeul li{
+	width:698px;
+	float:left;
+	padding-bottom: 10px;
+	border-bottom: dashed 1px #DDD;
+	margin-bottom:10px;
+	line-height: 20px;
+}
+.relatedcode-name{
+	font-size:16px;
+	margin-bottom: 10px;
+}
+.relatedcode-description{
+	font-size:12px;
+	color:#333!important;
+}
+
+
+#codediscuss{
+	width:728px;
+	margin-top:30px;
+	float:left;
+}
+
+
+#onecode #copyright{
+	width:728px;
+	margin-top:30px;
+	float:left;
+	color:#999;
+	text-align:right;
+}
+#onecode #copyright a{
+	color:#999;
+}
+
+#discussbox{
+	width:728px;
+	float: left;
+	margin-bottom: 20px;
+}
+.discuss-nologin{
+	text-align: center;
+	border: dotted 1px #EEE;
+	padding: 10px;
+}
+#discussbox .tab0{
+	width:728px;
+}
+
+#discussbox .tab1{
+	width:668px;
+	margin-left: 60px;
+}
+#discussbox .tab2{
+	width:608px;
+	margin-left: 120px;
+}
+#discussbox .tab3{
+	width:548px;
+	margin-left: 180px;
+}
+
+#discuss-list{
+	width: 728px;
+	float: left;
+}
+.discuss-one{
+	float: left;
+	border-top: solid 1px #EEE;
+	margin: 10px 0;
+	margin-bottom: 0;
+	padding-top: 10px;
+}
+.discuss-userimage{
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 10px;
+}
+.discuss-userimage img{
+	width: 48px;
+	height: 48px;
+	border: solid 1px #EEE;
+}
+.discuss-main, .discuss-info, .discuss-content, .discuss-user, .discuss-time, .discuss-saybox{
+	float: left;
+}
+.tab0 .discuss-main, .tab0 .discuss-info, .tab0 .discuss-content, .tab0 .discuss-saybox{
+	width:668px;
+}
+.tab1 .discuss-main, .tab1 .discuss-info, .tab1 .discuss-content, .tab1 .discuss-saybox{
+	width:608px;
+}
+
+.tab .discuss-saybox{
+	width: 728px;
+}
+.discuss-user{
+	font-weight: 600;
+}
+.discuss-user a{
+	color: #999;
+}
+.discuss-time{
+	margin-left: 10px;
+	color: #999;
+}
+.discuss-button{
+	float: right;
+	color: #999;
+}
+
+.discuss-button a{
+	color: #999;
+}
+.discuss-button .replyto{
+	cursor: pointer;
+}
+.discuss-content{
+	margin-top: 10px;
+	font-size: 13px;
+	line-height: 150%;
+}
+.discuss-saybox{
+	margin-top: 10px;
+	display: none;
+}
+.discuss-sayboxmain .discuss-saybox{
+	display: block;
+}
+.discuss-saybox-main, .discuss-saybox-button{
+	float: left;
+	width: 100%;
+}
+.discuss-saybox-main{
+
+}
+.discuss-saybox-button{
+	margin-top: 10px;
+}
+.ureply{
+	height: 60px;
+	margin: 0;
+	padding: 5px;
+	float: left;
+	resize:vertical;
+	outline:none;
+	border:solid 1px #CCC;
+}
+.tab .ureply{
+	width:716px;
+}
+.tab0 .ureply{
+	width:656px;
+}
+.tab1 .ureply{
+	width:596px;
+}
+.tab2 .ureply{
+	width:516px;
+}
+.tab3 .ureply{
+	width:456px;
+}
+.replybtn{
+	width: 60px;
+	height: 26px;
+	background-color: #999;
+	border: 0;
+	cursor: pointer;
+	color: #FFF;
+	font-weight: bold;
+
+}
+.replybtn:hover{
+	background-color: #3498db;
+}

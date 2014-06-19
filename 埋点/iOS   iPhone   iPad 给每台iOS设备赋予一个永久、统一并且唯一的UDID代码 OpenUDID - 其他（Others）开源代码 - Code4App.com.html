@@ -1,0 +1,502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0057)http://code4app.com/ios/OpenUDID/4fba4b516803fa3325000000 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wb="http://open.weibo.com/wb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>iOS / iPhone / iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com</title>
+<meta name="description" content="给每台iOS设备（iPhone/itouch/iPad）赋予一个永久、统一并且唯一的UDID（Unique Device IDentifier）。给每台设备提供唯一的UUID，经常用于一些app分析工具。在你需要分析用户的一些app使用情况的时候，你必须得统计每一个不同的用户（对应不同的app安装设备），这时候，就必须用到UDID。补仓一下，因为使用这个代码能够十分方便应用到自己的app中（NSString* openUDID = [OpenUDID value];），所以并不提供demo代码，所以对应图片并不是这个代码的效果图。这个效果图是作者要求：如果你在你的app中使用了OpenUDID，那么请在该app的网页上加上这张图片。 其他（Others） OpenUDID ">
+<!--<base href="http://code4app.com/">--><base href=".">
+<link rel="canonical" href="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com.html">
+<link rel="stylesheet" type="text/css" href="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/css.css">
+<link rel="stylesheet" type="text/css" href="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/page.css">
+<script type="text/javascript" async="" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/ga.js"></script><script type="text/javascript">
+	var code = 'fd05d24a0d8f2fa0c1645a2e45511054';
+	var code_id = '4fba4b516803fa3325000000';
+	var fav_num = 68;
+	var is_login = false;
+	var is_fav = false;
+	var is_click = false;
+</script>
+<script type="text/javascript" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/jquery-1.6.js"></script>
+<script type="text/javascript" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/js.js"></script>
+<meta property="og:type" content="webpage">
+<meta property="og:url" content="http://code4app.com/ios/4fba4b516803fa3325000000">
+<meta property="og:title" content="iOS代码：OpenUDID (via Code4App.com)">
+<meta property="og:description" content="iOS / iPhone / iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码。">
+
+<meta property="og:image" content="http://code4app.qiniudn.com/photo/4fba4b516803fa3325000000_1.png">
+<meta name="weibo:webpage:create_at" content="2012-05-22">
+<meta name="weibo:webpage:update_at" content="2012-05-22">
+<style type="text/css">
+#onecode a{
+	color: #3498db;
+}
+#down a{
+	color: #FFF;
+}
+</style>
+<script charset="UTF-8" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/bundle.js"></script><script charset="UTF-8" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/like.js"></script><link href="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/praiseButton.css" type="text/css" rel="stylesheet"></head>
+
+<body><iframe id="WEIBO_STK_LOGIN_IFRAME" name="WEIBO_STK_LOGIN_IFRAME" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/login_Proxy.html" style="display: none;"></iframe><iframe id="sina_anywhere_iframe" style="display: none;"></iframe>
+<div id="allsite-header">
+	<div id="allsite-header-inner">
+		<ul id="loginfo">
+						<li class="li16px">登录：</li>
+			<li class="li16px loginbtn" id="weibologin"><a href="http://code4app.com/oauthV2/weibo" title="用微博账号登录 Code4App"></a></li>
+			<li class="li16px loginbtn" id="qqlogin"><a href="http://code4app.com/oauthV2/qq" title="用QQ账号登录 Code4App"></a></li>
+								</ul>
+		<ul id="site-list">
+			<li class="site-one current">
+				<a href="http://code4app.com/" title="Code4App iOS" class="site-icon code4app-ios">iOS</a>
+			</li>
+
+			
+			<li class="site-one">
+				<a href="http://ui4app.com/" title="UI4App" class="site-icon ui4app-icon">UI4App</a>
+			</li>
+			<li class="site-one ">
+				<a href="http://code4app.com/spark" title="火花社区" class="site-icon code4app-spark">火花社区</a>
+			</li>
+			<li class="site-one">
+				<a href="http://www.apkbus.com/" title="APKBUS" class="site-icon apkbus-icon" target="_blank">APKBUS</a>
+			</li>
+		</ul>
+	</div>
+</div><div id="header">
+	<div id="headerbox">
+		<div id="logo"><a href="http://code4app.com/" title="Code4App"><img src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/code4app_logo_1102.png"></a></div>
+		<div id="searchbox">
+			<form action="http://code4app.com/#" method="get" id="searchform">
+			<div id="search-button"><input type="image" name="submit" id="search" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/search30.png"></div>
+			<div id="search-input"><input type="text" id="word" value="搜索代码"></div>
+			</form>
+		</div>
+		<div id="fb"><iframe width="114" height="24" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/followbutton.html"></iframe></div>
+		<script type="text/javascript">$(function (){$('#fb').html('<iframe width="114" height="24" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=114&height=24&uid=2661120803&style=2&btn=red&dpc=1"></iframe>');});</script>
+	</div>
+</div>
+<div id="sitenav" class="">
+	<div id="navbox">
+		<ul id="nav">
+			<li><a href="http://code4app.com/" class="" title="Code4App">首页</a></li>  
+			<li><a href="http://code4app.com/category" class="current" title="iOS 开源代码">iOS 代码</a></li>
+			<li><a href="http://code4app.com/requirement" class="" title="iOS 问答">iOS 问答</a></li>
+			<li><a href="http://code4app.com/snippets" class="" title="iOS 代码片段">代码片段</a></li>
+			<li><a href="http://code4app.com/upload" class="" title="上传并分享您的代码">上传代码</a></li>
+			<li><a href="http://code4app.com/course" class="" title="视频教程">视频教程</a></li>
+						<li><a href="http://code4app.com/developer" class="" title="iOS 开发者">iOS 开发者</a></li>
+			<li><a href="http://code4app.com/resource" class="" title="iOS 资源">iOS 资源</a></li>
+			
+		</ul>
+	</div>
+</div><div id="main">
+	<div id="main-content" style="position:relative;">
+		<ul id="bcnav">
+			<li><a href="http://code4app.com/">首页</a></li>
+			<li>&gt;</li>
+			<li><a href="http://code4app.com/category/others" title="其他（Others）">其他（Others）</a></li>
+			<li>&gt;</li>
+			<li>OpenUDID</li>
+		</ul>
+		
+		<div id="onecode">
+			<h2 id="title">OpenUDID</h2>
+			<div id="codeinfo">
+				<ul id="infoul">
+					<li><div class="infoname">来源：</div><div class="info"><a href="https://github.com/ylechelle/OpenUDID" target="_blank" title="https://github.com/ylechelle/OpenUDID">github/OpenUDID</a></div></li>
+					<li><div class="infoname">Licence：</div><div class="info">Zlib</div></li>
+					
+					<li><div class="infoname">作者：</div><div class="info">
+													Yann Lechelle											</div></li>
+					<li><div class="infoname">分类：</div><div class="info"><a href="http://code4app.com/category/others" title="其他（Others）" target="_blank">其他（Others）</a></div></li>
+					
+					
+					<li><div class="infoname">平台：</div><div class="info">iOS</div></li>
+					<li><div class="infoname">设备：</div><div class="info">iPhone&nbsp;/&nbsp;iPad</div></li>
+
+					<li><div class="infoname">大小：</div><div class="info">10.58 KB</div></li>
+					<li><div class="infoname">更新：</div><div class="info">2012-05-22</div></li>
+					
+					<li><div class="infoname">查看：</div><div class="info">12961 次</div></li>
+					<li><div class="infoname">下载：</div><div class="info">1960 次</div></li>
+					
+					<li><div class="infoname">TAG：</div><div id="taginfo" class="info info2"><a href="http://code4app.com/search/UDID" title="UDID" target="_blank">UDID</a></div></li>
+					<li><div class="infoname" style="height:28px; line-height:28px;">网址：</div><div class="info info2"><input type="text" value="http://code4app.com/ios/4fba4b516803fa3325000000" style="padding:2px 5px; width:310px;" onmouseover="this.select()" onfocus="this.select()" autocomplete="off" id="codeurl"> (<span id="cliptips" style="color:#999; font-size:12px;">←点击复制</span>)</div></li>
+				</ul>
+				<div id="downbox">
+					<div id="down"><a href="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com.html" id="downlink" target="_blank" title="下载代码">下载代码</a></div>
+					<!--<div style="width: 210px;height:50px;margin-bottom: 20px;float: left;background-color:#3498db;line-height:50px;text-align:center;">
+						<a href="http://126.am/QVUiL0" target="_blank" style="color:#FFF;">获取阿里云代金券</a>
+					</div>-->
+					<div id="favbox">
+						<div id="favbtn" cid="4fba4b516803fa3325000000">加入收藏</div>
+						<div id="favtips" style="display: block;">已有 <span id="favnum">68</span> 人收藏</div>
+					</div>
+				</div>
+			</div>
+			
+
+						<div id="githubbox" style="display: block;">
+				<div id="github-header">
+					<div id="github-logo"><a href="https://github.com/" target="_blank"><img src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/github.png"></a></div>
+					<div id="github-repos-name">
+						<a href="https://github.com/ylechelle" target="_blank">ylechelle</a>
+						/
+						<a href="https://github.com/ylechelle/OpenUDID" target="_blank">OpenUDID</a>
+					</div>
+					<div id="github-repos-data">
+						<div id="github-repos-watch">Star 1146</div>
+						<div id="github-repos-fork">Fork 279</div>
+					</div>
+				</div>
+				<div id="github-repos-description">Open source initiative for a universal and persistent UDID solution for iOS</div>
+				<div id="github-repos-update">update at 2014-06-18</div>
+			</div>
+			
+			<h1 id="codeintro">
+				<div class="codetitle">介绍：</div>
+				&nbsp;&nbsp;&nbsp;&nbsp;给每台iOS设备（iPhone/itouch/iPad）赋予一个永久、统一并且唯一的UDID（Unique Device IDentifier）。给每台设备提供唯一的UUID，经常用于一些app分析工具。在你需要分析用户的一些app使用情况的时候，你必须得统计每一个不同的用户（对应不同的app安装设备），这时候，就必须用到UDID。补仓一下，因为使用这个代码能够十分方便应用到自己的app中（NSString* openUDID = [OpenUDID value];），所以并不提供demo代码，所以对应图片并不是这个代码的效果图。这个效果图是作者要求：如果你在你的app中使用了OpenUDID，那么请在该app的网页上加上这张图片。			</h1>
+
+			<div id="codeenv">
+				<div class="codetitle">测试环境：</div>
+								&nbsp;&nbsp;&nbsp;&nbsp;[Code4App]编译测试，测试环境：Xcode 4.3, iOS 5.0。
+							</div>
+			
+						
+			<div id="codephoto">
+				<div class="codetitle">效果图：</div>
+				<ul id="photoul">
+																	<li><img src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/4fba4b516803fa3325000000_1.png" alt="iOS / iPhone / iPad 给每台iOS设备（iPhone/itouch/iPad）赋予一个永久、统一并且唯一的UDID（Unique Device IDentifier）。给每台设备提供唯一的UUID，经常用于一些app分析工具。在你需要分析用户的一些app使用情况的时候，你必须得统计每一个不同的用户（对应不同的app安装设备），这时候，就必须用到UDID。补仓一下，因为使用这个代码能够十分方便应用到自己的app中（NSString* openUDID = [OpenUDID value];），所以并不提供demo代码，所以对应图片并不是这个代码的效果图。这个效果图是作者要求：如果你在你的app中使用了OpenUDID，那么请在该app的网页上加上这张图片。"></li>
+												</ul>
+			</div>
+
+			
+			
+
+			
+			<div id="copyright">
+				代码来源于网络，版权归作者所有。<br>
+				代码描述、演示视频、效果图版权归<a href="http://code4app.com/" title="Code4App" target="_top">Code4App</a>所有。<br>
+				未经允许，不得转载。
+			</div>
+			
+			<div id="codediscuss">
+                <div class="codetitle">
+                    代码评论：
+                </div>
+                <div id="discussbox">
+                    <div class="discuss-sayboxmain tab">
+                                            <div class="discuss-nologin">
+                        	登录后方可评论<br><br>
+							<a href="http://code4app.com/oauthV2/weibo" title="用微博账号登录 Code4App"><img src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/weibo_24.png"></a>
+							&nbsp;&nbsp;
+							<a href="http://code4app.com/oauthV2/qq" title="用QQ账号登录 Code4App"><img src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/qq_24.png"></a>
+                        </div>
+                                        </div>
+                    <ul id="discuss-list">
+                                        	<li class="discuss-one tab0">
+                    		暂无评论
+                    	</li>
+                                                            </ul>
+                </div>
+            </div>
+			
+		</div>
+		<div id="wblike"><wb:like type="text"><div class="WB_widget WB_praise" node-type="outer"><div class="praise_btn_line" node-type="inner"><a node-type="likeBtn" action-type="like" action-data="type=like" href="javascript:;" class="praise_btn status_origin "><cite class="praise_btn_inner"><u class="WB_ico_logo"></u><cite class="praise_text">赞</cite></cite></a><cite class="praise_intro" node-type="text">    	    <cite class="related_user" tempdata="true">
+		<a class="related_name" action-type="userclk" href="http://weibo.com/2103456173" target="_blank" title="lingaoo">lingaoo</a>
+		</cite>		
+				<cite class="name_split">, </cite>
+				
+		    <cite class="related_user">
+		<a class="related_name" action-type="userclk" href="http://weibo.com/1832569910" target="_blank" title="高爽shawn">高爽shawn</a>
+		</cite>		
+				
+		<cite class="praise_display">等<em node-type="count">2</em>人赞过</cite>
+</cite></div></div></wb:like></div>
+	</div>
+		<div id="main-slidebar">
+		<ul class="main-slidebar-box" id="slidebar-category-list">
+			<li class="slidebar-category-one "><a href="http://code4app.com/category" class="navcategory" title="全部代码">全部代码</a></li>
+			<li class="slidebar-category-one category-title">-控件分类-</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/activityindicator" title="指示器 (ActivityIndicator)">指示器&nbsp;(ActivityIndicator)<span style="float:right;">21</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/alertview" title="提醒对话框 (AlertView)">提醒对话框&nbsp;(AlertView)<span style="float:right;">20</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/button" title="按钮 (Button)">按钮&nbsp;(Button)<span style="float:right;">52</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/calendar" title="日历 (Calendar)">日历&nbsp;(Calendar)<span style="float:right;">23</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/camera" title="相机 (Camera)">相机&nbsp;(Camera)<span style="float:right;">16</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/hud" title="透明指示层 (HUD)">透明指示层&nbsp;(HUD)<span style="float:right;">15</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/imageview" title="图像 (Image)">图像&nbsp;(Image)<span style="float:right;">152</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/keyboard" title="键盘 (Keyboard)">键盘&nbsp;(Keyboard)<span style="float:right;">23</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/label" title="标签 (Label)">标签&nbsp;(Label)<span style="float:right;">48</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/mapview" title="地图 (Map)">地图&nbsp;(Map)<span style="float:right;">36</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/menu" title="菜单 (Menu)">菜单&nbsp;(Menu)<span style="float:right;">62</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/navigationbar" title="导航条 (Navigation Bar)">导航条&nbsp;(Navigation Bar)<span style="float:right;">32</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/picker" title="选择器 (Picker)">选择器&nbsp;(Picker)<span style="float:right;">29</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/progress" title="进度条 (Progress)">进度条&nbsp;(Progress)<span style="float:right;">40</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/scrollview" title="滚动视图 (ScrollView)">滚动视图&nbsp;(ScrollView)<span style="float:right;">98</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/segment" title="分段选择 (Segment)">分段选择&nbsp;(Segment)<span style="float:right;">16</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/slider" title="滑杆 (Slider)">滑杆&nbsp;(Slider)<span style="float:right;">34</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/statusbar" title="状态栏 (Status Bar)">状态栏&nbsp;(Status Bar)<span style="float:right;">12</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/switch" title="开关 (Switch)">开关&nbsp;(Switch)<span style="float:right;">11</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/tabbar" title="选项卡 (Tab Bar)">选项卡&nbsp;(Tab Bar)<span style="float:right;">40</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/tableview" title="列表 (Table)">列表&nbsp;(Table)<span style="float:right;">157</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/textfield" title="文字输入框 (TextField)">文字输入框&nbsp;(TextField)<span style="float:right;">35</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/textview" title="文字视图 (TextView)">文字视图&nbsp;(TextView)<span style="float:right;">55</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/webview" title="网页 (Webview)">网页&nbsp;(Webview)<span style="float:right;">22</span></a>
+			</li>
+					<li class="slidebar-category-one category-title">-功能分类-</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/animation" title="动画 (Animation)">动画&nbsp;(Animation)<span style="float:right;">68</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/audio" title="音频声效 (Audio)">音频声效&nbsp;(Audio)<span style="float:right;">55</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/chart" title="图表 (Chart)">图表&nbsp;(Chart)<span style="float:right;">46</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/cocos2d" title="游戏引擎 (cocos2d)">游戏引擎&nbsp;(cocos2d)<span style="float:right;">49</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/coremotion" title="重力感应 (CoreMotion)">重力感应&nbsp;(CoreMotion)<span style="float:right;">12</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/database" title="数据库 (Database)">数据库&nbsp;(Database)<span style="float:right;">11</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/drawing" title="绘图 (Drawing)">绘图&nbsp;(Drawing)<span style="float:right;">27</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/ebook" title="电子书 (eBook)">电子书&nbsp;(eBook)<span style="float:right;">21</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/gesture" title="手势交互 (Gesture)">手势交互&nbsp;(Gesture)<span style="float:right;">24</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/intro-guide-view" title="引导页 (Intro&amp;Guide View)">引导页&nbsp;(Intro&amp;Guide View)<span style="float:right;">15</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/networking" title="网络 (Networking)">网络&nbsp;(Networking)<span style="float:right;">35</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/popupview" title="弹出视图 (Popup View)">弹出视图&nbsp;(Popup View)<span style="float:right;">61</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/socialization" title="社交分享 (Socialization)">社交分享&nbsp;(Socialization)<span style="float:right;">19</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/view-effects" title="视图效果 (View Effects)">视图效果&nbsp;(View Effects)<span style="float:right;">52</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/viewlayout" title="视图布局 (View Layout)">视图布局&nbsp;(View Layout)<span style="float:right;">80</span></a>
+			</li>
+							<li class="slidebar-category-one ">
+				<a href="http://code4app.com/category/viewtransition" title="视图切换 (View Transition)">视图切换&nbsp;(View Transition)<span style="float:right;">51</span></a>
+			</li>
+							<li class="slidebar-category-one current">
+				<a href="http://code4app.com/category/others" title="其他 (Others)">其他&nbsp;(Others)<span style="float:right;">243</span></a>
+			</li>
+				</ul>
+	</div></div>
+<div id="footer"><div id="footerbox">
+<div id="siteabout">
+<a href="http://code4app.com/home/about">关于我们</a>
+&nbsp;|&nbsp;
+<a href="http://code4app.com/home/copyright">版权声明</a>
+&nbsp;|&nbsp;
+<a href="http://code4app.com/home/feedback">用户反馈</a>
+&nbsp;|&nbsp;
+<a href="http://code4app.com/rss.xml" rel="alternate" type="application/rss+xml" target="_blank" title="rss Feed">RSS</a>
+&nbsp;|&nbsp;
+<a href="http://code4app.com/tags">标签云</a>
+&nbsp;|&nbsp;
+<a href="http://code4app.net/" title="iOS Open Source Code Examples">iOS Source Code Examples</a>
+</div>
+<div id="copyright">Copyright 2012-2014 <a href="" title="Code4App">Code4App.com</a>. All rights reserved. <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备09199255号</a></div>
+<div id="cnzz">
+	<script type="text/javascript">
+		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9f1c15c48966c990f19d8046bb4c43e2' type='text/javascript'%3E%3C/script%3E"));
+	</script><script src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=9f1c15c48966c990f19d8046bb4c43e2" target="_blank"><img border="0" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/21.gif" width="20" height="20"></a>
+	<script src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/stat.php" language="JavaScript"></script><script src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=3963563" target="_blank" title="站长统计">站长统计</a><script type="text/javascript" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/stats" charset="UTF-8"></script>
+</div>
+<ul id="friendlink" style="width:740px;">
+<li>友情链接:</li>
+<li><a href="http://www.devdiv.com/" target="_blank" title="DevDiv">DevDiv</a></li>
+<li><a href="http://article.ityran.com/" target="_blank" title="泰然">泰然</a></li>
+<li><a href="http://www.akaifa.com/" target="_blank" title="爱开发">爱开发</a></li>
+<li><a href="http://segmentfault.com/" target="_blank" title="技术问答SegmentFault">SegmentFault</a></li>
+<li><a href="http://blog.csdn.net/v_JULY_v" target="_blank" title="结构之法 算法之道">结构之法 算法之道</a></li>
+<li><a href="http://www.tianlancun.com/" target="_blank" title="天蓝村零食网">天蓝村</a></li>
+<li><a href="http://www.shanbay.com/" target="_blank" title="扇贝网背单词">扇贝网背单词</a></li>
+<li><a href="http://www.cocoachina.com/" target="_blank" title="CocoaChina">CocoaChina</a></li>
+<li><a href="http://www.yunjii.com/" target="_blank" title="云迹，你的精美信息杂志">云迹</a></li>
+<li><a href="http://www.guimobile.net/" target="_blank" title="手机界面">手机界面</a></li>
+<li><a href="http://waimaiku.com/" target="_blank" title="外卖库">外卖库</a></li>
+<li><a href="http://www.codeios.com/" target="_blank" title="iOS开发者">iOS开发者</a></li>
+<li><a href="http://dev.iphonetw.net/" target="_blank" title="iDevTW">iDevTW</a></li>
+<li><a href="http://www.cos-beauty.com/" title="CosBeauty" target="_blank">CosBeauty</a></li>
+<li><a href="http://cn.cos-beauty.com/" title="可思美科技" target="_blank">可思美</a></li>
+<li><a href="http://www.cos-beauty.com/skintouch" title="SkinTouch Smart Skin Checker" target="_blank">SkinTouch</a></li>
+<li><a href="http://cn.cos-beauty.com/skintouch" title="SkinTouch 智能肌肤水分检测仪" target="_blank">智能肌肤水分检测仪</a></li>
+<li><a href="http://www.xcodechina.com/" target="_blank" title="XcodeChina">XcodeChina</a></li>
+<li><a href="http://www.sharesdk.cn/" title="ShareSDK" target="_blank">ShareSDK</a></li>
+<li><a href="http://www.tuicool.com/" title="推酷" target="_blank">推酷</a></li>
+<li><a href="http://www.iphonetrain.com/" title="专注于iOS开发培训" target="_blank">无限互联3G学院</a></li>
+<li><a href="http://www.ucai.cn/" title="优才网" target="_blank">优才网</a></li>
+<li><a href="http://www.cloopen.com/" title="云通讯" target="_blank">云通讯平台</a></li>
+<li><a href="http://www.3wzhaopin.com/" title="3W招聘" target="_blank">3W招聘</a></li>
+<li><a href="http://idevchina.com/" title="iDevChina" target="_blank">iDevChina</a></li>
+<li><a href="http://kuailexue.com/" title="快乐学" target="_blank">快乐学</a></li>
+<li><a href="http://www.cgmodel.cn/" title="CG模型网" target="_blank">CG模型网</a></li>
+<li><a href="http://www.php100.com/" title="PHP100中文网" target="_blank">PHP100中文网</a></li>
+<li><a href="http://www.apkbus.com/" title="APKBUS" target="_blank">APKBUS</a></li>
+<li><a href="http://www.coolxap.com/" title="酷七网" target="_blank">酷七网</a></li>
+<li><a href="http://t.neitui.me/" title="内推网" target="_blank">内推网</a></li>
+<li><a href="http://www.nashangban.com/" title="哪上班" target="_blank">哪上班</a></li>
+<li><a href="http://www.jj.cn/" title="JJ斗地主" target="_blank">JJ比赛</a></li>
+<li><a href="http://www.ibeifeng.com/" title="北风网" target="_blank">北风网</a></li>
+<li><a href="http://www.ucloud.cn/">UCloud云主机</a></li>
+<li>耗时 0.1803 秒</li>
+</ul>
+<div style=" width:206px; height:67px;float:right; margin-top:15px;"><a href="http://www.qiniu.com/" title="Powered by 七牛" target="_blank"><img src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/qiniu20667.png" width="206" height="67" alt="七牛云存储"></a></div>
+</div>
+</div>
+<script type="text/javascript">var base_url = 'http://code4app.com/';</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40378178-1']);
+  _gaq.push(['_setDomainName', 'code4app.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript" src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/ZeroClipboard.min.js"></script>
+<script type="text/javascript">
+$(function (){
+	if (fav_num > 0){
+		$('#favtips').show();
+	}
+	
+	var clip = new ZeroClipboard( $('#codeurl'), {
+		moviePath: "http://code4app.com/src/js/ZeroClipboard.swf"
+	});
+	
+	clip.on('mousedown', function(client) {
+		client.setText('http://code4app.com/ios/4fba4b516803fa3325000000');
+		$('#cliptips').html('√已复制');
+	} );
+	
+	clip.on('mouseover', function(client) {
+		$('#cliptips').html('←点击复制');
+	} );
+
+	$('.replyto').toggle(
+		function(){
+			$('.discuss-saybox').hide();
+        	$(this).parent().parent().parent().find('.discuss-saybox').show();
+   		},
+   		function(){
+        	$(this).parent().parent().parent().find('.discuss-saybox').hide();
+   		}
+    );
+
+	var replyto = '';
+    $('.replybtn').click(function(){
+    	var did = $(this).attr('did');
+
+    	if (replyto == did){
+    		alert('提交中，请稍候...');
+    		return;
+    	}
+    	replyto = did;
+
+    	var content = $('#ureply'+did).val();
+    	if (content == ''){
+    		alert('评论不能为空');
+    		$('#ureply'+did).focus();
+    		return ;
+    	}
+    	$(this).val('提交中...').css('disabled','disabled');
+    	$.post(
+    		base_url+'saveupdate/codecomment?t='+Math.random(),
+    		{code_id:code_id, 'did':did, 'content':content},
+    		function(obj){
+    			if (obj.status){
+    				location.href = 'http://code4app.com/ios/OpenUDID/4fba4b516803fa3325000000?t='+Math.random()+'#discuss'+obj.did;
+    			}else{
+    				alert('貌似出错了，请刷新网页后再试:'+obj.errno);
+    				location.href = location.href;
+    			}
+    		},
+    		'json'
+    	);
+    });
+
+        $.getJSON(
+		"https://api.github.com/repos/ylechelle/OpenUDID?callback=?",
+		function (repos){
+			$('#github-repos-watch').html('Star '+repos.data.watchers_count);
+			$('#github-repos-fork').html('Fork '+repos.data.forks_count);
+			$('#github-repos-description').html(repos.data.description);
+			$('#github-repos-update').html('update at '+ repos.data.updated_at.substr(0,10));
+			$('#githubbox').show();
+		}
+    );
+    });
+</script>
+<script src="./iOS   iPhone   iPad 给每台iOS设备赋予一个永久、统一并且唯一的UDID代码 OpenUDID - 其他（Others）开源代码 - Code4App.com_files/wb.js" type="text/javascript" charset="utf-8"></script>
+
+<div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" data-clipboard-ready="true" style="position: absolute; left: -9999px; top: -9999px; width: 15px; height: 15px; z-index: 9999;">      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="http://code4app.com/src/js/ZeroClipboard.swf?nocache=1403146732374">         <param name="allowScriptAccess" value="sameDomain">         <param name="scale" value="exactfit">         <param name="loop" value="false">         <param name="menu" value="false">         <param name="quality" value="best">         <param name="bgcolor" value="#ffffff">         <param name="wmode" value="transparent">         <param name="flashvars" value="">         <embed src="http://code4app.com/src/js/ZeroClipboard.swf?nocache=1403146732375" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="" scale="exactfit">                </object></div></body></html>

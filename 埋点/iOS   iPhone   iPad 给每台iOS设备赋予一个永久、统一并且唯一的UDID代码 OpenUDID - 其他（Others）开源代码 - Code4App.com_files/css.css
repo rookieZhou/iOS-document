@@ -1,0 +1,543 @@
+@charset "utf-8";
+/* CSS Document */
+html{
+	overflow-y:scroll;
+}
+body,ul,li,img,h1,h2,h3,h4,p,form,ol{
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+body{
+	background-color:#FFF;
+	text-align:center;
+	font-size:13px;
+	color: #2c3e50;
+	font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
+}
+li{
+	list-style:none;
+	float:left;
+}
+/*
+input,button,select,textarea{outline:none}
+*/
+textarea{resize:none}
+a:link {
+	text-decoration: none;
+	color:#2c3e50;
+}
+a:visited {
+	text-decoration: none;
+	color:#2c3e50;
+}
+a:hover {
+	color: #3498db;
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+.floatleft{
+	float:left;
+}
+.floatright{
+	float:right;
+}
+.redcolor{
+	color:#F00;
+}
+.marginright0{
+	margin-right:0!important;
+}
+/**/
+
+#allsite-header{
+	width: 100%;
+	height: 30px;
+	font-size: 15px;
+	background-color: #666;
+}
+#allsite-header a{
+	color: #EEE;
+}
+#allsite-header a:hover{
+	color: #FFF;
+}
+#allsite-header-inner{
+	width: 960px;
+	height: 30px;
+	margin: 0 auto;
+}
+#site-list{
+	float: right;
+	height: 30px;
+}
+.site-one{
+	float: left;
+	margin-left: 10px;
+}
+.site-one a{
+	display: block;
+	padding-right: 5px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.site-icon{
+	padding-left: 25px;
+	background-position: 5px 7px;
+	background-repeat: no-repeat;
+}
+.code4app-ios{
+	background-image: url(../img/ios16.png);
+}
+.code4app-android{
+	background-image: url(../img/android16.png);
+}
+.code4app-wp{
+	background-image: url(../img/wp165.png);
+}
+.code4app-spark{
+	background-image: url(../img/spark16.png);
+}
+.ui4app-icon{
+	background-image: url(../img/pen16.png);
+	background-position: 5px 7px;
+}
+.apkbus-icon{
+	background-image: url(../img/apkbus16.png);
+}
+#site-list .current{
+	background-color: #888;
+}
+#header{
+	width:100%;
+	height:81px;
+	background-color: #f3f3f3;
+}
+#headerbox{
+	width:960px;
+	height:81px;
+	margin:0 auto;
+}
+#logo{
+	width:187px;
+	height:41px;
+	margin:20px 0;
+	float:left;
+}
+
+
+#loginfo{
+	float:left;
+	height:24px;
+	margin-top: 3px;
+	color:#D5D5D5;
+	font-size: 14px;
+}
+#loginfo a{
+	color:#D5D5D5;
+}
+#loginfo li{
+	float:left;
+	margin-right:10px;
+}
+.li16px{
+	height:16px!important;
+	padding:4px 0;
+}
+.li22px{
+	height:22px!important;
+	padding:1px 0;
+}
+.li24px{
+	height:24px!important;
+	padding:0;
+}
+
+.loginbtn a{
+	padding-left: 22px;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+#weibologin a{
+	background-image: url(../img/weibo_16.png);
+}
+#qqlogin a{
+	background-image: url(../img/qq_16.png);
+}
+#githublogin a{
+	background-image: url(../img/github_16.png);
+}
+.member{
+	position: relative;
+	padding-right: 20px;
+	line-height: 16px;
+}
+.member:hover{
+}
+.member:hover .member-operate{
+	display: block;
+}
+.member i{
+	display: block;
+	float: right;
+	margin-top: 7px;
+	margin-left: 5px;
+	border: solid 4px #EEE;
+	border-left-color:transparent;
+	border-right-color:transparent;
+	border-bottom-color:transparent;
+}
+.member:hover i{
+	margin-top: 3px;
+	border: solid 4px #EEE;
+	border-left-color:transparent;
+	border-right-color:transparent;
+	border-top-color:transparent;
+}
+.member-operate{
+	position: absolute;
+	left: 0;
+	top: 24px;
+	padding: 5px 0;
+	background-color: #666;
+	text-align: left;
+	display: none;
+}
+.member-operate li{
+	float: left;
+	margin:5px 10px;
+}
+#sitenav{
+	width:100%;
+	height:30px;
+	background-color: #f3f3f3;
+	border-bottom: solid 1px #E5E5E5;
+}
+.pf{
+	position:fixed;
+	top:0;
+	z-index:199;
+}
+#navbox{
+	width:960px;
+	height:30px;
+	margin:0 auto;
+}
+#nav{
+	float:left;
+	height:45px;
+	font-size:16px;
+	font-weight:500;
+}
+
+#nav a{
+	display:block;
+	height:20px;
+	line-height: 20px;
+	padding:5px 15px;
+	color:#2c3e50;
+	text-decoration:none;
+}
+#nav li{
+	height:30px;
+	float:left;
+	margin-right:1px;
+}
+#nav a:hover, #nav .current{
+	background-color: #3498db;
+	color: #FFF;
+}
+#sprak{
+	background-image:url(../img/nav_bg_spark.png);
+}
+#searchbox{
+	float:left;
+	height:30px;
+	margin-left: 50px;
+	margin-top: 24px;
+	border: solid 1px #999999;
+}
+
+#search-input{
+	float:right;
+	height:30px;
+	background-color:#FFF;
+	
+}
+#search-button{
+	float:right;
+	height:30px;
+	background-color:#FFF;
+}
+#word{
+	border: none;
+	font-size: 14px;
+	width: 400px;
+	float: left;
+	background-color: #FFF;
+	border-image: initial;
+	padding: 4px 5px;
+	margin: 0px;
+	outline: none;
+	margin: 3px 0;
+	color:#888;
+	margin-left:2px;
+}
+#fb{
+	float: right;
+	margin-top: 29px;
+}
+
+/**/
+
+#main{
+	width:960px;
+	margin:30px auto;
+	overflow:hidden;
+	text-align:left;
+	min-height:500px;
+}
+#main-content{
+	float:left;
+	width:728px;
+	min-height:1px;
+}
+#main-slidebar{
+	float:left;
+	width: 212px;
+	margin-left: 20px;
+}
+/*left*/
+.main-slidebar-box{
+	float: left;
+	width: 212px;
+	margin-bottom: 20px;
+	background-color: #F3F3F3;
+}
+.main-slidebar-title-box{
+	float: left;
+	width: 212px;
+	background-color: #FFF;
+}
+.main-slidebar-title{
+	float: left;
+	padding: 10px 0;
+	font-weight: normal;
+	font-size: 15px;
+}
+.main-slidebar-content{
+	width: 212px;
+	float: left;
+}
+#slidebar-category-list{
+}
+#slidebar-category-list .category-title{
+	width: 192px;
+	padding: 10px;
+}
+#slidebar-category-list .category-title:hover{
+	background-color: #FFF;
+	color: #999;
+}
+.slidebar-category-one{
+	float: left;
+	width: 212px;
+	color: #999;
+	border-bottom: solid 1px #EAEAEA;
+}
+.slidebar-category-one a{
+	display: block;
+	width: 192px;
+	padding: 10px;
+	text-decoration: none;
+}
+#slidebar-category-list .current, .slidebar-category-one:hover{
+	background-color: #3498db;
+	color: #FFF;
+}
+#slidebar-category-list .current a, .slidebar-category-one:hover a{
+	color: #FFF;
+}
+#navul{
+	width:186px;
+	float:left;
+	padding-top:5px;
+	background-color:#FFF;
+	color:#58595B;
+}
+.navli{
+	width:186px;
+	float:left;
+}
+.navli a{
+	display:block;
+	line-height:13px;
+	height:13px;
+	padding:8px 10px;
+	padding-right:0px;
+	color:#FFF;
+	text-decoration:none;
+}
+.navli a:hover{
+	color:#BFD320;	
+}
+
+
+#categorybox{
+	width:186px;
+	float:left;
+	padding-bottom:15px;
+}
+#categorybox li{
+	width:186px;
+	height:30px;
+	float:left;
+	background-repeat:repeat-x;
+}
+#categorybox .current{
+	background-image:url(../img/category_li_bg.png);	
+}
+#categorybox .current a{
+	color:#FFF;
+}
+#categorybox .current a:hover{
+	color:#FFF;
+}
+#categorybox li a:hover{
+	color:#BFD320;
+}
+
+#categorybox a{
+	display:block;
+	line-height:13px;
+	height:13px;
+	padding:8px 10px;
+	padding-top:9px;
+	color:#FFF;
+	text-decoration:none;
+}
+.left-ggbox{
+	width:180px;
+	height:150px;
+	margin-top:20px;
+	margin-left:3px;
+	float:left;
+}
+#categorybox .categorytitle{
+	width:176px;
+	height:16px;
+	padding:5px 5px;
+	color: #CCC;
+}
+
+.main-content-title{
+	float:left;
+	width:728px;
+	height: 20px;
+	line-height: 20px;
+	font-weight:normal;
+	background-color:#FFF;
+	font-size:16px;
+}
+
+.main-content-title-right{
+	float:right;
+	font-size:12px;
+}
+.main-content-title-right a{
+	display: inline-block;
+}
+
+/**/
+
+#footer{
+	width:100%;
+	height:160px;
+	background-color:#F3F3F3;
+	border-top: solid 1px #E5E5E5;
+}
+#footerbox{
+	width:960px;
+	height:100px;
+	margin:0 auto;
+	padding:10px 0;
+}
+
+#siteabout{
+	float:left;
+}
+#footer #copyright{
+	float:right;
+}
+
+#cnzz{
+	display:none;
+}
+
+#friendlink{
+	width:960px;
+	float:left;
+	margin:15px 0;
+}
+#friendlink li{
+	float:left;
+	margin-right:15px;
+}
+#pagelist{
+	float:right;
+	color:#644042;
+}
+#pagelist li{
+	margin:0 2px;
+}
+#pagelist li a{
+	display:block;
+	float:left;
+	padding:1px 6px;
+}
+.notlink{
+	padding:1px 6px;
+}
+#pagelist li a:hover, .nowpage, .nowpage a{
+	background-color:#3498db;
+	color:#FFF;
+}
+
+
+#pagetips{
+	font-size:11px;
+	color: #999;
+}
+
+
+.gg180150{
+	width:186px;
+	float:left;
+	background-color:#F2F2F2;
+}
+
+#homebody .navhome, #requirementbody .navrequirement, #categorybody .navcategory, #aboutbody .navabout, #feedbackbody .navfeedback, #uploadbody .navupload, #projectnewbody .navprojectnew, #sharebody .navshare, #copyrightbody .navcopyright, #discussbody .navdiscuss{
+	background-color: #3498db;
+}
+#homebody .navhome a, #requirementbody .navrequirement a, #categorybody .navcategory a, #aboutbody .navabout a, #feedbackbody .navfeedback a, #uploadbody .navupload a, #projectnewbody .navprojectnew a, #sharebody .navshare a, #copyrightbody .navcopyright a, #discussbody .navdiscuss a{
+	color: #FFF;
+}
+
+
+#bcnav{
+	float:left;
+	width:728px;
+	font-size:12px;
+	line-height:12px;
+	background-color:#FFF;
+	
+}
+#bcnav li{
+	float:left;
+	margin-right:10px;
+}
+
+
