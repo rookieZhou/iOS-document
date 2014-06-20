@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0060)http://www.cnblogs.com/bobli/archive/2012/06/26/2563295.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>[iOS]MD5加密字符串 - 黎波 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/style.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/bobli/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/bobli/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/bobli/wlwmanifest.xml">
+<script type="text/javascript" src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/encoder.js"></script><script async="" type="text/javascript" src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/gpt.js"></script><script src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'bobli', cb_enable_mathjax=false;</script>
+<script src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<script async="" type="text/javascript" src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/pubads_impl_42.js"></script><script type="text/javascript" src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/osd.js"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/bobli/">黎波</a></div>
+<div class="subtitle">Android, iOS, Windows Phone 应用软件开发和技术咨询</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/bobli/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e9%bb%8e%e6%b3%a2">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/bobli/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/bobli/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-265&nbsp;
+文章-2&nbsp;
+评论-1956&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/[iOS]MD5加密字符串 - 黎波 - 博客园.html">[iOS]MD5加密字符串</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>将字符串进行MD5加密，返回加密后的字符串。</p>
+<p>
+</p>
+<div class="cnblogs_code">
+<div><span style="color: #0000FF;">#import</span>&nbsp;&lt;CommonCrypto/CommonDigest.h&gt;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">&nbsp;Need&nbsp;to&nbsp;import&nbsp;for&nbsp;CC_MD5&nbsp;access</span></div></div>
+<p>
+</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<div>-&nbsp;(NSString&nbsp;*)md5:(NSString&nbsp;*)str<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">const</span>&nbsp;<span style="color: #0000FF;">char</span>&nbsp;*cStr&nbsp;=&nbsp;[str&nbsp;UTF8String];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;unsigned&nbsp;<span style="color: #0000FF;">char</span>&nbsp;result[<span style="color: #800080;">16</span>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CC_MD5(cStr,&nbsp;strlen(cStr),&nbsp;result);&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">&nbsp;This&nbsp;is&nbsp;the&nbsp;md5&nbsp;call</span><span style="color: #008000;"><br>
+</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;[NSString&nbsp;stringWithFormat:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #800000;">@"</span><span style="color: #800000;">%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x</span><span style="color: #800000;">"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[<span style="color: #800080;">0</span>],&nbsp;result[<span style="color: #800080;">1</span>],&nbsp;result[<span style="color: #800080;">2</span>],&nbsp;result[<span style="color: #800080;">3</span>],&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[<span style="color: #800080;">4</span>],&nbsp;result[<span style="color: #800080;">5</span>],&nbsp;result[<span style="color: #800080;">6</span>],&nbsp;result[<span style="color: #800080;">7</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[<span style="color: #800080;">8</span>],&nbsp;result[<span style="color: #800080;">9</span>],&nbsp;result[<span style="color: #800080;">10</span>],&nbsp;result[<span style="color: #800080;">11</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result[<span style="color: #800080;">12</span>],&nbsp;result[<span style="color: #800080;">13</span>],&nbsp;result[<span style="color: #800080;">14</span>],&nbsp;result[<span style="color: #800080;">15</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];&nbsp;<br>
+}</div>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><br></p>
+<p>参考：<a href="http://stackoverflow.com/questions/1524604/md5-algorithm-in-objective-c">http://stackoverflow.com/questions/1524604/md5-algorithm-in-objective-c</a></p><p>在线测试MD5：<a href="http://www.cmd5.com/">http://www.cmd5.com/</a></p>
+<p><br></p>
+作者：黎波<br>博客：http://bobli.cnblogs.com/<br>日期：2012年6月26日</div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/bobli/category/324214.html">iOS</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/bobli/tag/iPhone/">iPhone</a>, <a href="http://www.cnblogs.com/bobli/tag/iOS/">iOS</a>, <a href="http://www.cnblogs.com/bobli/tag/MD5/">MD5</a>, <a href="http://www.cnblogs.com/bobli/tag/iPad/">iPad</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e9%bb%8e%e6%b3%a2" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/bobli/" target="_blank"><img src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/u8185.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/bobli/">黎波</a><br>
+<a href="http://home.cnblogs.com/u/bobli/followees">关注 - 3</a><br>
+<a href="http://home.cnblogs.com/u/bobli/followers">粉丝 - 165</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">1</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/bobli/archive/2012/06/25/2561524.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/bobli/archive/2012/06/25/2561524.html" title="发布于2012-06-25 17:08">[WP7]关于 ListBox 的 SelectionChanged 事件</a><br><a href="http://www.cnblogs.com/bobli/archive/2012/06/26/2563401.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/bobli/archive/2012/06/26/2563401.html" title="发布于2012-06-26 11:33">[WP7]MD5加密字符串</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-06-26 10:44</span> <a href="http://www.cnblogs.com/bobli/">黎波</a> 阅读(<span id="post_view_count">5825</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2563295" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/bobli/archive/2012/06/26/2563295.html#" onclick="AddToWz(2563295);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=11675,cb_entryId=2563295,cb_blogApp=currentBlogApp,cb_blogUserGuid='c19c310b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2012/6/26 10:44:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+<a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/bobli/archive/2012/06/26/2563295.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/bobli/archive/2012/06/26/2563295.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = true;var googletag = googletag || {};googletag.cmd = googletag.cmd || [];
+    fixPostBodyFormat();
+</script>
+<div id="ad_under_post_holder">
+<script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +'//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+<script type="text/javascript">
+    try {
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1346480159711-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C2_sitehome', [468, 60], 'div-gpt-ad-1346479110744-1').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    <script type="text/javascript">
+    try{
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1346480159711-0'); });
+    } catch (e) { }
+    </script>
+    <div id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/210914/" target="_blank">程序员必知的10大基础实用算法</a><br> ·  <a href="http://news.cnblogs.com/n/210913/" target="_blank">Go 1.3正式发布，改进正则表达式！</a><br> ·  <a href="http://news.cnblogs.com/n/210912/" target="_blank">MOOC证书能改变就业市场？</a><br> ·  <a href="http://news.cnblogs.com/n/210911/" target="_blank">世界杯你赌赢了没？新浪全资收购彩票网站爱彩网</a><br> ·  <a href="http://news.cnblogs.com/n/210910/" target="_blank">什么吃掉了你的执行力？在浮躁中求解</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/210645/" target="_blank">如何系统性地保障软件的性能</a><br> ·  <a href="http://kb.cnblogs.com/page/210836/" target="_blank">程序员的样子（二）</a><br> ·  <a href="http://kb.cnblogs.com/page/210687/" target="_blank">程序员必须知道的10大基础实用算法及其讲解</a><br> ·  <a href="http://kb.cnblogs.com/page/200253/" target="_blank">扁平和简约来袭</a><br> ·  <a href="http://kb.cnblogs.com/page/208616/" target="_blank">前端开发中使用”有限状态机“解决复杂的交互问题</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    $.ajax({ url: 'http://counter.cnblogs.com/blog/post/' + cb_entryId, type: 'get', dataType: 'script', cache: true });
+});
+</script>
+<script type="text/javascript">    
+</script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div style="margin-top: 10px" align="center"><a id="clustrMapsLink" href="http://www2.clustrmaps.com/counter/maps.php?url=http://upto.cnblogs.com/"><img id="clustrMapsImg" title="Locations of visitors to this page" style="border-right: 1px solid; border-top: 1px solid; border-left: 1px solid; border-bottom: 1px solid" alt="Locations of visitors to this page" onerror="this.onError=null; this.src=&#39;http://clustrmaps.com/images/clustrmaps-back-soon.jpg&#39;; document.getElementById(&#39;clustrMapsLink&#39;).href=&#39;http://clustrmaps.com&#39;" src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/index2.php"></a></div>
+
+<div style="margin-top: 10px" align="center">
+<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=_ZuWm9eVkLmIiNealpQ" style="text-decoration:none;"><img src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/ico_mailme_02.png"></a>
+</div>
+
+<div style="margin-top: 10px" align="center">
+<embed src="http://service.weibo.com/staticjs/weiboshow.swf?verifier=570da6d5&amp;uid=1655051857&amp;width=230&amp;height=500&amp;fansRow=2&amp;isTitle=1&amp;isWeibo=1&amp;isFans=1&amp;noborder=0&amp;ptype=1&amp;colors=cfe1f3,fafcff,444444,5093d5" quality="high" width="220" height="500" align="L" scale="noborder" flashvars="width=230&amp;height=500&amp;uid=1655051857&amp;skin=skin1" allowscriptaccess="sameDomain" type="application/x-shockwave-flash">
+</div>
+
+<div style="margin-top: 5px; margin-left: 5px; margin-right: 5px">
+<span style="font-size: 10pt"><strong>我的作品</strong><br>
+</span>
+<a href="http://www.cnblogs.com/bobli/archive/2012/09/29/2707898.html" target="_blank">WP7 - 精至手机药典</a><br>
+<a href="http://www.cnblogs.com/bobli/archive/2011/09/06/2169000.html" target="_blank">Android - 精至手机药典</a><br>
+<a href="https://play.google.com/store/apps/details?id=com.jingzhimed.clinicaltools" target="_blank">Android - 精至临床工具</a><br>
+<a href="https://play.google.com/store/apps/details?id=com.jingzhimed.clinicalpaths" target="_blank">Android - 临床路径</a><br> 
+<a href="http://www.cnblogs.com/bobli/archive/2011/12/02/2272431.html" target="_blank">Android - 目标身高</a><br> 
+<a href="http://itunes.apple.com/cn/app/id578876432" target="_blank">iPhone - 成e行</a><br><a href="http://www.cnblogs.com/bobli/archive/2011/12/20/2294709.html" target="_blank">iPhone - 精至手机药典</a><br> 
+<a href="http://itunes.apple.com/cn/app/id502436847" target="_blank">iPhone - 精至临床工具</a><br>
+<a href="http://itunes.apple.com/cn/app/id502433975" target="_blank">iPhone - 临床路径</a><br>
+<a href="http://www.cnblogs.com/bobli/archive/2011/12/02/2272446.html" target="_blank">iPhone - 目标身高</a><br> 
+<a href="http://www.cnblogs.com/bobli/archive/2011/07/22/2113861.html" target="_blank">WM - 精至手机药典</a><br> 
+<a href="http://www.cnblogs.com/bobli/archive/2011/09/24/2188369.html" target="_blank">WM - OnStar</a><br> 
+<a href="http://www.cnblogs.com/bobli/archive/2010/05/21/1739704.html" target="_blank">WM - 物业设备巡检抄表<br> 
+</a><a href="http://www.cnblogs.com/bobli/archive/2010/10/10/1847278.html" target="_blank">WCE - 地下电缆巡检</a>
+</div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/bobli/">黎波</a><br>园龄：<a href="http://home.cnblogs.com/u/bobli/" title="入园时间：2005-05-24">9年</a><br>荣誉：<a href="http://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="http://home.cnblogs.com/u/bobli/followers/">165</a><br>关注：<a href="http://home.cnblogs.com/u/bobli/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;c19c310b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2012/05/01&#39;);return false;">&lt;</a></td><td align="center">2012年6月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2012/07/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center"><a href="http://www.cnblogs.com/bobli/archive/2012/06/25.html"><u>25</u></a></td><td align="center"><a href="http://www.cnblogs.com/bobli/archive/2012/06/26.html"><u>26</u></a></td><td align="center"><a href="http://www.cnblogs.com/bobli/archive/2012/06/27.html"><u>27</u></a></td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+
+
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/bobli/p/">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/bobli/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/bobli/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/bobli/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/bobli/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div>
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/bobli/tag/Windows%20Mobile/">Windows Mobile</a>(60)</li><li><a href="http://www.cnblogs.com/bobli/tag/.NET%20Compact%20Framework/">.NET Compact Framework</a>(36)</li><li><a href="http://www.cnblogs.com/bobli/tag/SQLCE/">SQLCE</a>(12)</li><li><a href="http://www.cnblogs.com/bobli/tag/Webcast/">Webcast</a>(12)</li><li><a href="http://www.cnblogs.com/bobli/tag/Windows%20CE/">Windows CE</a>(11)</li><li><a href="http://www.cnblogs.com/bobli/tag/Case%20Study/">Case Study</a>(11)</li><li><a href="http://www.cnblogs.com/bobli/tag/User%20Experience/">User Experience</a>(10)</li><li><a href="http://www.cnblogs.com/bobli/tag/Android/">Android</a>(8)</li><li><a href="http://www.cnblogs.com/bobli/tag/Enterprise%20Library/">Enterprise Library</a>(7)</li><li><a href="http://www.cnblogs.com/bobli/tag/iOS/">iOS</a>(6)</li><li><a href="http://www.cnblogs.com/bobli/tag/">更多</a></li>
+</ul>
+</div>
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(314)</span></h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/bobli/category/26680.html">.NET(7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/bobli/category/87596.html">.NET CF(50)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/bobli/category/298482.html">Android(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/bobli/category/246763.html">Case Studies(18)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/bobli/category/87648.html">Conferences(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/bobli/category/324214.html">iOS(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/bobli/category/44953.html">Misc(18)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/bobli/category/87595.html">Mobile Samples(13)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/bobli/category/87597.html">Mobile Tools(22)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/bobli/category/87615.html">My Speeches(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/bobli/category/84895.html">SharePoint(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/bobli/category/26705.html">Smart Client(13)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/bobli/category/176692.html">SQL Server(1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/bobli/category/68116.html">SQL Server Compact(43)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/bobli/category/278429.html">SQLite(1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/bobli/category/246643.html">Web(1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/bobli/category/44965.html">Web Service(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/bobli/category/123389.html">Webcast(14)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/bobli/category/87604.html">Windows Embedded(7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/bobli/category/87599.html">Windows Mobile(52)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/bobli/category/390596.html">Windows Phone 7(6)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListImageCategory">
+<h3 class="catListTitle">相册</h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_0" rel="nofollow" href="http://www.cnblogs.com/bobli/gallery/26728.html">真我风采</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">Web Sites</h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_0" rel="nofollow" href="http://msdn2.microsoft.com/en-us/windowsmobile/bb495180.aspx">"How Do I?" Videos for Devices</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_1" rel="nofollow" href="http://www.codeguru.com/" target="_blank">CodeGuru</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_2" rel="nofollow" href="http://inthehand.com/">In The Hand</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_3" href="http://social.msdn.microsoft.com/Forums/en-US/category/smartdevicedevelopment/" target="_blank">MSDN Forums Smart Device Development</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_4" rel="nofollow" href="http://msdn.microsoft.com/" target="_blank">MSDN Home</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_5" rel="nofollow" href="http://msdn2.microsoft.com/en-us/library/default.aspx">MSDN Library</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_6" rel="nofollow" href="http://msdn.microsoft.com/msdnmag/default.aspx" target="_blank">MSDN Magazine</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_7" rel="nofollow" href="http://msdn.microsoft.com/zh-cn/dd796167.aspx">MSDN中文网络广播</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_8" rel="nofollow" href="http://www.opennetcf.com/">OpenNETCF</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_9" rel="nofollow" href="http://msdn2.microsoft.com/zh-cn/library/ms173053.aspx">SQL Server CE Books Online</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_10" rel="nofollow" href="http://www.codeproject.com/" target="_blank">The Code Project</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_11" rel="nofollow" href="http://www.theserverside.net/" target="_blank">TheServerSide.NET</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_12" rel="nofollow" href="http://msdn2.microsoft.com/en-us/windowsmobile/">Windows Mobile Developer Center</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_13" rel="nofollow" href="http://msdn2.microsoft.com/en-us/windowsmobile/bb264328" target="_blank">Windows Mobile Hands-On Labs</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_14" rel="nofollow" href="http://www.microsoft.com/windowsphone/">Windows Phone Home</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_15" rel="nofollow" href="http://forums.microsoft.com/china/">微软中文技术论坛</a> </li>
+
+</ul>
+
+</div>
+
+
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	733964
+	</li>
+	<li class="liRank">
+		排名 -	69
+	</li>
+</ul>
+</div>
+
+
+
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/bobli/archive/2009/09/14/1566205.html#2888010">1. Re:手机拍照识别二维码</a></li>
+    <li class="recent_comment_body">初学菜鸟，黎老师可否提供结合摄像头的demo以供学习？<br>lihui730@126.com</li>
+    <li class="recent_comment_author">--lilyjoke</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/bobli/archive/2007/01/28/kb-824462.html#2795142">2. Re:SQL Server CE：没有足够的存储空间来完成该操作[CODE:8007000E]</a></li>
+    <li class="recent_comment_body">WinCE 5.0 中对数据库进行多次读取并存入到Datatable中之后对内存有多大的需求？<br>我的读数据库也是标准的做法但是仅读了30几次数据库就报内存不足，有什么好的建议？</li>
+    <li class="recent_comment_author">--Aolaze</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/bobli/archive/2008/12/10/1352025.html#2744234">3. Re:Windows Mobile实现透明控件</a></li>
+    <li class="recent_comment_body">我现在遇到这个问题~！是winform的，在视频上让控件透明不好实现呀~~</li>
+    <li class="recent_comment_author">--Walwyn</li>
+</ul>
+</div>
+</div>
+
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/bobli/archive/2007/03/13/mobile-development-tools.html">1. Windows Mobile 开发工具和资源(46099)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/07/29/sqlce-data-import.html">2. 如何将数据导入到 SQL Server Compact Edition 数据库中（一）(29486)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/02/14/cellular-emulater-in-wm6sdk.html">3. Windows Mobile 6 SDK 中的 Cellular Emulator(19695)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/02/15/gps-tools-in-wm6sdk.html">4. Windows Mobile 6 SDK 中的 GPS 工具(19429)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/03/17/sql_mobile_app_dev_slides_and_demos.html">5. SQL Server Mobile 2005 程序开发系列课程资料下载(14990)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/02/13/emulator2-in-wm6sdk.html">6. Windows Mobile 6 SDK 中的 Device Emulator 2.0(11834)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2006/08/11/GetDeviceUniqueID.html">7. 获取 Windows Mobile 设备的唯一标识(11020)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/08/08/sqlce-data-import-2.html">8. 如何将数据导入到 SQL Server Compact Edition 数据库中（二）(10949)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2008/12/10/1352025.html">9. Windows Mobile实现透明控件(10630)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2009/09/14/1566205.html">10. 手机拍照识别二维码(9989)</a></li></ul></div>
+</div>
+
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/bobli/archive/2007/03/13/mobile-development-tools.html">1. Windows Mobile 开发工具和资源(164)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/07/29/sqlce-data-import.html">2. 如何将数据导入到 SQL Server Compact Edition 数据库中（一）(138)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/03/17/sql_mobile_app_dev_slides_and_demos.html">3. SQL Server Mobile 2005 程序开发系列课程资料下载(61)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/03/24/ws-attachment-for-windows-mobile.html">4. 在 Windows Mobile 使用 WS-Attachment 传输二进制数据(58)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/08/08/sqlce-data-import-2.html">5. 如何将数据导入到 SQL Server Compact Edition 数据库中（二）(51)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2005/06/15/RapidTier.html">6. RapidTier 1.0 beta2 发布(50)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2010/05/21/1739704.html">7. PDA物业设备巡检/抄表系统(49)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2009/09/14/1566205.html">8. 手机拍照识别二维码(47)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/02/24/detect-database-is-merge-replicated.html">9. 如何检测 SQL CE 数据库是否成功建立了合并复制(47)</a></li><li><a href="http://www.cnblogs.com/bobli/archive/2007/02/14/cellular-emulater-in-wm6sdk.html">10. Windows Mobile 6 SDK 中的 Cellular Emulator(38)</a></li></ul></div>
+</div>
+</div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2014 黎波
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<div align="center"><script src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/stat.php" language="JavaScript"></script><script src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=2190541" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./[iOS]MD5加密字符串 - 黎波 - 博客园_files/pic.gif"></a></div>
+<!--PageEndHtml Block End-->
+
+
+<iframe id="google_osd_static_frame_316244831774" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe></body></html>
