@@ -1,0 +1,609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0040)http://justcoding.iteye.com/blog/1473287 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站</title>
+    <meta name="description" content="1. UITouch 的主要方法：  - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;  - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;  - (void)touchesEnded:(NSSet *)touches withEvent: ...">
+    <meta name="keywords" content=" UITouch 触摸事件处理（实例）">
+    <link rel="shortcut icon" href="http://justcoding.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://justcoding.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://justcoding.iteye.com/rss" rel="alternate" title="Just Code" type="application/rss+xml">
+    <link href="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/green.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/ga.js"></script><script async="" type="text/javascript" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/ca-pub-4263087975986867.js"></script><script type="text/javascript" async="" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/ga.js"></script><script src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/hotkey.js" type="text/javascript"></script>
+  <script src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/code_favorites.js" type="text/javascript"></script>
+<script src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/weiboshare.js" type="text/javascript"></script>
+  <style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style><style type="text/css">.dp-cpp .datatypes { color: #2E8B57; font-weight: bold; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://justcoding.iteye.com/blog/1473287#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://justcoding.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://justcoding.iteye.com/login">登录</a>
+    <a href="http://justcoding.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://justcoding.iteye.com/">Just Code</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://justcoding.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://justcoding.iteye.com/weibo">微博</a></li>
+            <li><a href="http://justcoding.iteye.com/album">相册</a></li>
+            <li><a href="http://justcoding.iteye.com/link">收藏</a></li>
+            <li><a href="http://justcoding.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://justcoding.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://justcoding.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      <div>
+      <script type="text/javascript"><!--
+      google_ad_client = "ca-pub-4263087975986867";
+      google_ad_slot = "4638259239";
+      google_ad_width = 728;
+      google_ad_height = 90;
+      //--></script>
+      <script type="text/javascript" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/show_ads.js">
+      </script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+    </div>
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://justcoding.iteye.com/" class="p-author" target="_blank">天梯梦</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站.html">UITouch 触摸事件处理（实例）</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://justcoding.iteye.com/category/178119">Phone / IOS / Objective-C / Swift</a></li> </ul>
+        <div class="news_tag">&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <p><strong>1. UITouch 的主要方法：</strong></p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=-%20(void)touchesBegan%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%3B%0A-%20(void)touchesMoved%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%3B%0A-%20(void)touchesEnded%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%3B%0A-%20(void)touchesCancelled%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%3B%0A%0A-%20(void)motionBegan%3A(UIEventSubtype)motion%20withEvent%3A(UIEvent%20*)event%20__OSX_AVAILABLE_STARTING(__MAC_NA%2C__IPHONE_3_0)%3B%0A-%20(void)motionEnded%3A(UIEventSubtype)motion%20withEvent%3A(UIEvent%20*)event%20__OSX_AVAILABLE_STARTING(__MAC_NA%2C__IPHONE_3_0)%3B%0A-%20(void)motionCancelled%3A(UIEventSubtype)motion%20withEvent%3A(UIEvent%20*)event%20__OSX_AVAILABLE_STARTING(__MAC_NA%2C__IPHONE_3_0)%3B" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span>-&nbsp;(</span><span class="keyword">void</span><span>)touchesBegan:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event;&nbsp;&nbsp;</span></span></li><li><span>-&nbsp;(<span class="keyword">void</span><span>)touchesMoved:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event;&nbsp;&nbsp;</span></span></li><li><span>-&nbsp;(<span class="keyword">void</span><span>)touchesEnded:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event;&nbsp;&nbsp;</span></span></li><li><span>-&nbsp;(<span class="keyword">void</span><span>)touchesCancelled:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>-&nbsp;(<span class="keyword">void</span><span>)motionBegan:(UIEventSubtype)motion&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);&nbsp;&nbsp;</span></span></li><li><span>-&nbsp;(<span class="keyword">void</span><span>)motionEnded:(UIEventSubtype)motion&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);&nbsp;&nbsp;</span></span></li><li><span>-&nbsp;(<span class="keyword">void</span><span>)motionCancelled:(UIEventSubtype)motion&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;__OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);&nbsp;&nbsp;</span></span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="0" title="UITouch 触摸事件处理（实例）" style="display: none;">- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);</pre>
+&nbsp;
+<p><strong>2. 触摸时，图片移动 （实例）</strong></p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=-%20(void)viewDidLoad%0A%7B%0A%20%20%20%20UIImageView%20*image%20%3D%20%5B%5BUIImageView%20alloc%5D%20initWithFrame%3ACGRectMake(20.0%2C%2050.0%2C%2045.0%2C%2045.0)%5D%3B%0A%20%20%20%20image.image%20%3D%20%5BUIImage%20imageNamed%3A%40%22baby.png%22%5D%3B%0A%20%20%20%20image.tag%20%3D%20100%3B%0A%20%20%20%20%5Bself.view%20addSubview%3Aimage%5D%3B%0A%0A%20%20%20%20%5Bsuper%20viewDidLoad%5D%3B%0A%20%20%20%20%2F%2F%20Do%20any%20additional%20setup%20after%20loading%20the%20view%2C%20typically%20from%20a%20nib.%0A%7D%0A%0A-(void)touchesEnded%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%0A%7B%0A%20%20%20%20UITouch%20*touch%20%3D%20%5Btouches%20anyObject%5D%3B%0A%20%20%20%20UIImageView%20*view1%20%3D%20(UIImageView*)%5Bself.view%20%20viewWithTag%3A100%5D%3B%0A%20%20%20%20CGPoint%20point%20%3D%20%5Btouch%20%20locationInView%3Aself.view%5D%3B%0A%20%20%20%20CGRect%20%20frame%20%3D%20view1.frame%3B%0A%20%20%20%20frame.origin%20%3D%20point%3B%0A%20%20%20%20view1.frame%20%3D%20frame%3B%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span>-&nbsp;(</span><span class="keyword">void</span><span>)viewDidLoad&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UIImageView&nbsp;*image&nbsp;=&nbsp;[[UIImageView&nbsp;alloc]&nbsp;initWithFrame:CGRectMake(20.0,&nbsp;50.0,&nbsp;45.0,&nbsp;45.0)];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;image.image&nbsp;=&nbsp;[UIImage&nbsp;imageNamed:@<span class="string">"baby.png"</span><span>];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;image.tag&nbsp;=&nbsp;100;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;[self.view&nbsp;addSubview:image];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;[super&nbsp;viewDidLoad];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Do&nbsp;any&nbsp;additional&nbsp;setup&nbsp;after&nbsp;loading&nbsp;the&nbsp;view,&nbsp;typically&nbsp;from&nbsp;a&nbsp;nib.</span><span>&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>-(<span class="keyword">void</span><span>)touchesEnded:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;[touches&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UIImageView&nbsp;*view1&nbsp;=&nbsp;(UIImageView*)[self.view&nbsp;&nbsp;viewWithTag:100];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;CGPoint&nbsp;point&nbsp;=&nbsp;[touch&nbsp;&nbsp;locationInView:self.view];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;CGRect&nbsp;&nbsp;frame&nbsp;=&nbsp;view1.frame;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;frame.origin&nbsp;=&nbsp;point;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;view1.frame&nbsp;=&nbsp;frame;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="1" title="UITouch 触摸事件处理（实例）" style="display: none;">- (void)viewDidLoad
+{
+    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(20.0, 50.0, 45.0, 45.0)];
+    image.image = [UIImage imageNamed:@"baby.png"];
+    image.tag = 100;
+    [self.view addSubview:image];
+
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    UIImageView *view1 = (UIImageView*)[self.view  viewWithTag:100];
+    CGPoint point = [touch  locationInView:self.view];
+    CGRect  frame = view1.frame;
+    frame.origin = point;
+    view1.frame = frame;
+}</pre>
+&nbsp;
+<p>iphone/ipad无键盘的设计是为屏幕争取更多的显示空间，大屏幕在观看图片、文字、视频等方面为用户带来了更好的用户体验。而触摸屏幕是iOS设备接受用户输入的主要方式，包括单击、双击、拨动以及多点触摸等，这些操作都会产生触摸事件。</p>
+<p>&nbsp;</p>
+<p>在Cocoa中，代表触摸对象的类是UITouch。当用户触摸屏幕后，就会产生相应的事件，所有相关的UITouch对象都被包装在事件中，被程序交由特定的对象来处理。UITouch对象直接包括触摸的详细信息。</p>
+<p>UITouch类中包含5个属性：</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">window</span>：触摸产生时所处的窗口。由于窗口可能发生变化，当前所在的窗口不一定是最开始的窗口。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">view</span>:触摸产生时所处的视图。由于视图可能发生变化，当前视图也不一定时最初的视图。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">tapCount</span>：轻击（Tap）操作和鼠标的单击操作类似，tapCount表示短时间内轻击屏幕的次数。因此可以根据tapCount判断单击、双击或更多的轻击。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">timestamp</span>：时间戳记录了触摸事件产生或变化时的时间。单位是秒。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">phase</span>：触摸事件在屏幕上有一个周期，即触摸开始、触摸点移动、触摸结束，还有中途取消。而通过phase可以查看当前触摸事件在一个周期中所处的状态。phase是UITouchPhase类型的，这是一个枚举配型，包含了</p>
+<p>· &nbsp; &nbsp; &nbsp;UITouchPhaseBegan（触摸开始）</p>
+<p>· &nbsp; &nbsp; &nbsp;UITouchPhaseMoved（接触点移动）</p>
+<p>· &nbsp; &nbsp; &nbsp;UITouchPhaseStationary（接触点无移动）</p>
+<p>· &nbsp; &nbsp; &nbsp;UITouchPhaseEnded（触摸结束）</p>
+<p>· &nbsp; &nbsp; &nbsp;UITouchPhaseCancelled（触摸取消）</p>
+<p>&nbsp;</p>
+<p>UITouch类中包含如下成员函数：</p>
+<p><span style="color: #ff0000;">- (CGPoint)locationInView:(UIView *)view：</span>函数返回一个CGPoint类型的值，表示触摸在view这个视图上的位置，这里返回的位置是针对view的坐标系的。调用时传入的view参数为空的话，返回的时触摸点在整个窗口的位置。</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000;">- (CGPoint)previousLocationInView:(UIView *)view：</span>该方法记录了前一个坐标值，函数返回也是一个CGPoint类型的值， 表示触摸在view这个视图上的位置，这里返回的位置是针对view的坐标系的。调用时传入的view参数为空的话，返回的时触摸点在整个窗口的位置。</p>
+<p>&nbsp;</p>
+<p>当手指接触到屏幕，不管是单点触摸还是多点触摸，事件都会开始，直到用户所有的手指都离开屏幕。期间所有的UITouch对象都被包含在UIEvent事件对象中，由程序分发给处理者。事件记录了这个周期中所有触摸对象状态的变化。</p>
+<p>&nbsp;</p>
+<p>只要屏幕被触摸，系统就会报若干个触摸的信息封装到UIEvent对象中发送给程序，由管理程序UIApplication对象将事件分发。一般来说，事件将被发给主窗口，然后传给第一响应者对象(FirstResponder)处理。</p>
+<p>&nbsp;</p>
+<p>关于响应者的概念，通过以下几点说明：</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">&nbsp;响应者对象（Response object）</span></p>
+<p>响应者对象就是可以响应事件并对事件作出处理。在iOS中，存在UIResponder类，它定义了响应者对象的所有方法。UIApplication、UIView等类都继承了UIResponder类，UIWindow和UIKit中的控件因为继承了UIView，所以也间接继承了UIResponder类，这些类的实例都可以当作响应者。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">第一响应者（First responder）</span></p>
+<p>当前接受触摸的响应者对象被称为第一响应者，即表示当前该对象正在与用户交互，它是响应者链的开端。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">&nbsp;响应者链（Responder chain）</span></p>
+<p>响应者链表示一系列的响应者对象。事件被交由第一响应者对象处理，如果第一响应者不处理，事件被沿着响应者链向上传递，交给下一个响应者（next responder）。一般来说，第一响应者是个视图对象或者其子类对象，当其被触摸后事件被交由它处理，如果它不处理，事件就会被传递给它的视图控制器对象（如果存在），然后是它的父视图（superview）对象（如果存在），以此类推，直到顶层视图。接下来会沿着顶层视图（top view）到窗口（UIWindow对象）再到程序（UIApplication对象）。如果整个过程都没有响应这个事件，该事件就被丢弃。一般情况下，在响应者链中只要由对象处理事件，事件就停止传递。但有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">管理事件分发</span></p>
+<p>视图对触摸事件是否需要作处回应可以通过设置视图的userInteractionEnabled属性。默认状态为YES，如果设置为NO，可以阻止视图接收和分发触摸事件。除此之外，当视图被隐藏（setHidden：YES）或者透明（alpha值为0）也不会收事件。不过这个属性只对视图有效，如果想要整个程序都步响应事件，可以调用UIApplication的beginIngnoringInteractionEvents方法来完全停止事件接收和分发。通过endIngnoringInteractionEvents方法来恢复让程序接收和分发事件。</p>
+<p>&nbsp;</p>
+<p>如果要让视图接收多点触摸，需要设置它的multipleTouchEnabled属性为YES，默认状态下这个属性值为NO，即视图默认不接收多点触摸。</p>
+<p>&nbsp;</p>
+<p>首先触摸的对象是视图，而视图的类UIView继承了UIRespnder类，但是要对事件作出处理，还需要重写UIResponder类中定义的事件处理函数。根据不通的触摸状态，程序会调用相应的处理函数，这些函数包括以下几个：</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 当手指接触屏幕时，就会调用touchesBegan:withEvent方法；</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 当手指在屏幕上移时，动就会调用touchesMoved:withEvent方法；</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 当手指离开屏幕时，就会调用touchesEnded:withEvent方法；</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 当触摸被取消（比如触摸过程中被来电打断），就会调用touchesCancelled:withEvent方法。而这几个方法被调用时，正好对应了UITouch类中phase属性的4个枚举值。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 上面的四个事件方法，在开发过程中并不要求全部实现，可以根据需要重写特定的方法。对于这4个方法，都有两个相同的参数：NSSet类型的touches和UIEvent类型的event。其中touches表示触摸产生的所有UITouch对象，而event表示特定的事件。因为UIEvent包含了整个触摸过程中所有的触摸对象，因此可以调用allTouches方法获取该事件内所有的触摸对象，也可以调用touchesForVIew：或者touchesForWindows：取出特定视图或者窗口上的触摸对象。在这几个事件中，都可以拿到触摸对象，然后根据其位置，状态，时间属性做逻辑处理。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 例如：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=-(void)touchesEnded%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%0A%7B%0A%20%20%20%20UITouch%20*touch%20%3D%20%20%5Btouches%20anyObject%5D%3B%0A%20%20%20%20if(touch.tapCount%20%3D%3D%202)%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20self.view.backgroundColor%20%3D%20%5BUIColor%20redColor%5D%3B%0A%20%20%20%20%7D%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span>-(</span><span class="keyword">void</span><span>)touchesEnded:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;&nbsp;[touches&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(touch.tapCount&nbsp;==&nbsp;2)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.view.backgroundColor&nbsp;=&nbsp;[UIColor&nbsp;redColor];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="2" title="UITouch 触摸事件处理（实例）" style="display: none;">-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch =  [touches anyObject];
+    if(touch.tapCount == 2)
+    {
+        self.view.backgroundColor = [UIColor redColor];
+    }
+}</pre>
+&nbsp;
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 上面的例子说明在触摸手指离开后，根据tapCount点击的次数来设置当前视图的背景色。不管时一个手指还是多个手指，轻击操作都会使每个触摸对象的tapCount加1，由于上面的例子不需要知道具体触摸对象的位置或时间等，因此可以直接调用touches的anyObject方法来获取任意一个触摸对象然后判断其tapCount的值即可。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 检测tapCount可以放在touchesBegan也可以touchesEnded，不过一般后者跟准确，因为touchesEnded可以保证所有的手指都已经离开屏幕，这样就不会把轻击动作和按下拖动等动作混淆。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 轻击操作很容易引起歧义，比如当用户点了一次之后，并不知道用户是想单击还是只是双击的一部分，或者点了两次之后并不知道用户是想双击还是继续点击。为了解决这个问题，一般可以使用“延迟调用”函数。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 例如：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=-(void)touchesEnded%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%0A%7B%0A%20%20%20%20UITouch%20*touch%20%3D%20%20%5Btouches%20anyObject%5D%3B%0A%20%20%20%20if(touch.tapCount%20%3D%3D%201)%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%5Bself%20performSelector%3A%40selector(setBackground%3A)%20withObject%3A%5BUIColor%20blueColor%5D%20afterDelay%3A2%5D%3B%0A%20%20%20%20%20%20%20%20self.view.backgroundColor%20%3D%20%5BUIColor%20redColor%5D%3B%0A%20%20%20%20%7D%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span>-(</span><span class="keyword">void</span><span>)touchesEnded:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;&nbsp;[touches&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(touch.tapCount&nbsp;==&nbsp;1)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[self&nbsp;performSelector:@selector(setBackground:)&nbsp;withObject:[UIColor&nbsp;blueColor]&nbsp;afterDelay:2];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.view.backgroundColor&nbsp;=&nbsp;[UIColor&nbsp;redColor];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="3" title="UITouch 触摸事件处理（实例）" style="display: none;">-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch =  [touches anyObject];
+    if(touch.tapCount == 1)
+    {
+        [self performSelector:@selector(setBackground:) withObject:[UIColor blueColor] afterDelay:2];
+        self.view.backgroundColor = [UIColor redColor];
+    }
+}</pre>
+&nbsp;
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 上面代码表示在第一次轻击之后，没有直接更改视图的背景属性，而是通过performSelector：withObject：afterDelay：方法设置2秒中后更改。</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=-(void)touchesEnded%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%0A%7B%0A%20%20%20%20UITouch%20*touch%20%3D%20%20%5Btouches%20anyObject%5D%3B%0A%20%20%20%20if(touch.tapCount%20%3D%3D%202)%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%5BNSObject%20cancelPreviousPerformRequestsWithTarget%3Aself%20selector%3A%40selector(setBackground%3A)%20object%3A%5BUIColor%20redColor%5D%5D%3B%0A%20%20%20%20%20%20%20%20self.view.backgroundColor%20%3D%20%5BUIColor%20redColor%5D%3B%0A%20%20%20%20%7D%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span>-(</span><span class="keyword">void</span><span>)touchesEnded:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;&nbsp;[touches&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(touch.tapCount&nbsp;==&nbsp;2)&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[NSObject&nbsp;cancelPreviousPerformRequestsWithTarget:self&nbsp;selector:@selector(setBackground:)&nbsp;object:[UIColor&nbsp;redColor]];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.view.backgroundColor&nbsp;=&nbsp;[UIColor&nbsp;redColor];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="4" title="UITouch 触摸事件处理（实例）" style="display: none;">-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch =  [touches anyObject];
+    if(touch.tapCount == 2)
+    {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setBackground:) object:[UIColor redColor]];
+        self.view.backgroundColor = [UIColor redColor];
+    }
+}</pre>
+&nbsp;
+<p>&nbsp; &nbsp; &nbsp; &nbsp; 双击就是两次单击的组合，因此在第一次点击的时候，设置背景色的方法已经启动，在检测到双击的时候先要把先前对应的方法取消掉，可以通过调用NSObject类的cancelPreviousPerformRequestWithTarget:selector:object方法取消指定对象的方法调用，然后调用双击对应的方法设置背景色为红色。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 下面举个例子创建可以拖动的视图，这个主要通过触摸对象的位置坐标来实现。因此调用触摸对象的locationInView：方法即可。</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 例如：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=CGPoint%20originalLocation%3B%0A-(void)touchesBegan%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%0A%7B%0A%20%20%20%20UITouch%20*touch%20%3D%20%5Btouches%20anyObject%5D%3B%0A%20%20%20%20originalLocation%20%3D%20%5Btouch%20locationInView%3Aself.view%5D%3B%0A%7D%0A%0A-(void)touchesMoved%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%0A%7B%0A%20%20%20%20UITouch%20*touch%20%3D%20%5Btouches%20anyObject%5D%3B%0A%20%20%20%20CGPoint%20currentLocation%20%3D%20%5Btouch%20locationInView%3Aself.view%5D%3B%0A%20%20%20%20CGRect%20frame%20%3D%20self.view.frame%3B%0A%20%20%20%20frame.origin.x%20%2B%3D%20currentLocation.x-originalLocation.x%3B%0A%20%20%20%20frame.origin.y%20%2B%3D%20currentLocation.y-originalLocation.y%3B%20%20%20%0A%20%20%20%20self.view.frame%20%3D%20frame%3B%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span>CGPoint&nbsp;originalLocation;&nbsp;&nbsp;</span></span></li><li><span>-(<span class="keyword">void</span><span>)touchesBegan:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;[touches&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;originalLocation&nbsp;=&nbsp;[touch&nbsp;locationInView:self.view];&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>-(<span class="keyword">void</span><span>)touchesMoved:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;&nbsp;</span></span></li><li><span>{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;[touches&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;CGPoint&nbsp;currentLocation&nbsp;=&nbsp;[touch&nbsp;locationInView:self.view];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;CGRect&nbsp;frame&nbsp;=&nbsp;self.view.frame;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;frame.origin.x&nbsp;+=&nbsp;currentLocation.x-originalLocation.x;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;frame.origin.y&nbsp;+=&nbsp;currentLocation.y-originalLocation.y;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;self.view.frame&nbsp;=&nbsp;frame;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="5" title="UITouch 触摸事件处理（实例）" style="display: none;">CGPoint originalLocation;
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    originalLocation = [touch locationInView:self.view];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint currentLocation = [touch locationInView:self.view];
+    CGRect frame = self.view.frame;
+    frame.origin.x += currentLocation.x-originalLocation.x;
+    frame.origin.y += currentLocation.y-originalLocation.y;   
+    self.view.frame = frame;
+}</pre>
+&nbsp;
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 这里先在touchesBegan中通过[touch locationInView:self.view]获取手指触摸在当前视图上的位置，用CGPoint变量记录，然后在手指移动事件touchesMoved方法中获取触摸对象当前位置，并通过于与原始位置的差值计算出移动偏移量，再设置当前视图的位置。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>部分来源：&nbsp;<a href="http://www.cnblogs.com/spiritstudio/archive/2011/05/24/2054907.html">http://www.cnblogs.com/spiritstudio/archive/2011/05/24/2054907.html</a></p>
+<p>&nbsp;</p>
+<p><strong>实例：&nbsp;</strong></p>
+<p>&nbsp;</p>
+<p><img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/IMG_0109.png" alt=""><img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/IMG_0108.png" alt=""></p>
+<p>
+</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%2F%2F%E5%AF%B9%E7%94%BB%E9%9D%A2%E8%BF%9B%E8%A1%8C%E5%8D%95%E6%AC%A1%E7%82%B9%E5%87%BB%E6%97%B6%E6%89%80%E8%A7%A6%E5%8F%91%E7%9A%84%E5%87%BD%E5%BC%8F%0A%20-(void)touchesBegan%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%20%7B%0A%0A%20%2F%2F%E5%AE%A3%E5%91%8A%E4%B8%80%E4%B8%AAUITouch%E7%9A%84%E6%8C%87%E6%A0%87%E6%9D%A5%E5%AD%98%E6%94%BE%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%97%B6%E6%89%80%E6%92%B7%E5%8F%96%E5%88%B0%E7%9A%84%E7%8A%B6%E6%80%81%0A%20UITouch%20*touch%20%3D%20%5B%5Bevent%20allTouches%5D%20anyObject%5D%3B%0A%0A%20%2F%2F%E5%B0%86XY%E8%BD%B4%E7%9A%84%E5%BA%A7%E6%A0%87%E8%B5%84%E8%AE%AF%E6%AD%A3%E8%A7%84%E5%8C%96%E5%90%8E%E8%BE%93%E5%87%BA%0A%20touchX.text%20%3D%20%5BNSString%20stringWithFormat%3A%40%22%250.0f%22%2C%20%5Btouch%20locationInView%3Atouch.view%5D.x%5D%3B%0A%20touchY.text%20%3D%20%5BNSString%20stringWithFormat%3A%40%22%250.0f%22%2C%20%5Btouch%20locationInView%3Atouch.view%5D.y%5D%3B%0A%20%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span class="comment">//对画面进行单次点击时所触发的函式</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;-(<span class="keyword">void</span><span>)touchesBegan:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;<span class="comment">//宣告一个UITouch的指标来存放事件触发时所撷取到的状态</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;[[event&nbsp;allTouches]&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;<span class="comment">//将XY轴的座标资讯正规化后输出</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;touchX.text&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:@<span class="string">"%0.0f"</span><span>,&nbsp;[touch&nbsp;locationInView:touch.view].x];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;touchY.text&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:@<span class="string">"%0.0f"</span><span>,&nbsp;[touch&nbsp;locationInView:touch.view].y];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="6" title="UITouch 触摸事件处理（实例）" style="display: none;">//对画面进行单次点击时所触发的函式
+ -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
+ //宣告一个UITouch的指标来存放事件触发时所撷取到的状态
+ UITouch *touch = [[event allTouches] anyObject];
+
+ //将XY轴的座标资讯正规化后输出
+ touchX.text = [NSString stringWithFormat:@"%0.0f", [touch locationInView:touch.view].x];
+ touchY.text = [NSString stringWithFormat:@"%0.0f", [touch locationInView:touch.view].y];
+ }</pre>
+&nbsp;
+<p>
+</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%2F%2F%E5%AF%B9%E7%94%BB%E9%9D%A2%E8%BF%9B%E8%A1%8C%E6%8B%96%E6%9B%B3%E5%8A%A8%E5%81%9A%E6%97%B6%E6%89%80%E8%A7%A6%E5%8F%91%E7%9A%84%E5%87%BD%E5%BC%8F%0A%20-(void)touchesMoved%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%20%7B%0A%0A%20%2F%2F%E5%AE%A3%E5%91%8A%E4%B8%80%E4%B8%AAUITouch%E7%9A%84%E6%8C%87%E6%A0%87%E6%9D%A5%E5%AD%98%E6%94%BE%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%97%B6%E6%89%80%E6%92%B7%E5%8F%96%E5%88%B0%E7%9A%84%E7%8A%B6%E6%80%81%0A%20UITouch%20*touch%20%3D%20%5B%5Bevent%20allTouches%5D%20anyObject%5D%3B%0A%0A%20%2F%2F%E5%B0%86XY%E8%BD%B4%E7%9A%84%E5%BA%A7%E6%A0%87%E8%B5%84%E8%AE%AF%E6%AD%A3%E8%A7%84%E5%8C%96%E5%90%8E%E8%BE%93%E5%87%BA%0A%20moveX.text%20%3D%20%5BNSString%20stringWithFormat%3A%40%22%250.0f%22%2C%20%5Btouch%20locationInView%3Atouch.view%5D.x%5D%3B%0A%20moveY.text%20%3D%20%5BNSString%20stringWithFormat%3A%40%22%250.0f%22%2C%20%5Btouch%20locationInView%3Atouch.view%5D.y%5D%3B%0A%20%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span class="comment">//对画面进行拖曳动做时所触发的函式</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;-(<span class="keyword">void</span><span>)touchesMoved:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;<span class="comment">//宣告一个UITouch的指标来存放事件触发时所撷取到的状态</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;[[event&nbsp;allTouches]&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;<span class="comment">//将XY轴的座标资讯正规化后输出</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;moveX.text&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:@<span class="string">"%0.0f"</span><span>,&nbsp;[touch&nbsp;locationInView:touch.view].x];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;moveY.text&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:@<span class="string">"%0.0f"</span><span>,&nbsp;[touch&nbsp;locationInView:touch.view].y];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="7" title="UITouch 触摸事件处理（实例）" style="display: none;">//对画面进行拖曳动做时所触发的函式
+ -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+
+ //宣告一个UITouch的指标来存放事件触发时所撷取到的状态
+ UITouch *touch = [[event allTouches] anyObject];
+
+ //将XY轴的座标资讯正规化后输出
+ moveX.text = [NSString stringWithFormat:@"%0.0f", [touch locationInView:touch.view].x];
+ moveY.text = [NSString stringWithFormat:@"%0.0f", [touch locationInView:touch.view].y];
+ }</pre>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">C代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%2F%2F%E6%89%8B%E6%8C%87%E7%A6%BB%E5%BC%80%E7%94%BB%E9%9D%A2%EF%BC%88%E7%BB%93%E6%9D%9F%E6%93%8D%E4%BD%9C%EF%BC%89%E6%97%B6%E6%89%80%E8%A7%A6%E5%8F%91%E7%9A%84%E5%87%BD%E5%BC%8F%0A%20-(void)touchesEnded%3A(NSSet%20*)touches%20withEvent%3A(UIEvent%20*)event%20%7B%0A%0A%20%2F%2F%E5%AE%A3%E5%91%8A%E4%B8%80%E4%B8%AAUITouch%E7%9A%84%E6%8C%87%E6%A0%87%E6%9D%A5%E5%AD%98%E6%94%BE%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%97%B6%E6%89%80%E6%92%B7%E5%8F%96%E5%88%B0%E7%9A%84%E7%8A%B6%E6%80%81%0A%20UITouch%20*touch%20%3D%20%5B%5Bevent%20allTouches%5D%20anyObject%5D%3B%0A%0A%20%2F%2F%E5%8F%96%E5%BE%97%E5%B9%B6%E8%BE%93%E5%87%BA%E8%BF%9E%E7%82%B9%E8%B5%84%E8%AE%AF%EF%BC%8CtapCount%E5%8F%AF%E4%BF%9D%E7%95%99%E4%B8%80%E5%AE%9A%E6%97%B6%E9%97%B4%E5%86%85%E7%9A%84%E8%BF%9E%E7%82%B9%E6%AC%A1%E6%95%B0%0A%20tapCountLabel.text%20%3D%20%5BNSString%20stringWithFormat%3A%40%22%25d%22%2C%20%5Btouch%20tapCount%5D%5D%3B%0A%20%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-cpp"><li><span><span class="comment">//手指离开画面（结束操作）时所触发的函式</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;-(<span class="keyword">void</span><span>)touchesEnded:(NSSet&nbsp;*)touches&nbsp;withEvent:(UIEvent&nbsp;*)event&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;<span class="comment">//宣告一个UITouch的指标来存放事件触发时所撷取到的状态</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;UITouch&nbsp;*touch&nbsp;=&nbsp;[[event&nbsp;allTouches]&nbsp;anyObject];&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;<span class="comment">//取得并输出连点资讯，tapCount可保留一定时间内的连点次数</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;tapCountLabel.text&nbsp;=&nbsp;[NSString&nbsp;stringWithFormat:@<span class="string">"%d"</span><span>,&nbsp;[touch&nbsp;tapCount]];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;}&nbsp;&nbsp;</span></li></ol></div><pre class="c" name="code" codeable_id="1473287" codeable_type="Blog" source_url="http://justcoding.iteye.com/blog/1473287" pre_index="8" title="UITouch 触摸事件处理（实例）" style="display: none;">//手指离开画面（结束操作）时所触发的函式
+ -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+
+ //宣告一个UITouch的指标来存放事件触发时所撷取到的状态
+ UITouch *touch = [[event allTouches] anyObject];
+
+ //取得并输出连点资讯，tapCount可保留一定时间内的连点次数
+ tapCountLabel.text = [NSString stringWithFormat:@"%d", [touch tapCount]];
+ }</pre>
+&nbsp;&nbsp;
+<p>来源：<a href="http://furnacedigital.blogspot.com/2010/12/touch-panel.html">http://furnacedigital.blogspot.com/2010/12/touch-panel.html</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  </div>
+
+  
+
+
+  
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://justcoding.iteye.com/blog/1473328" class="next" title="UIActivityIndicatorView、UIProgressView 活动与进度指示器 （实例）">UIActivityIndicatorView、UIProgressView ...</a>
+      |
+      <a href="http://justcoding.iteye.com/blog/1472932" class="pre" title="UIDeviceOrientation 和  UIInterfaceOrientation 设备旋转的用法 （实例）">UIDeviceOrientation 和  UIInterfaceOrien ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2012-04-02 21:52</li>
+      <li>浏览 21713</li>
+      <li><a href="http://justcoding.iteye.com/blog/1473287#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/mobile">移动开发</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1473287" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://justcoding.iteye.com/login" style="background-color:white;"> <img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://justcoding.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1473287;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'UITouch 触摸事件处理（实例）');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'UITouch 触摸事件处理（实例）');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://justcoding.iteye.com/"><img alt="天梯梦的博客" class="logo" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/bd4cd273-b0e4-316d-a621-0754347e12c7.jpeg" title="天梯梦的博客: Just Code"></a></div>
+  <div id="blog_owner_name">天梯梦</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 2232055 次</li>
+              <li>性别: <img alt="Icon_minigender_2" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/icon_minigender_2.gif" title="女"></li>
+              <li>来自: 三藩市</li>
+              <li><img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://justcoding.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://shibinyu-neau126.iteye.com/" target="_blank"><img alt="shibinyu_neau126的博客" class="logo" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/user-logo-thumb.gif" title="shibinyu_neau126的博客: "></a></div>
+                <div class="left"><a href="http://shibinyu-neau126.iteye.com/" target="_blank" title="shibinyu_neau126">shibinyu_neau126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://dylinshi126.iteye.com/" target="_blank"><img alt="dylinshi126的博客" class="logo" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/user-logo-thumb.gif" title="dylinshi126的博客: "></a></div>
+                <div class="left"><a href="http://dylinshi126.iteye.com/" target="_blank" title="dylinshi126">dylinshi126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://alanie.iteye.com/" target="_blank"><img alt="alanie的博客" class="logo" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/user-logo-thumb.gif" title="alanie的博客: "></a></div>
+                <div class="left"><a href="http://alanie.iteye.com/" target="_blank" title="alanie">alanie</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://l328969749.iteye.com/" target="_blank"><img alt="l328969749的博客" class="logo" src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/user-logo-thumb.gif" title="l328969749的博客: "></a></div>
+                <div class="left"><a href="http://l328969749.iteye.com/" target="_blank" title="l328969749">l328969749</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://justcoding.iteye.com/">全部博客 (1149)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/89134">Php / Pear / Mysql (230)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/89135">Javascript /Jquery / Bootstrap / Web (186)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/178119">Phone / IOS / Objective-C / Swift (120)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/229050">Ubuntu / Mac / Github / Aptana / Nginx / Shell / Linux (219)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/262642">Perl / Koha / Ruby / Markdown (6)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/166396">Java / Jsp (12)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/91095">Python 2 / Wxpython (25)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/89155">Codeigniter / CakePHP (32)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/89136">Div / Css / XML / HTML5 (54)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/91307">WP / Joomla! / Magento / Shopify / Drupal / Moodle / Zimbra (148)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/89437">Apache / VPN / Software (30)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/91407">AS3.0/2.0 / Flex / Flash (45)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/92551">Smarty (6)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/93795">SEO (8)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/89137">Google / Facebook / Network (24)</a></li>
+                
+                  <li><a href="http://justcoding.iteye.com/category/264864">Tools (5)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://justcoding.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://justcoding.iteye.com/blog/post">我的论坛</a> (16)
+                </li>
+                <li><a href="http://justcoding.iteye.com/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://justcoding.iteye.com/blog/monthblog/2014-06">2014-06</a> (41)</li>
+                
+                  <li><a href="http://justcoding.iteye.com/blog/monthblog/2014-05">2014-05</a> (21)</li>
+                
+                  <li><a href="http://justcoding.iteye.com/blog/monthblog/2014-04">2014-04</a> (36)</li>
+                
+                <li><a href="http://justcoding.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+              <div id="comments_top">
+                <h5>评论排行榜</h5>
+                <ul>
+                  
+                    <li><a href="http://justcoding.iteye.com/blog/1936152" title="微信公众平台PHP开发">微信公众平台PHP开发</a></li>
+                  
+                    <li><a href="http://justcoding.iteye.com/blog/2049124" title="安装Ubuntu 14.04后要做的5件事情 ">安装Ubuntu 14.04后要做的5件事情 </a></li>
+                  
+                    <li><a href="http://justcoding.iteye.com/blog/2017200" title="JQuery实现的Table表头固定展示效果 ">JQuery实现的Table表头固定展示效果 </a></li>
+                  
+                    <li><a href="http://justcoding.iteye.com/blog/1986523" title="Linux安装Photoshop CS6 Install Photoshop CS6 on Linux Ubuntu 13.04">Linux安装Photoshop CS6 Install Photosho ...</a></li>
+                  
+                    <li><a href="http://justcoding.iteye.com/blog/2028251" title="FullCalendar 一： 日程安排FullCalendar">FullCalendar 一： 日程安排FullCalendar</a></li>
+                  
+                </ul>
+              </div>
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://zoujinxing.iteye.com/" target="_blank" title="zoujinxing">zoujinxing</a>： 
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                  <a href="http://justcoding.iteye.com/blog/2017200#bc2351005">JQuery实现的Table表头固定展示效果 </a>
+                </li>
+                
+                <li>
+                  <a href="http://justcoding.iteye.com/" target="_blank" title="天梯梦">天梯梦</a>： 
+                  minapengqiang 写道怎么应用的，能发个例子吗，我也 ...<br>
+                  <a href="http://justcoding.iteye.com/blog/593559#bc2350821">iframe自适应高度</a>
+                </li>
+                
+                <li>
+                  <a href="http://minapengqiang.iteye.com/" target="_blank" title="minapengqiang">minapengqiang</a>： 
+                  怎么应用的，能发个例子吗，我也遇到tab切换div，每个div ...<br>
+                  <a href="http://justcoding.iteye.com/blog/593559#bc2350807">iframe自适应高度</a>
+                </li>
+                
+                <li>
+                  <a href="http://ouwa.iteye.com/" target="_blank" title="ouwa">ouwa</a>： 
+                   ...<br>
+                  <a href="http://justcoding.iteye.com/blog/1986523#bc2349821">Linux安装Photoshop CS6 Install Photoshop CS6 on Linux Ubuntu 13.04</a>
+                </li>
+                
+                <li>
+                  <a href="http://justcoding.iteye.com/" target="_blank" title="天梯梦">天梯梦</a>： 
+                  bingb511 写道 你好，可以教教我怎么新建模板的么？就是 ...<br>
+                  <a href="http://justcoding.iteye.com/blog/846093#bc2348949">magento模板中XML与phtml关系</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2014 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/saved_resource" width="0" height="0">
+
+<script src="./UITouch 触摸事件处理（实例） - Just Code - ITeye技术网站_files/tracking.js" type="text/javascript"></script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-11897981-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+      
+    
+  
+
+</body></html>

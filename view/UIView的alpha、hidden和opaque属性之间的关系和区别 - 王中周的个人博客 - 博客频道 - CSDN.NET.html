@@ -1,0 +1,760 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://blog.csdn.net/wzzvictory/article/details/10076323 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="opaque该属性为BOOL值，UIView的默认值是YES，但UIButton等子类的默认值都是NO。opaque表示当前UIView是否不透明，不过搞笑的是事实上它却决定不了当前UIView是不是不透明，比如你将opaque设为NO，该UIView照样是可见的（上文说过，是否可见是由alpha或hidden属性决定的），照理说为NO就表示透明，那就应该是不可见的呀？原来，GPU会通过图层一和图层二的颜色进行图层混合，计算出混合部分的颜色，最理想情况的计算公式如下：R = S + D * ( 1 –">
+    <script type="text/javascript" async="" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ga.js"></script><script src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">
+        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/wzzvictory_tjsd/rss/list">
+    <link rel="shortcut icon" href="http://csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+<link rel="stylesheet" href="http://csdnimg.cn/public/common/toolbar/css/font-awesome.min.css"><link href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><script type="text/javascript" charset="utf-8" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/tracking.js"></script><script type="text/javascript" charset="utf-8" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/main.js"></script><link rel="stylesheet" type="text/css" href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/logger.js"></script></head>
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/o(1).html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><iframe frameborder="0" style="display: none;"></iframe><div id="bdshare_s" style="display: block;"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div id="bdshare_l" style="display: none;"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_mshare mshare">一键分享</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_renren rrw">人人网</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_douban db">豆瓣网</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_sqq sqq">QQ好友</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_thx thx">和讯微博</a></li><li><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="bds_more">更多...</a></li></ul><p><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#" class="goWebsite">百度分享</a></p></div></div></div>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" target="_blank" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="https://passport.csdn.net/account/register?ref=toolbar">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="about:block" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt><a href="http://share.csdn.net/slides/new?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-right "><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd><a href="http://share.csdn.net/?ref=toolbar" target="_blank">Share</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                      <dd> <a href="http://huiyi.csdn.net/meeting?ref=toolbar" target="_blank">会议</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/wzzvictory">王中周的个人博客</a></h2>
+            <h3>专注于IOS应用开发，业余学习Java和Android，欢迎关注我的微信公共账号：wangzzstrive</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+                <li id="btnContents"><a href="http://blog.csdn.net/wzzvictory?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/wzzvictory?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/wzzvictory/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "wzzvictory_tjsd";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/wzzvictory";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/25387451" target="_blank">
+<font color="blue">有奖征资源，博文分享有内涵
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/29379593" target="_blank">
+<font color="red">5月推荐博文汇总 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://student.csdn.net/mcs/programming_challenges" target="_blank">
+<font color="blue">第二届战神杯编程挑战月赛
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://vote.blog.csdn.net/contest/" target="_blank">
+<font color="red">2014 CSDN博文大赛 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.csdn.net/article/2014-06-10/2820155" target="_blank">
+<font color="blue">技术牛人的蜕变之路-陆其明
+</font></a>
+
+
+</div>                    <link href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/main(1).js"></script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET.html">
+        UIView的alpha、hidden和opaque属性之间的关系和区别
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/wzzvictory_tjsd/article/category/1490629" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">IOS</a> 
+        </span>
+    <span class="link_postdate">2013-08-19 22:53</span>
+    <span class="link_view" title="阅读次数">1746人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(2)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shoucang&#39;]);collectArticle(&#39;UIView的alpha、hidden和opaque属性之间的关系和区别&#39;,&#39;10076323&#39;);return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="http://blog.csdn.net/wzzvictory/article/details/10076323#report" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_jubao&#39;]);report(10076323,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://www.csdn.net/tag/UIView" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">UIView</a><a href="http://www.csdn.net/tag/alpha" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">alpha</a><a href="http://www.csdn.net/tag/hidden" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">hidden</a><a href="http://www.csdn.net/tag/opaque" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">opaque</a><a href="http://www.csdn.net/tag/%e5%b1%9e%e6%80%a7" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">属性</a></div>
+
+    
+<div id="article_content" class="article_content">
+
+<div style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:center">
+<strong><span style="font-size:18px; color:rgb(0,153,0)">UIView的alpha、hidden和opaque属性之间的关系和区别</span></strong></div>
+<div style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(255,0,0)">作者：<a target="_blank" href="http://blog.csdn.net/wzzvictory_tjsd" style="color:rgb(51,102,153); text-decoration:none">wangzz</a></span></div>
+<div style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="color:rgb(255,0,0)">原文地址：<span style="color:rgb(51,102,153)"><a target="_blank" href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET.html" style="color:rgb(51,102,153); text-decoration:none">http://blog.csdn.net/wzzvictory/article/details/10076323</a></span></span></div>
+<div style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-size:18px; color:rgb(0,153,0)"><span style="color:rgb(255,0,0); font-size:14px">转载请注明出处</span></span></div>
+<div style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-size:18px; color:rgb(0,153,0)"><span style="color:rgb(255,0,0); font-size:14px"><span style="color:rgb(255,0,0); font-family:Arial; font-size:14px; line-height:26px">如果觉得文章对你有所帮助，请通过留言或关注微信公众帐号</span><span style="font-family:Arial; font-size:14px; line-height:26px; color:rgb(51,51,51)"><span style="color:rgb(51,51,255)">wangzzstrive</span></span><span style="color:rgb(255,0,0); font-family:Arial; font-size:14px; line-height:26px">来支持我，谢谢！</span><br>
+</span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-size:18px"><span style="font-size:14px"><br>
+</span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-size:18px"><span style="font-size:14px">UIView的这几个属性让我困惑了好一阵子，通过翻看<a target="_blank" href="http://developer.apple.com/library/ios/documentation/uikit/reference/uiview_class/uiview/uiview.html#jumpTo_19">官方文档</a>和<a target="_blank" href="http://stackoverflow.com/questions/8829925/whats-the-relationships-among-opaquealpha-and-backgroundcolor-of-a-uiview-prop?rq=1">stackoverflow</a>等网上资源，对它们有了一定理解，现分享出来。如理解有误，还请大家指出。</span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-size:18px"><span style="font-size:14px"><br>
+</span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-size:18px"><span style="font-size:14px"><span style="font-family:Arial; font-size:14px; line-height:26px">一、alpha</span></span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px">液晶显示器是由一个个的像素点组成的，每个像素点都可以显示一个由RGBA颜色空间组成的一种色值。其中的A就表示透明度alpha，UIView中alpha是一个浮点值，取值范围0~1.0,表示从完全透明到完全不透明。</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px">当把alpha的值设置成0以后：</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px">1、当前的UIView和subview都会被隐藏，而不管subview的alpha值为多少。</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px">2、当前UIView会从响应者链中移除，而响应者链中的下一个会成为第一响应者</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px">alpha的默认值是1.0。</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px">另外，更改alpha值时，默认是有动画效果的，这是因为图层在Cocoa中是由Core Animation中CALayer表示的，该动画效果是CALayer的隐含动画。当然也有办法禁用此动画效果，在这就不多述了，感兴趣的同学可以继续关注后续的博客。</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px"><br>
+</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">二、hidden</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">该属性为BOOL值，用来表示UIView是否隐藏，默认值是NO。</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">当值设为YES时:</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">
+<div style="font-family:Arial; font-size:14px; line-height:26px">1、当前的UIView和subview都会被隐藏，<span style="font-family:Arial; font-size:14px; line-height:26px">而不管subview的hidden值为多少。</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">2、当前UIView会从响应者链中移除，而响应者链中的下一个会成为第一响应者</div>
+总之，同alpha为0时的显示效果相同。具体两者之间有什么区别就不清楚了，如果有知道的还望不吝赐教！</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><br>
+</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">三、opaque</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">该属性为BOOL值，UIView的默认值是YES，但UIButton等子类的默认值都是NO。opaque<span style="font-family:Arial; font-size:14px; line-height:26px">表示当前UIView是否不透明，</span>不过搞笑的是事实上<span style="color:#ff0000">它却决定不了当前UIView是不是不透明</span>，比如你将opaque设为NO，该UIView照样是可见的（上文说过，是否可见是由alpha或hidden属性决定的），照理说为NO就表示透明，那就应该是不可见的呀？</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">卖个关子，先看下图：</div>
+<div style="text-align:center; font-family:Arial; font-size:14px; line-height:26px">
+<img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/20130819170332968" alt=""><br>
+</div>
+<div style="text-align:left; font-family:Arial; font-size:14px; line-height:26px">
+前面讲过，显示器中的每个像素点都可以显示一个<span style="font-family:Arial; font-size:14px; line-height:26px">由RGBA颜色空间组成的色值，比如上图中有红色和绿色两个图层色块，对于没有交叉的部分，即纯红色和绿色部分来说，对应位置的像素点只需要简单的显示红或绿，对应的RGBA为（1，0，0，1）和（0，1，0，1）就行了，负责图形显示的GPU需要很小的计算量就可以确定像素点对应的显示内容。</span></div>
+<div style="text-align:left; font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:Arial; font-size:14px; line-height:26px">问题是红色和绿色还有相交的一块，其相交的颜色为黄色。<span style="color:#ff0000">这里的黄色是怎么来的呢？</span>原来，GPU会通过图层一和图层二的颜色进行图层混合，计算出混合部分的颜色，最理想情况的计算公式如下：</span></div>
+<div style="text-align:left; font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:Arial; font-size:14px; line-height:26px"></span>
+<p class="p1"><strong>R = S + D * ( 1 – Sa )</strong></p>
+<p class="p1">其中，R表示混合结果的颜色，S是源颜色(位于上层的红色图层一)，D是目标颜色(位于下层的绿色图层二)，Sa是源颜色的alpha值，即透明度。公式中所有的S和D颜色都假定已经预先乘以了他们的透明度。</p>
+<p class="p1">知道图层混合的基本原理以后，再回到正题说说<span style="font-family:Arial; font-size:14px; line-height:26px">opaque属性的作用</span>。当UIView的opaque属性被设为YES以后，按照上面的公式，也就是Sa的值为1，这个时候公式就变成了：</p>
+<p class="p1"><span style="font-family:Arial; font-size:14px; line-height:26px"><strong>R = S</strong></span><br>
+</p>
+<p class="p1">即不管D为什么，结果都一样。<span style="color:#ff0000">因此GPU将不会做任何的计算合成，不需要考虑它下方的任何东西(因为都被它遮挡住了)，<span style="color:rgb(255,0,0); font-family:Arial; font-size:14px; line-height:26px">而是简单从这个层拷贝</span>。这节省了GPU相当大的工作量。</span>由此看来，<span style="color:#ff0000">opaque属性的真实用处是给绘图系统提供一个性能优化开关！</span></p>
+</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">按照前面的逻辑，当opaque属性被设为YES时，GPU就不会再利用图层颜色合成公式去合成真正的色值。因此，<span style="color:#ff0000">如果opaque被设置成YES，而对应UIView的alpha属性不为1.0的时候，就会有不可预料的情况发生</span>，这一点苹果在官方文档中有明确的说明：</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-family:&#39;Lucida Grande&#39;,&#39;Lucida Sans Unicode&#39;,Helvetica,Arial,Verdana,sans-serif; font-size:13px">An opaque view is expected to fill its bounds with entirely opaque content—that
+ is, the content should have an alpha value of&nbsp;</span><code style="font-size:13px; font-family:Courier,Consolas,monospace; color:rgb(102,102,102)">1.0</code><span style="font-family:&#39;Lucida Grande&#39;,&#39;Lucida Sans Unicode&#39;,Helvetica,Arial,Verdana,sans-serif; font-size:13px">.
+ If the view is opaque and either does not fill its bounds or contains wholly or partially transparent content,<span style="color:#ff0000">the results are unpredictable</span>. You should always set the value of this property to&nbsp;</span><code style="font-size:13px; font-family:Courier,Consolas,monospace; color:rgb(102,102,102)">NO</code><span style="font-family:&#39;Lucida Grande&#39;,&#39;Lucida Sans Unicode&#39;,Helvetica,Arial,Verdana,sans-serif; font-size:13px">&nbsp;if
+ the view is fully or partially transparent.</span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">大家切记！！！！</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><br>
+</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px">四、最后</div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-size:18px"><span style="font-size:14px">当把UIView的alpha属性设成0，或者把hidden设成YES的时候，当前UIView和它所包含的子UIView都会变成不可见，同时也不会再响应event事件。注意这里是或的关系，即只要设置了其中的一个都会有此效果，而不管另外一个属性的值是什么。</span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><span style="font-size:18px"><span style="font-size:14px"><br>
+</span></span></div>
+<div style="font-family:Arial; font-size:14px; line-height:26px"><br>
+</div>
+
+</div>
+
+
+
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float: right;">
+<a class="bds_qzone" title="分享到QQ空间" href="http://blog.csdn.net/wzzvictory/article/details/10076323#"></a>
+<a class="bds_tsina" title="分享到新浪微博" href="http://blog.csdn.net/wzzvictory/article/details/10076323#"></a>
+<a class="bds_tqq" title="分享到腾讯微博" href="http://blog.csdn.net/wzzvictory/article/details/10076323#"></a>
+<a class="bds_renren" title="分享到人人网" href="http://blog.csdn.net/wzzvictory/article/details/10076323#"></a>
+<a class="bds_t163" title="分享到网易微博" href="http://blog.csdn.net/wzzvictory/article/details/10076323#"></a>
+<span class="bds_more">更多</span>
+<a class="shareCount" href="http://blog.csdn.net/wzzvictory/article/details/10076323#" title="累计分享2次">2</a>
+</div>
+<!-- Baidu Button END -->
+
+
+<!--192.168.100.33-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/wzzvictory/article/details/9674431&#39;;">上一篇</span><a href="http://blog.csdn.net/wzzvictory/article/details/9674431" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">KVC/KVO原理详解及编程指南</a></li>
+            <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/wzzvictory/article/details/10521735&#39;;">下一篇</span><a href="http://blog.csdn.net/wzzvictory/article/details/10521735" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">解决svn: Cannot negotiate authentication mechanism错误问题</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+        <div id="digg" articleid="10076323">
+            <dl id="btnDigg" class="digg digg_disable">
+                <dt onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_ding&#39;])">顶</dt>
+                <dd>0</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+                <dt onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_cai&#39;])">踩</dt>
+                <dd>1</dd>
+            </dl>
+        </div>
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/uiview" target="_blank" class="blog-tage-red">uiview</a> 
+                <a href="http://www.csdn.net/tag/stackoverflow" target="_blank" class="blog-tage-red">stackoverflow</a> 
+                <a href="http://www.csdn.net/tag/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96" target="_blank" class="blog-tage-red">性能优化</a> 
+                <a href="http://www.csdn.net/tag/animation" target="_blank" class="blog-tage-red">animation</a> 
+                <a href="http://www.csdn.net/tag/%E7%BB%BF%E8%89%B2" target="_blank" class="blog-tage-red">绿色</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad" data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/pingchangtan367/article/details/8464798" title="使用UIBezierPath平滑的画线" strategy="CFRecommendAlgorithm" target="_blank">使用UIBezierPath平滑的画线</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/tianjf0514/article/details/18714175" title="iOS_GCD_讲解三_Dispatch Sources" strategy="CFRecommendAlgorithm" target="_blank">iOS_GCD_讲解三_Dispatch Sources</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/jiajiayouba/article/details/21104987" title="iOS 类别和扩展（Categories和Extensions）" strategy="CFRecommendAlgorithm" target="_blank">iOS 类别和扩展（Categories和Extensions）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/itianyi/article/details/8618128" title="类别，属性，成员变量，arc学习总结" strategy="CFRecommendAlgorithm" target="_blank">类别，属性，成员变量，arc学习总结</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/wangyunhe1/article/details/9198825" title="ios-王云鹤  把UIdatePicker 嵌入到 UIActionSheet中" strategy="CFRecommendAlgorithm" target="_blank">ios-王云鹤  把UIdatePicker 嵌入到 UIActionSheet中</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/lucky_06/article/details/29560781" title="【开发技巧】在iOS8下WebView的选择" strategy="CFRecommendAlgorithm" target="_blank">【开发技巧】在iOS8下WebView的选择</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/joe1209/article/details/8859420" title="IOS  GPS定位" strategy="CFRecommendAlgorithm" target="_blank">IOS  GPS定位</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/wzh1215/article/details/8551142" title="图片的多种展示效果，及图片的拖动，缩放" strategy="CFRecommendAlgorithm" target="_blank">图片的多种展示效果，及图片的拖动，缩放</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/nomousewch/article/details/6433657" title="Swing 架构概述" strategy="CFRecommendAlgorithm" target="_blank">Swing 架构概述</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/uxyheaven/article/details/9794359" title="UIView添加支持代码块的手势" strategy="CFRecommendAlgorithm" target="_blank">UIView添加支持代码块的手势</a></dd></dl>
+
+<script type="text/javascript">
+    var searchtitletags = 'UIView的alpha、hidden和opaque属性之间的关系和区别' + ',' + 'uiview,stackoverflow,性能优化,animation,绿色';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+    <div id="ad_cen">
+        <script type="text/javascript">            BAIDU_CLB_SLOT_ID = "117306";</script>
+        <script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/o.js"></script><div id="BAIDU_DUP_wrapper_117306_0"><iframe id="baidu_clb_slot_iframe_117306_0" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET.html" onload="BAIDU_DUP_CLB_renderFrame(&#39;117306_0&#39;)" width="728" height="90" vspace="0" hspace="0" allowtransparency="true" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:0; vertical-align:bottom; margin:0; display:block;"></iframe></div><script charset="utf-8" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ecom"></script><script charset="utf-8" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/fixed7o.js"></script>
+    </div>
+    <script type="text/javascript">
+        //new Ad(4, 'ad_cen');
+    </script>
+<div id="comment_title" class="panel_head">
+    查看评论<a name="comments"></a></div>
+<div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2933449"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/yhawaii" target="_blank">yhawaii的喃喃自语</a> <span class="ptime">2013-09-22 22:43发表</span>  <a href="http://blog.csdn.net/wzzvictory/article/details/10076323#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2933449" username="yhawaii"> <a href="http://blog.csdn.net/wzzvictory/article/details/10076323#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wzzvictory/article/details/10076323#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yhawaii" target="_blank"><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/3_yhawaii.jpg" width="40" height="40"></a></dd><dd class="comment_body">写得不错。一直都只知道怎么用，却没有去深究其原理。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2913577"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/songhongri" target="_blank">hongrisong</a> <span class="ptime">2013-09-12 17:32发表</span>  <a href="http://blog.csdn.net/wzzvictory/article/details/10076323#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2913577" username="songhongri"> <a href="http://blog.csdn.net/wzzvictory/article/details/10076323#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/wzzvictory/article/details/10076323#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/songhongri" target="_blank"><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/3_songhongri.jpg" width="40" height="40"></a></dd><dd class="comment_body">分析的很好，尤其是opaque那段，长知识了</dd></dl><div class="clear"></div></div>
+<div id="comment_bar" style="display: none;">
+</div>
+<div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:csdn.showLogin(function (dat) {js_logined(dat.data.userName);});">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fwzzvictory%2Farticle%2Fdetails%2F10076323">[注册]</a></div></div>
+<div class="announce">
+    * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '10076323';
+    var commentscount = 2;
+    var islock = false
+</script>
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    <iframe id="ad_frm_0" frameborder="0" scrolling="no" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ad(1).html" style="border-width: 0px; overflow: hidden; width: 746px; height: 0px;"></iframe></div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+      
+
+       <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: block;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Java" href="http://www.csdn.net/tag/Java" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Android" href="http://www.csdn.net/tag/android" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://www.csdn.net/tag/ios" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title="Hadoop" href="http://www.csdn.net/tag/hadoop" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="Spark" href="http://www.csdn.net/tag/spark" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/wzzvictory_tjsd" target="_blank">
+    <img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/1_wzzvictory_tjsd.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/wzzvictory_tjsd" class="user_name" target="_blank">wangzz</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_guanzhu&#39;])"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+<div id="bms_box"><a href="http://medal.blog.csdn.net/allmedal.aspx" target="_blank"><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/holdon_s2.gif" onmouseover="m_over_m(this,0)" onmouseout="m_out_m()" alt=""></a></div></div>
+<ul id="blog_rank">
+    <li>访问：<span>63776次</span></li>
+    <li>积分：<span>1124分</span></li>
+    <li>排名：<span>第13265名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>44篇</span></li>
+    <li>转载：<span>3篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>32条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div id="custom_column_26598111" class="panel">
+<ul class="panel_head"><span>博主简介</span></ul>
+<ul class="panel_body">
+
+<p><span style="line-height:1">曾就职于高阳科技、拉手网，目前工作在高德地图；</span><span style="line-height:1">专注于IOS应用开发，业余时间学习Java和Android。</span>
+</p>
+<p><span style="line-height:1">个人博客：</span> </p>
+<p><a href="http://wangzz.github.io/" target="_blank"><span style="line-height:1">http://wangzz.github.io/</span></a>
+</p>
+<p><span style="line-height:1">新浪微博：</span> </p>
+<p><a href="http://weibo.com/foogry" target="_blank"><span style="line-height:1">http://weibo.com/foogry</span></a>
+</p>
+<p><span style="line-height:1">我的“IOS开发教程”微信公共账号：</span> </p>
+<p><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/1381469936_6390.jpg" width="150" height="150" title="微信“IOS开发教程”公共账号" alt="微信“IOS开发教程”公共账号">
+</p>
+<p><span style="line-height:1">欢迎大家关注！</span> </p>
+
+</ul>
+</div><div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/wzzvictory/article/category/1484419" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Objective-C</a><span>(18)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/wzzvictory/article/category/1490629" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">IOS</a><span>(12)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/wzzvictory/article/category/1512959" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">其他</a><span>(9)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/wzzvictory/article/category/1626241" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Core Animation</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/wzzvictory/article/category/1662709" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">xcode技巧</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/wzzvictory/article/category/1674063" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Java</a><span>(6)</span>
+            </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/wzzvictory/article/month/2014/05">2014年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2014/03">2014年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2014/02">2014年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2014/01">2014年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/12">2013年12月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/11">2013年11月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/10">2013年10月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/09">2013年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/08">2013年08月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/07">2013年07月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/06">2013年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/04">2013年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/03">2013年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/02">2013年02月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/wzzvictory/article/month/2013/01">2013年01月</a><span>(3)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9674431" title="KVC/KVO原理详解及编程指南">KVC/KVO原理详解及编程指南</a><span>(4371)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9237973" title="Objective-C之run loop详解">Objective-C之run loop详解</a><span>(3960)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8624057" title="Objective-C runtime之消息（二）">Objective-C runtime之消息（二）</a><span>(3692)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8615569" title="Objective-C runtime之运行时的基本特点（一）">Objective-C runtime之运行时的基本特点（一）</a><span>(3173)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9053813" title="IOS如何选择图片加载方式：imageNamed和imageWithContentsOfFile的区别">IOS如何选择图片加载方式：imageNamed和imageWithContentsOfFile的区别</a><span>(3115)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8630828" title="Cocoa是什么？？？">Cocoa是什么？？？</a><span>(3043)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9015281" title="IOS开发中的证书和代码签名（code signing）">IOS开发中的证书和代码签名（code signing）</a><span>(2578)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8629036" title="Objective-C runtime之消息转发机制（三）">Objective-C runtime之消息转发机制（三）</a><span>(2443)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9264335" title="Cocoa Touch事件处理流程--响应者链">Cocoa Touch事件处理流程--响应者链</a><span>(2294)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8565872" title="iPhone像素点和常用控件尺寸">iPhone像素点和常用控件尺寸</a><span>(2282)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/19178709" title="CocoaPods详解之----进阶篇">CocoaPods详解之----进阶篇</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/12453865" title="《Java语言程序设计（基础篇）》读书笔记（一）">《Java语言程序设计（基础篇）》读书笔记（一）</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8629036" title="Objective-C runtime之消息转发机制（三）">Objective-C runtime之消息转发机制（三）</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8592492" title="Objective-C对象之类对象和元类对象（一）">Objective-C对象之类对象和元类对象（一）</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/8624057" title="Objective-C runtime之消息（二）">Objective-C runtime之消息（二）</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9295317" title="Objective-C非正式协议与正式协议">Objective-C非正式协议与正式协议</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/18413519" title="nil/Nil/NULL/NSNull的区别">nil/Nil/NULL/NSNull的区别</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9674431" title="KVC/KVO原理详解及编程指南">KVC/KVO原理详解及编程指南</a><span>(2)</span>
+</li>
+<li>
+<a href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET.html" title="UIView的alpha、hidden和opaque属性之间的关系和区别">UIView的alpha、hidden和opaque属性之间的关系和区别</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/wzzvictory/article/details/9264335" title="Cocoa Touch事件处理流程--响应者链">Cocoa Touch事件处理流程--响应者链</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"><iframe id="ad_frm_1" frameborder="0" scrolling="no" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ad.html" style="border-width: 0px; overflow: hidden; width: 182px; height: 0px;"></iframe></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/8624057#comments">Objective-C runtime之消息（二）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wzzvictory_tjsd" class="user_name">wangzz</a>:
+@u014165291:据我了解，SEL 指向一个根据方法名hash化了的KEY值，可以达到优化方法...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/8624057#comments">Objective-C runtime之消息（二）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u014165291" class="user_name">阿东的技术博客</a>:
+请问SEL到底指向哪里？一开始根据苹果官方API说，SEL指向struct objc_selecto...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/8615569#comments">Objective-C runtime之运行时的基本特点（一）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mangosnow" class="user_name">iOS樵夫</a>:
+翻译的不错，谢谢了，看了遍英文，有点模糊的地方都比较清晰了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/9674431#comments">KVC/KVO原理详解及编程指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u011757360" class="user_name">abamon</a>:
+学习了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/22417181#comments">Core Animation系列之CADisplayLink</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zhenweicao" class="user_name">zhenweicao</a>:
+不错，学习了。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/17694129#comments">内存管理原理----《Objective-C高级编程：iOS与OS X多线程和内存管理》读书笔记</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hlydiy" class="user_name">韩重言</a>:
+该书给出的事例代码有点蛋疼，一小断代码注释几乎占了一页，我去
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/17694129#comments">Objective-C runtime之消息（二）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/appleandzfd" class="user_name">appleandzfd</a>:
+有见解，耐心看完
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/8592492#comments">Objective-C对象之类对象和元类对象（一）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u013632876" class="user_name">二手懒猫</a>:
+类别不能增加属性是因为底层的限制，动态增加属性可以用class_addProperty。具体可以看h...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/8592492#comments">Objective-C对象之类对象和元类对象（一）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u013632876" class="user_name">二手懒猫</a>:
+@zhlovee:这个不是添加属性。只是通过extra byte 搞而已。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/wzzvictory/article/details/18413519#comments">nil/Nil/NULL/NSNull的区别</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/scfhao" class="user_name">scfhao</a>:
+赞，以前一直以为nil/Nil/NULL不一样。
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date() / 120000).toString(36) + '="></' + 'script>');
+</script><script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/pub_footer_2012.css"><div id="pub_footerall" class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a>|<a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a>|<a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd><a href="http://wpa.qq.com/msgrd?v=3&uin=2355263776&site=qq&menu=yes" target="_blank" class="qq">网站客服</a> <a href="http://wpa.qq.com/msgrd?v=3&uin=2251809102&site=qq&menu=yes" target="_blank" class="qq">杂志客服</a> <a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a> <a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a> <span class="phone" title="服务热线">400-600-2320</span></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display: none; position: absolute; z-index: 9990; width: 170px;">  <iframe src="about:blank" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/notify.js"></script>
+    <script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ad-blog.js"></script><script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ad-ms854.js"></script>
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/ad-ms857_2.js"></script>
+
+<script type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/count.js"></script><iframe src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/logs.html" frameborder="0" width="0" height="0"></iframe>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./UIView的alpha、hidden和opaque属性之间的关系和区别 - 王中周的个人博客 - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+
+
+<div id="tag-suggest-pop" style="display: block;">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content">
+      <span>更多相关资源：</span>
+      <a href="http://www.csdn.net/tag/uiview" target="_blank">uiview</a>
+    </div>
+  </div>
+</div></body></html>
