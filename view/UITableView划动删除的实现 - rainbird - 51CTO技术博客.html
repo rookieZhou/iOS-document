@@ -1,0 +1,1479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)http://rainbird.blog.51cto.com/211214/634587 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<script type="text/javascript" async="" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/ga.js"></script><script id="allmobilize" charset="utf-8" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/allmobilize.min.js"></script><style type="text/css"></style><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://rainbird.blog.51cto.com/#">
+
+
+<title>UITableView划动删除的实现 - rainbird - 51CTO技术博客</title>
+<meta name="description" content="&#160;从七八月前对苹果一无所知,到现在手持iphone,ipad,itouch有三个线上成熟app并熟练开发ios应用.一路走来一直站在前辈的肩膀上不断进步.如今生活工作稳定是时候将一直以来的一些心得整理出来了.想来想去决定..">
+<meta name="keywords" content="划动删除,iphone,滑动删除,ios,UITableView">
+<meta http-equiv="Cache-Control" content="private">
+<!--<base href="http://rainbird.blog.51cto.com/">--><base href=".">
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/def.js"></script>
+<script language="javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/message.js" type="text/javascript"></script>
+<script language="javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/user_comment.js" type="text/javascript"></script>
+<script language="javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/base2.js" type="text/javascript"></script>
+<script language="javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/dialog_utf8.js" type="text/javascript"></script>
+<link href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/44.css" rel="stylesheet" type="text/css">
+<link rel="alternate" href="http://rainbird.blog.51cto.com/rss.php?uid=211214" type="application/rss+xml" title="RSS 2.0">
+<link rel="edituri" type="application/rsd+xml" title="rsd" href="http://rainbird.blog.51cto.com/xmlrpc.php?rsd=1">
+<link href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/header_master_top.css" rel="stylesheet" type="text/css">
+<link href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/base.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	.mainNav li a{display:inline-block}
+</style>
+<script>
+var myid = "";
+function add_flink(){
+	if(myid==""){
+
+        var refurlk = "http://rainbird.blog.51cto.com/211214/634587";
+
+				//commentSubmit("",refurlk);
+				location.href="http://home.51cto.com/index.php?reback="+encodeURIComponent(encodeURIComponent(refurlk));
+				return false;
+	}else{
+      		var url='/mod/edit_flink.php?type=addflink&uid=211214&flink=http://rainbird.blog.51cto.com';
+		var ajax = InitAjax1();
+		ajax.open("GET", url, true);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				if(ajax.responseText==""){
+					alert("添加成功。");
+				}
+				if(ajax.responseText=="1"){
+				alert("链接指向自己。");
+				}
+				if(ajax.responseText=="2"){
+				alert("友情链接已存在。")
+				}
+			}
+		}
+		ajax.send(null);
+	}
+
+
+
+}
+function sendmessage(){
+
+	var refurlk = "http://rainbird.blog.51cto.com/211214/634587";
+
+	if(myid){
+		return true;
+	}else{
+		commentSubmit("",refurlk);
+		return false;
+	}
+}
+function copylink(ourl){
+	if(!ourl){
+		var clipBoardContent = "http://rainbird.blog.51cto.com";
+	}else{
+		var clipBoardContent = ourl;
+	}
+	window.clipboardData.setData("Text",clipBoardContent);
+	alert("复制成功!");
+	return false;
+}
+function correctPNG() {
+if (document.getElementById('blog_touxian'))
+{
+var img = document.getElementById('blog_touxian');
+      var imgName = img.src.toUpperCase()
+      var imgID = (img.id) ? "id='" + img.id + "' " : ""
+      var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+      var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+      var imgStyle = "display:inline-block;" + img.style.cssText
+      if (img.align == "left") imgStyle = "float:left;" + imgStyle
+      if (img.align == "right") imgStyle = "float:right;" + imgStyle
+      if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+      var strNewHTML = "<span " + imgID + imgClass + imgTitle
+         + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+         + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+         + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>" ;
+      img.outerHTML = strNewHTML;
+}
+}
+//window.attachEvent("onload", correctPNG);
+window.onload=correctPNG;
+
+function copy(){
+var text=document.getElementById("txtUser").value;
+if(copy2Clipboard(text)!=false){ 
+alert("复制成功了！ "); 
+} 
+}
+function copy2Clipboard(txt){ 
+if(window.clipboardData){ 
+window.clipboardData.clearData(); 
+window.clipboardData.setData("Text",txt); 
+}else if(navigator.userAgent.indexOf("Opera")!=-1){ 
+window.location=txt; 
+}else if(window.netscape){ 
+try{ 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch(e){ 
+alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。"); 
+return false; 
+} 
+var clip=Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+if(!clip)return; 
+var trans=Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+if(!trans)return; 
+trans.addDataFlavor('text/unicode'); 
+var str=new Object(); 
+var len=new Object(); 
+var str=Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+var copytext=txt;str.data=copytext; 
+trans.setTransferData("text/unicode",str,copytext.length*2); 
+var clipid=Components.interfaces.nsIClipboard; 
+if(!clip)return false; 
+clip.setData(trans,null,clipid.kGlobalClipboard); 
+return true;
+} 
+}
+
+function mod_close(){
+  document.getElementById('mod_tg').style.display="none";
+}
+
+function match_invite(uid) {
+    var url='/mod/match_invite.php';
+	var ajax = InitAjax();
+    var re = 'uid=' + uid;
+	ajax.open("POST", url, true);
+    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax.send(re);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if(ajax.responseText == 1){
+                alert("邀请信息已经发送成功。");
+            } else if(ajax.responseText=="-1"){
+                alert("邀请失败，请稍候再试。");
+            } else if(ajax.responseText=="2"){
+                alert("该用户已经报名了。")
+            }
+        }
+    }
+}
+
+</script>
+<style type="text/css">
+/*
+.artContent img {max-width:450px !important;}
+.showContent img{max-width:650px!important;}
+*/
+
+.artContent img{max-width: 450px; width:expression(this.width > 450 ? "450px" : this.width)}
+/*
+.showContent img{max-width: 450px; width:expression(this.width > 650 ? "650px" : this.width)}
+*/
+
+
+</style>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/share.js"></script><style id="list">
+.showContent ol,.showContent ul{margin:0;pading:0;}.showContent .list-paddingleft-1{padding-left:0}
+.showContent .list-paddingleft-2{padding-left:20px}
+.showContent .list-paddingleft-3{padding-left:40px}
+.showContent ol,.showContent ul{margin:0;pading:0;}.showContent .list-paddingleft-1{padding-left:0}
+.showContent .list-paddingleft-2{padding-left:20px}
+.showContent .list-paddingleft-3{padding-left:40px}</style><link id="syntaxhighlighter_css" rel="stylesheet" type="text/css" href=""><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style1_32.css"></head>
+
+<body><div id="message" class="blogpop" style="z-index: 100; width: 389px; height: 196px; position: absolute; display: block; bottom: 0px; top: 1225px; right: 0px; overflow: hidden; background-color: rgb(255, 255, 255);"><iframe style="width:800px;height:536px;top:0px;left:0px;position:absolute;visibility:inherit;z-index:-1;" frameborder="0"></iframe><div style="height:36px;background:url(http://blog.51cto.com/image/blog_top/popbgx.jpg) repeat-x; position:relative;width:387px;border-right-color:#2668B7;border-right-width:2px;border-right-style:solid 2px #2668B7;"><span style="right:10px;padding:12px 0 0;position:absolute;top:0"><span style="margin-right:80px;color:#828282;width:190px;padding:10px 0 0 10px;font-size:14px">每日博报 精彩不止一点</span><img title="关闭" id="message_close" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/close.jpg" alt="关闭"></span><div style="width:387px;height:36px;left:0;overflow:hidden; text-indent:-999em;background:url(http://blog.51cto.com/image/blog_top/hdtit.jpg) no-repeat;border-right:solid 2px #2668B7;"><a style="display: block; height: 36px;width:138px;" target="_blank" href="http://blog.51cto.com/"></a>51cto博客</div><div style="clear:both;"></div></div><div id="message_content" style="border-top:none;font-family:Microsoft YaHei;font-size:12px;width:389px;height:160pxpx;text-align:left;overflow:hidden;"><div class="blogpopMain"><div class="l"><a href="http://blog.51cto.com/zt/643" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKioL1Or5VaRYPLoAAAyheLQ8Y4668.jpg" width="105" height="105"></a><p><a href="http://blog.51cto.com/zt/643" target="_blank">由浅入深学SQL Server 2012</a></p></div><div class="r"><h4 style="text-align:left;"><a href="http://edu.51cto.com/course/courseList/id-all-field-toll-isLecturer-0-difficulty-all.html" target="_blank">51CTO学院1周年，全场课程5折</a></h4><ul><li><a href="http://edu.51cto.com/pack/view/id-41.html" target="_blank">优惠套餐：王勇带你零基础学大数据</a></li><li><a href="http://edu.51cto.com/pack/view/id-38.html" target="_blank" style="color:red;">优惠套餐：“老段带你学鸟哥Linux</a></li><li><a href="http://edu.51cto.com/member/id-2.html" target="_blank">买韩立刚会员，送学习码+下载VIP</a></li><li><a href="http://edu.51cto.com/pack/view/id-52.html" target="_blank" style="color:red;">优惠套餐：高老师项目管理系列课程</a></li></ul></div></div></div></div>
+
+<div id="home_top">
+<div class="top_nav" style="width:990px;">
+<div class="left" style="margin-top:10px; width:440px;"><a href="http://blog.51cto.com/" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/head_blog_sibebar_logo.gif" align="absmiddle" style="margin-top:-4px;"></a><a target="_blank" href="http://www.51cto.com/">51CTO首页</a><img height="25" align="absmiddle" width="16" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;"><a href="http://blog.51cto.com/" target="_blank">51CTO博客</a><img height="25" align="absmiddle" width="16" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;"><a href="http://home.51cto.com/?reback=http%253A%252F%252Frainbird.blog.51cto.com%252F211214%252F634587">我的博客</a><img height="25" align="absmiddle" width="16" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;">
+
+<a target="_blank" href="http://blog.51cto.com/search.php">搜索</a>
+<a href="javascript:void(0);" style="color: rgb(255, 0, 0); text-decoration: underline;" id="showMessagerDim">每日博报</a>
+</div>
+
+<div class="right" style="width:550px;">
+<div class="more"><img height="16" align="absmiddle" width="27" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/top_shequ.gif">社区：<a target="_blank" href="http://edu.51cto.com/" style="color: rgb(204, 0, 0);">学院</a><a target="_blank" href="http://bbs.51cto.com/">论坛</a><a target="_blank" href="http://blog.51cto.com/">博客</a><a target="_blank" href="http://down.51cto.com/">下载</a><a href="javascript:viod(0);" onmouseout="popupClose()" onmouseover="show(3,this)">更多<img align="absmiddle" style="padding-left: 4px;" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/nav_ico1.gif"></a>            </div>            <span id="login_status"><div class="login" style="padding-top:8px; text-align:right;"><a href="http://home.51cto.com/index.php?s=/Home/index" style="background:none"><img style="margin-top:-3px" id="dia" align="absmiddle" width="20" title="今天领无忧币了吗？" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/dia.gif"></a><a href="http://home.51cto.com/?reback=http%253A%252F%252Frainbird.blog.51cto.com%252F211214%252F634587" target="_self">登录</a><a href="http://ucenter.51cto.com/reg_01.php?reback=http%253A%252F%252Frainbird.blog.51cto.com%252F211214%252F634587" target="_self">注册</a></div></span>                </div>    </div></div>
+
+
+
+<div class="subMenu3" id="s3" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://edu.51cto.com/" target="_blank">学院</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://g.51cto.com/" target="_blank">技术圈</a></li>
+</ul>
+</div>
+<!--简导航end-->
+
+
+
+<div class="headerBox">
+<div class="header">
+<div class="header_l">
+<div class="logo_blogname">
+
+
+<div class="blogLogo">
+<a href="http://blog.51cto.com/blogcommend" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/blogLogo01.png" width="161px;" height="70px;"></a>
+</div>
+
+
+<div class="blogName">
+<a href="http://rainbird.blog.51cto.com/"><h1>rainbird</h1></a>
+</div>
+</div><!--logo_blogname end-->
+<div class="blogLink">
+
+<a href="http://rainbird.blog.51cto.com/">http://rainbird.blog.51cto.com</a> <input id="txtUser" type="hidden" size="32" value="http://rainbird.blog.51cto.com">   <a href="javascript:void(0);" onclick="copy();">【复制】</a> <a href="http://rainbird.blog.51cto.com/rss.php?uid=211214" target="_blank"></a><a href="http://rainbird.blog.51cto.com/rss.php?uid=211214" target="_blank">【订阅】</a>
+
+</div>
+
+
+
+</div><!--header_l end-->
+<div class="header_r">
+<div class="blogInfo"><span><a href="http://rainbird.blog.51cto.com/211214/o" title="察看rainbird2所有原创文章">原创</a>:232</span><span><a href="http://rainbird.blog.51cto.com/211214/t" title="察看rainbird2所有翻译文章">翻译</a>:3</span><span><a href="http://rainbird.blog.51cto.com/211214/c" title="察看rainbird2所有转载文章">转载</a>:39</span></div>
+<div class="blogNav"><a href="http://rainbird.blog.51cto.com/">博 客</a>|<a href="http://home.51cto.com/apps/photo/index.php?s=/Index/photos/uid/211214">图库</a>|<a href="http://rainbird.blog.51cto.com/addblog.php">写博文</a>|<a href="http://51ctoblog.blog.51cto.com/all/26414/4" target="_blank">帮 助</a></div>
+</div>
+</div>
+<!--header end-->
+</div><!--headerBox end-->
+<div class="mainNav">
+<span class="mainNavT"></span>
+<ul>
+<li><a href="http://rainbird.blog.51cto.com/">首页</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-1">linux</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-2">Windows</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-3">Router&amp;Switch</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-4">技术也是人</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-6">Solaris</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-7">FreeBSD</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-10">自学考试</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-11">邮件</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-15">虚拟化</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-16">编程</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-17">iphone</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-18">tinyumiwi</a></li>|<li><a href="http://rainbird.blog.51cto.com/211214/d-19">mac</a></li>
+</ul>
+<span class="mainNavB"></span>
+</div>
+<!--mainNav end-->
+
+<script type="text/javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/jquery-1.7.1.min.js"></script>
+<!--[if IE 6]>
+  <script type="text/javascript" src="http://images.watchstor.com/newhomes/png.js"></script>
+  <script>
+    DD_belatedPNG.fix('img,input,ul,li, .get-box, div, .add, .sub, .ui-slider-handle, .footer-chopper');
+  </script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/fck_editorarea.css">
+<script type="text/javascript" charset="gbk" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/shCores.js"></script>
+<link rel="stylesheet" type="text/css" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/shCoreDefault.css">
+<script type="text/javascript" charset="gbk" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/uparse.js"></script>
+<script type="text/javascript">
+	uParse('.showContent');
+	$(function(){
+		//SyntaxHighlighter.config.clipboardSwf = 'http://bbs.51cto.com/plugins/syntaxhighlighter/scripts/clipboard.swf'; 
+		//为了在编辑器之外能展示高亮代码
+		SyntaxHighlighter.highlight();
+	}); 
+</script>
+<script type="text/javascript">
+/**
+ * 回复评论需要用的js
+ * 2012-5-14
+ * by:chengtao
+ */
+ jQuery(function(){
+	blogpost.init();//初始化博客回复功能
+ })
+ /**
+  * 处理博文评论功能优化
+  */
+ blogpost={
+	abstruct_list:null,
+	init:function(){
+		blogpost.bind();//绑定一些时间
+		this.abstruct_list=new Array();//初始化保存评论信息的数组
+	},
+	/**
+	 * 博客回复需要绑定的一些事件
+	 */
+	bind:function(){
+		/**
+		 * 点击回复的事件
+		 */
+		jQuery('.repost').live('click',function(){
+			blogpost.repost(jQuery(this).attr('user_name'),jQuery(this).attr('parentid'));
+			return false;
+		});
+		/**
+		 * 点击楼层进行翻页且找到锚点
+		 */
+		jQuery('.anchor_page').live('click',function(){
+			var parentid = $(this).attr('parentid');
+			var tid=$(this).attr('tid');
+			$.get('/comments.php?tid='+tid+'&parentid='+parentid,function(data){
+				$('#artcomment').html(data);
+				window.location.hash=''+parentid;
+			})
+			return false;
+		}),
+		jQuery('.anchor_page').live('mouseover',function(){
+			var parentid = $(this).attr('parentid');
+			if(!blogpost.abstruct_list[parentid]){
+				var this_t = $(this);
+				$.get('/comments.php?cid='+parentid,function(data,textStatus){
+					blogpost.abstruct_list[parentid]=data;
+					this_t.attr('title',this_t.text()+':'+ blogpost.abstruct_list[parentid]);
+				});
+			}else{
+				$(this).attr('title',$(this).text()+':'+blogpost.abstruct_list[parentid]);
+			}
+		})
+	},
+	/**
+	 * @param user_name 用户名
+	 * @param parentid  父评论id
+	 */
+	repost:function(user_name,parentid){
+		window.location.hash='comment';
+		jQuery('#parentid').val(parentid);
+		jQuery('#commentcontent').val('回复 '+user_name+":\n").focus();
+		if(!$.browser.mozilla){
+			var elem = jQuery('#commentcontent')[0];		
+			var caretPos = elem.value.length;
+			if (elem.createTextRange) {
+				var range = elem.createTextRange();
+				range.move('character', caretPos);
+				range.select();
+			}else{
+				elem.setSelectionRange(caretPos, caretPos);	
+			}
+		}
+	},
+	/**
+	 * 发送完毕之后清理表单数据 不是ajax可能用不到
+	 */
+	clean:function(){
+		
+	}
+ }
+</script>
+<script type="text/javascript">
+jQuery(function(){
+	var anchor = document.location.hash;
+	var comment_id=anchor.split('#')[1];
+	if(!isNaN(parseInt(comment_id))){//是整形
+		jQuery.get('/comments.php?tid=634587&parentid='+comment_id,function(data){
+			jQuery('#artcomment').html(data);
+			window.location.hash=''+comment_id;
+		})
+	}
+});
+</script>
+
+
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#favourdiv').mouseover(function(){
+		if(jQuery(this).attr('className') == 'support01')
+		{
+			jQuery(this).attr('className', "support02");
+			jQuery(this).html('+1人');
+			jQuery(this).attr('title', "赞一个，我支持TA");
+		}
+		else if(jQuery(this).attr('className') == 'support03')
+		{
+			jQuery(this).attr('title', "你已经赞了这篇博文！");
+		}
+		
+	});
+	jQuery('#favourdiv').mouseout(function(){
+		if(jQuery(this).attr('className') == 'support02')
+		{
+			jQuery(this).attr('className', "support01");
+			jQuery(this).html("2人");
+		}
+	});
+	jQuery('.blog_match_yq').click(function(){
+		var wind_uid = '';
+		if(!wind_uid){
+			alert("请先登录！");
+			return false;
+		}
+		jQuery.ajax({
+			   type: "POST",
+			   url:"/contest2012/index.php?mod=sendmsg",
+			   dataType: "html",
+			   data: "vuid=" + 211214,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("查无此人！");
+						return false;
+					}else if(data == 1){
+						alert("请先登录！");
+						return false;
+					}else if(data == 2){
+						alert("不能邀请自己！");
+						return false;
+					}else if(data == 22){  
+						alert("邀请信息已发出！");
+						return false;
+					}
+			   }
+		  });
+	});
+	jQuery('#favourdiv').click(function(){
+			jQuery.ajax({
+			   type: "POST",
+			   url:"/mod/favour.php",
+			   dataType: "html",
+			   data: "tid=" + 634587,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("您还未登录或者已过期，请重新登录");
+						location.href = "http://home.51cto.com/index.php?reback=http%253A%252F%252Frainbird.blog.51cto.com%252F211214%252F634587";
+						return false;
+					}
+					else if(data == '-1')
+					{
+						alert("参数传递错误！");
+						return false;
+					}
+					else if(data == '-2')
+					{
+						alert("该博文已被删除或者不存在！");
+						return false;
+					}
+					else if(data == '-3')
+					{
+						alert("您已经赞过了！");
+						return false;
+					}
+					else if(data == '-4')
+					{
+						alert("赞操作失败！");
+						return false;
+					}
+					else
+					{  
+						//alert("操作成功，你已经赞了这篇博文！");
+						jQuery('#favourdiv').attr('className', "support03");
+
+						var num = 2 + 1 + "人";
+						jQuery('#favourdiv').html(num);
+						jQuery('#favourer').html(data);
+						return false;
+					}
+			   }
+		  });
+	});
+	//Jaydar http://blog.51cto.com/js/header.php?uid=blogdb[uid]&tid=tid
+	jQuery.post('/js/header.php',{uid:211214,tid:634587},function(data){
+		jQuery('#readNum').html(data[0]);
+		jQuery('#cmtNum').html(data[1]);
+	},'json');
+	
+
+})
+
+jQuery(function(){
+	jQuery('#darid').bind('click',function(){
+		if(confirm("你确定删除此篇文章？")){
+			jQuery.ajax({
+				'type':'post',
+				'url':'user_index.php?action=delarticle',
+				'data':{'job':'del', 'selid':'634587', 'mhash':''},
+				'dataType':'html',
+				'success':function(res){
+					if('ok' == res){
+						location.href="http://.blog.51cto.com";
+					}
+				
+				}
+			});
+		}
+	});
+});
+</script>
+
+
+
+
+<style type="text/css">
+.m_sharelinks{ 
+	line-height:30px; 
+	text-align:left; 
+	padding-left:20px; 
+	//background:url(http://img1.51cto.com/images/share/ico_lb.gif) no-repeat left center;
+	float:left; 
+	width:600px; 
+	height:30px;
+}
+.m_sharelinks a{ margin-left:10px;}
+.m_sharebtn{ height:50px; width:726px; margin:0 auto;}
+.m_sharebtn01{width:520px; float:left;}
+.weibo_51cto{ background:url(http://img1.51cto.com/images/share/ico_mweibo.gif) no-repeat center center; display:block; width:33px; height:33px; float:left; margin:3px 3px 0 0;cursor:pointer;}
+.shareMored {
+    line-height: 30px;
+	float:right; 
+	text-align:right; 
+	width:100px; 
+	height:30px;
+}
+
+.showContent {
+	margin:20px 15px 8px;
+}
+.userImage img {
+    text-align: center;
+	border:0;
+	padding:0;
+}
+.photo_links{ line-height:30px; padding-top:5px; font-size:13px;width:170px; margin:0 auto;}
+.photo_links_blue{ text-align:center;}
+.photo_links_blue a:link,.photo_links_blue a:visited,.photo_links_blue a:hover,.photo_links_blue a:active{ color:#015F91; text-decoration: underline;}
+.photo_links_red{ text-align:left;}
+.photo_links_red a:link,.photo_links_red a:visited,.photo_links_red a:hover,.photo_links_red a:active{ color:#fc4343; text-decoration:underline;}
+.photo_links_red02{ text-align:center;}
+
+.vlist{ margin:10px 10px; height:65px;}
+.vlist img{ float:left; margin-right:10px;}
+.vlist dl{ text-align:left;}
+.vlist dl dt{ height:40px;line-height: 20px; overflow:hidden; padding-top:5px;}
+.vlist dl dt,.vlist dl dt a{ color:#262626;}
+.vlist dl dd,.vlist dl dd a{ color:#777;}
+
+.video-icon{
+    position: relative;
+}
+.video-icon a.i_video {
+    background: url("http://www.51cto.com/images/homepage/Images/eduplay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 25px;
+    left:31px;
+    position: absolute;
+    top:22px;
+    width: 25px;
+    z-index: 10;
+}
+</style>
+<script language="JavaScript" type="text/javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/group.js"></script>
+<div id="add_sys_type_div" style="width:600px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+<div id="add_sys_type_divs" style="width:550px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+
+
+
+<div class="blogMain">
+<div class="blogLeft">
+
+
+<div class="box moduleUser">
+<div class="title">
+<h2><strong>rainbird2</strong> 的BLOG  </h2>
+</div>
+<div class="modCon">
+
+<div class="userImage" style="margin: 10px auto 5px;text-align: center;width: 130px;border: 1px solid #D4D4D4;">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td valign="middle" align="center" height="130"><script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/userface.php"></script><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar.php" id="userface"></td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="photo_links">
+</div>
+
+
+
+
+
+
+
+
+
+<div class="crumbs">
+<a href="http://home.51cto.com/index.php?s=/space/211214#message" class="writeMessage" target="_blank">写留言</a><a href="http://edu.51cto.com/" class="inCircle" target="_blank">去学院学习</a><a href="http://home.51cto.com/index.php?s=/Notify/write/uid/211214" class="message" target="_blank">发消息</a> <a href="http://rainbird.blog.51cto.com/" onclick="add_flink(211214);return false" class="joinLinks">加友情链接</a><a href="http://home.51cto.com/index.php?s=/space/211214" class="joinFriends" target="_blank">进家园 加好友</a>
+</div>
+
+<div style="width:239px;height:64px;display:none;">
+
+
+<div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">2012年度IT博客大赛<br><a target="_blank" href="http://blog.51cto.com/contest2012/#top10000" style="color:#F00; text-decoration:underline;">十大杰出IT博客诞生</a></p></div>
+<div style="float:right;"><a target="_blank" href="http://blog.51cto.com/contest2012/"><img width="57" height="27" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/blog_match_endlook.jpg" style="margin:23px 20px 0 0;"></a></div>
+<!-- <div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">星光评委正在评选<br><a target="_blank" href="http://blog.51cto.com/contest2012/index.php?mod=userlist_sec" style="color:#F00; text-decoration:underline;">2012年度IT博客大赛50强</a></p></div>
+<div style="float:right;"><img class="blog_match_yq" width="57" height="27" src="http://img1.51cto.com/images/blog_match_invite.jpg" style="margin:23px 20px 0 0;"></div> -->
+
+
+
+<div class="clear"></div>
+</div>
+
+
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+<div class="title">
+<h2>博客统计信息</h2>
+</div>
+<div class="modCon">
+<p>
+<span class="infoListHead"><a href="http://blog.51cto.com/blogcommend" target="_blank" class="operlink"><b>51CTO推荐博客</b></a> <br></span>
+用户名：rainbird2<br>
+文章数：280<br>
+评论数：1120<br>
+访问量：1316005<br>
+<a href="http://home.51cto.com/index.php?s=/Account/credit" target="_blank">无忧币</a>：10839<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客积分</a>：5477<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客等级</a>：8<br>
+注册日期：2007-08-10<br>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/blogno1countdown.php"></script> 
+</p>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+	<div class="title">
+		<h2 class="fl">热门专题</h2>
+		<a target="_blank" class="fr" href="http://blog.51cto.com/zt">更多&gt;&gt;</a>
+	</div>
+	<div class="modCon">
+
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/641" target="_blank"><img width="63" height="63" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKioL1OawB-yj7K2AAAw0XW90-A163.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/641" target="_blank" title="轻松搞定个人虚拟桌面部署">轻松搞定个人虚拟桌面部署</a></dt>
+		<dd>阅读量：2162</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/642" target="_blank"><img width="63" height="63" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKioL1On-eXR6_3FAAAvn1jnWU0146.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/642" target="_blank" title="微软私有云分享（R2）">微软私有云分享（R2）</a></dt>
+		<dd>阅读量：2161</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/643" target="_blank"><img width="63" height="63" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKiom1Or5VOS4nnDAAAx_EU8b8o713.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/643" target="_blank" title="由浅入深学SQL Server 2012">由浅入深学SQL Server 2012</a></dt>
+		<dd>阅读量：1799</dd>
+		</dl>
+		</div>
+		
+		
+	</div>
+	<span class="modBot"></span>
+</div>
+
+
+<div class="hotArt box">
+<div class="title">
+<h2>热门文章</h2>
+</div>
+<div class="modCon">
+<ul>
+<li><a href="http://rainbird.blog.51cto.com/211214/50621">HP3050打印机驱动安装</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/525523">最近研究RabbitMQ的一些心得</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/197509">linux加入windows域之完..</a></li>
+<li><a href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/UITableView划动删除的实现 - rainbird - 51CTO技术博客.html">UITableView划动删除的实现</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/591697">苹果设备通过蓝牙共享文件</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/805173">IOS中http请求使用cookie</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/114362">Linux shell 数组</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/225541">两台linux完美实现双机热备</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/64732">solaris 修改IP地址及主机名</a></li>
+<li><a href="http://rainbird.blog.51cto.com/211214/636270"> UITableView多选删除,类..</a></li>
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+<div class="search box">
+<div class="title"><h2>搜索BLOG文章</h2></div>
+<div class="modCon">
+<form method="post" action="http://rainbird.blog.51cto.com/search.php?" tabindex="99">
+<input type="hidden" name="step" value="2">
+<input type="hidden" name="authorid" value="211214">
+<input type="hidden" name="sch_area" value="S">
+<input type="text" value="" name="keyword" class="searchInput">
+<input type="submit" value="搜 索" class="searchBtn">
+</form>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="box recentGuests">
+<div class="title">
+<h2>最近访客</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://9048417.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(1).php"></a>
+<p><a href="http://9048417.blog.51cto.com/">begin..</a></p>
+
+</li><li><a href="http://2314552.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(2).php"></a>
+<p><a href="http://2314552.blog.51cto.com/">wen91..</a></p>
+
+</li><li><a href="http://8209808.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(3).php"></a>
+<p><a href="http://8209808.blog.51cto.com/">knowh..</a></p>
+
+</li><li><a href="http://4913726.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(4).php"></a>
+<p><a href="http://4913726.blog.51cto.com/">月余星光</a></p>
+
+</li><li><a href="http://6022024.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(5).php"></a>
+<p><a href="http://6022024.blog.51cto.com/">min430</a></p>
+
+</li><li><a href="http://54504985.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(6).php"></a>
+<p><a href="http://54504985.blog.51cto.com/">你的..</a></p>
+
+</li><li><a href="http://8983703.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(7).php"></a>
+<p><a href="http://8983703.blog.51cto.com/">凌風雪痕</a></p>
+
+</li><li><a href="http://oerr600.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(8).php"></a>
+<p><a href="http://oerr600.blog.51cto.com/">l8365..</a></p>
+
+</li><li><a href="http://4493975.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(9).php"></a>
+<p><a href="http://4493975.blog.51cto.com/">jiang..</a></p>
+
+</li><li><a href="http://coolner.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(10).php"></a>
+<p><a href="http://coolner.blog.51cto.com/">coolner</a></p>
+
+</li><li><a href="http://6969441.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(11).php"></a>
+<p><a href="http://6969441.blog.51cto.com/">14476..</a></p>
+
+</li><li><a href="http://434984.blog.51cto.com/"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/avatar(12).php"></a>
+<p><a href="http://434984.blog.51cto.com/">xj1350</a></p>
+
+</li></ul>
+<span class="clear"></span>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="newComments box">
+<div class="title">
+<h2>最新评论 
+
+</h2>
+
+
+
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://gykcn.blog.51cto.com/" class="operlink" target="_blank"><b>gyk668cn</b></a>：<a href="http://rainbird.blog.51cto.com/211214/275162" target="_blank">相当有想法。回帖给个支持。谢谢分享。</a></li>
+
+<li><a href="http://8906086.blog.51cto.com/" class="operlink" target="_blank"><b>leilei0412</b></a>：<a href="http://rainbird.blog.51cto.com/211214/507958" target="_blank">./m3u8-segmenter -i /home/www/def..</a></li>
+
+<li><a href="http://191627.blog.51cto.com/" class="operlink" target="_blank"><b>ytbs2002</b></a>：<a href="http://rainbird.blog.51cto.com/211214/350932" target="_blank">我这边也是遇到这个问题，删除重建..</a></li>
+
+<li><a href="http://brandonlight.blog.51cto.com/" class="operlink" target="_blank"><b>joywuwuwu</b></a>：<a href="http://rainbird.blog.51cto.com/211214/124626" target="_blank">http://www.spamhaus.org/ 没有发邮..</a></li>
+
+<li><a href="http://2793461.blog.51cto.com/" class="operlink" target="_blank"><b>xdream86</b></a>：<a href="http://rainbird.blog.51cto.com/211214/805173" target="_blank"> NSDictionary *properties = [NSDi..</a></li>
+
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotBlogArt box">
+<div class="title">
+  <h2 class="fl">51CTO推荐博文</h2>
+  <a href="http://blog.51cto.com/artcommend" class="fr">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+<li><a href="http://tiany.blog.51cto.com/513694/1431287" title="Oracle Undo tablespace恢复（无备份）" target="_blank">Oracle Undo tablespace恢复（无..</a></li>
+<li><a href="http://zhoujg.blog.51cto.com/1281471/1431326" title="开放产品开发（OPD）：OPD框架" target="_blank">开放产品开发（OPD）：OPD框架</a></li>
+<li><a href="http://jinyuan.blog.51cto.com/8854733/1431410" title=".NET里简易实现AOP" target="_blank">.NET里简易实现AOP</a></li>
+<li><a href="http://powertoolsteam.blog.51cto.com/2369428/1431175" title="程序员Web面试之JSON" target="_blank">程序员Web面试之JSON</a></li>
+<li><a href="http://oldboy.blog.51cto.com/2561410/1431161" title="625某电商网站数据库宕机故障解决实录（上）" target="_blank">625某电商网站数据库宕机故障解决..</a></li>
+<li><a href="http://genuinecx.blog.51cto.com/2890523/1430935" title="DeltaRelease--Java Web增量发布工具（附源码）" target="_blank">DeltaRelease--Java Web增量发布..</a></li>
+<li><a href="http://yueliangdao0608.blog.51cto.com/397025/1430164" title="【原创】MySQL新旧版本ORDER BY 处理方法" target="_blank">【原创】MySQL新旧版本ORDER BY ..</a></li>
+<li><a href="http://tiany.blog.51cto.com/513694/1430322" title="RMAN基于表空间的不完全恢复（TSPITR)" target="_blank">RMAN基于表空间的不完全恢复（TSP..</a></li>
+<li><a href="http://562512305.blog.51cto.com/6496478/1430354" title="Redhat6.5下MySQL5.6集群配置完整版" target="_blank">Redhat6.5下MySQL5.6集群配置完整版</a></li>
+<li><a href="http://qianzhang.blog.51cto.com/317608/1429898" title="T-SQL开发 - 10.IDENTITY属性使用小结" target="_blank">T-SQL开发 - 10.IDENTITY属性使用..</a></li>
+<li><a href="http://virusswb.blog.51cto.com/115214/1430032" title="html中的圆角" target="_blank">html中的圆角</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="friendLink box">
+<div class="title">
+  <h2>友情链接</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://blog.cnrainbird.com/" title="个人的IOSBlog" target="_blank">我的私人Blog</a></li>
+
+<li><a href="http://www.showinphone.com/" title="作者的一个app应用" target="_blank">在手机显示</a></li>
+
+<li><a href="http://php.js.cn/" title="" target="_blank">刘春龙的博客</a></li>
+
+<li><a href="http://ifaint.com/" title="陈总监" target="_blank">老大的博客</a></li>
+
+<li><a href="http://www.yuebing365.com/" title="深圳月饼团购网" target="_blank">深圳月饼团购网</a></li>
+
+<li><a href="http://jueshitou.blog.51cto.com/" title="珏石头" target="_blank">珏石头</a></li>
+
+<li><a href="http://deidara.blog.51cto.com/" title="linuxer" target="_blank">linuxer</a></li>
+
+<li><a href="http://boyhong.blog.51cto.com/" title="轻风斜影" target="_blank">红孩儿</a></li>
+
+<li><a href="http://zhulinfeng.blog.51cto.com/" title="竹林风" target="_blank">竹林风</a></li>
+
+<li><a href="http://snailwarrior.blog.51cto.com/" title="小蜗牛技术之家" target="_blank">小蜗牛技术之家</a></li>
+
+<li><a href="http://verdureorange.blog.51cto.com/" title="橙子的安全" target="_blank">橙子的安全</a> <img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/tubiao3.gif" alt="本周内更新"></li>
+
+<li><a href="http://rickyfang.blog.51cto.com/" title="下里巴人的家" target="_blank">下里巴人的家</a></li>
+
+<li><a href="http://n3tl04d.blog.51cto.com/" title="n3tl04d&#39;s Blog-技术成就梦想" target="_blank">n3tl04d's Blo..</a></li>
+
+<li><a href="http://xiong.blog.51cto.com/" title="熊窝" target="_blank">熊窝</a></li>
+
+<li><a href="http://waringid.blog.51cto.com/" title="虚拟的现实" target="_blank">虚拟的现实</a></li>
+
+<li><a href="http://yahoon.blog.51cto.com/" title="yahoon的小屋" target="_blank">yahoon的小屋</a></li>
+
+<li><a href="http://119244.blog.51cto.com/" title="自由" target="_blank">自由</a></li>
+
+<li><a href="http://shenrq.blog.51cto.com/" title="shenrq" target="_blank">shenrq</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+
+</div>
+<!--left end-->
+
+<script type="text/javascript">
+    var favor_url = "http://rainbird.blog.51cto.com/211214/634587";
+    var favor_title = "UITableView划动删除的实现";
+    var favor_fuid = "211214";
+</script>
+<script type="text/javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/favorbox.js"></script>
+<div class="blogRight">
+
+
+	<div class="box edu-col-a" style="display:none;">
+		<div class="title">的视频课程</div>
+		<div class="vbox" style="">
+
+			<div class="clear hr10"></div>
+		</div>
+	</div>
+	
+	<div class="box edu-col-b" style="width:100%;">
+		<div class="title"><a target="_blank" href="http://edu.51cto.com/">相关视频课程</a>
+		<a href="http://edu.51cto.com/" target="_blank" style="float:right;">更多</a>
+		</div>
+		<div class="vbox" style="">
+		
+			<div class="vlist video-icon" style="margin: 2px 8px;"> 
+				<a href="http://edu.51cto.com/course/course_id-336.html" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKioOVKb-g_z69VyAACdUoJkF2E717.jpg" height="63" width="86"></a>
+				<dl>
+					<dt> <a href="http://edu.51cto.com/course/course_id-336.html" target="_blank" title="【H3C NE认证】GB190题库视频讲解合集">【H3C NE认证】GB190题库视频讲解合集(共6课时)</a></dt>
+					<dd>5239人学习</dd>
+				</dl>
+				<a class="i_video" href="http://edu.51cto.com/course/course_id-336.html" target="_blank"></a>
+			</div>
+		
+			<div class="vlist video-icon" style="margin: 2px 8px;"> 
+				<a href="http://edu.51cto.com/course/course_id-928.html" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKioOVMnugew5m4yAACLWkaZ0Ic377.jpg" height="63" width="86"></a>
+				<dl>
+					<dt> <a href="http://edu.51cto.com/course/course_id-928.html" target="_blank" title="VMWare企业级虚拟化技术-vSphere5.5视频教程">VMWare企业级虚拟化技术-vSphere5.5视频教程(共61课时)</a></dt>
+					<dd>43807人学习</dd>
+				</dl>
+				<a class="i_video" href="http://edu.51cto.com/course/course_id-928.html" target="_blank"></a>
+			</div>
+		
+			<div class="vlist video-icon" style="margin: 2px 8px;"> 
+				<a href="http://edu.51cto.com/course/course_id-514.html" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/wKiom1NUhTvzyGF7AADJNml52hg258.jpg" height="63" width="86"></a>
+				<dl>
+					<dt> <a href="http://edu.51cto.com/course/course_id-514.html" target="_blank" title="系统集成项目实现全过程视频教程">系统集成项目实现全过程视频教程(共17课时)</a></dt>
+					<dd>7036人学习</dd>
+				</dl>
+				<a class="i_video" href="http://edu.51cto.com/course/course_id-514.html" target="_blank"></a>
+			</div>
+			
+			<div class="clear hr10"></div>
+		</div>
+	</div>
+	<p style="clear:both;"></p>
+	<style type="text/css">
+.vlist {
+    float: left;
+    padding: 2px 0 0 10px;
+    width: 218px;
+	
+}
+.vlist img {
+    float: left;
+    margin-right: 10px;
+}
+.vlist dl {
+    float: left;
+    text-align: left;
+    width: 122px;
+}
+.vlist dl dt {
+    height: 44px;
+    overflow: hidden;
+    padding-top: 5px;
+}
+.vlist dl dt, .vlist dl dt a {
+    color: #262626;
+}
+.vlist dl dd, .vlist dl dd a {
+    color: #777777;
+}
+.vbox_tit {
+    border-bottom: 1px solid #B3D0E6;
+    color: #666666;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+}
+.video-icon {
+    position: relative;
+}
+.video-icon a.i_video {
+    background: url("http://www.51cto.com/images/homepage/Images/eduplay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 25px;
+    left: 41px;
+    position: absolute;
+    top: 22px;
+    width: 25px;
+    z-index: 10;
+}
+.vbox2 .vlist1{margin:0;}
+.edu-col-a{ float:left;margin-right:6px;}
+.edu-col-b{ float:left;}
+	</style><!--modCon end-->
+
+
+
+	<div class="artShow box" style="margin-top:5px;">
+   	  <div class="share" id="share">
+
+    <div class="shareItem">
+		<div class="m_sharelinks"><a target="_blank" href="" style="color:red;"></a><a target="_blank" href="" style="color:blue;"></a><a target="_blank" href="" style="color:blue;"></a></div>
+		<p class="shareMored"><a href="http://rainbird.blog.51cto.com/all/211214">博主的更多文章&gt;&gt;</a></p>
+	</div>
+      </div>
+       <div class="modCon">
+   	  <div class="showBox" style="margin:0 0 10px;">
+      <div class="line_hd_r"></div>
+      <div class="art_tj">
+
+      <a href="http://blog.51cto.com/artcommend" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/tj.png"></a>
+
+      </div>
+
+ 
+    		<div class="showHead">
+    		  <div class="showTitleBOx" style="text-align:center">
+              <div class="showTitle">
+
+             <img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/artType01.jpg">
+
+
+    		    UITableView划动删除的实现
+                </div>
+  		    </div>
+   		    <span class="artTime">2011-08-08 22:11:39</span></div><!--showHead end-->
+    <div class="showTags">标签：<a href="http://blog.51cto.com/tag-%E5%88%92%E5%8A%A8%E5%88%A0%E9%99%A4.html" target="_blank" class="operlink">划动删除</a> <a href="http://blog.51cto.com/tag-iphone.html" target="_blank" class="operlink">iphone</a> <a href="http://blog.51cto.com/tag-%E6%BB%91%E5%8A%A8%E5%88%A0%E9%99%A4.html" target="_blank" class="operlink">滑动删除</a> <a href="http://blog.51cto.com/tag-ios.html" target="_blank" class="operlink">ios</a> <a href="http://blog.51cto.com/tag-UITableView.html" target="_blank" class="operlink">UITableView</a>
+
+	</div>
+
+			<div class="CopyrightStatement lh22">
+            原创作品，允许转载，转载时请务必以超链接形式标明文章 <a href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/UITableView划动删除的实现 - rainbird - 51CTO技术博客.html" target="_blank" style="text-decoration:underline">原始出处</a> 、作者信息和本声明。否则将追究法律责任。<a href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/UITableView划动删除的实现 - rainbird - 51CTO技术博客.html">http://rainbird.blog.51cto.com/211214/634587</a>
+            </div>
+
+
+            <!--正文 begin-->
+    		<div class="showContent">
+    		  <p>&nbsp;从七八月前对苹果一无所知,到现在手持iphone,ipad,itouch有三个线上成熟app并熟练开发ios应用.一路走来一直站在前辈的肩膀上不断进步.如今生活工作稳定是时候将一直以来的一些心得整理出来了.想来想去决定先说说UITableView.</p>
+<div>对于app应用来说,使用列表的形式展现数据非UITableView莫属.在熟练掌握了用UITableView展示数据以后,是不是也遇到了需要删除数据的需求?是不是觉得在一行数据上划动一下,然后出现一个删除按钮很酷?废话少说,直奔正题,就由笔者来向您展示一下这个功能的实现是多么容易.</div>
+<div>先前的准备工作:</div>
+<div>第一步,准备好数据源.</div>
+<div>&nbsp;</div>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="preprocessor">#import&nbsp;&lt;UIKit/UIKit.h&gt;</span><span>&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li class="alt"><span>@interface&nbsp;UITableCellSwapDeleteViewController&nbsp;:&nbsp;UIViewController&nbsp;&lt;UITableViewDelegate&gt;{&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;IBOutlet&nbsp;UITableView&nbsp;*testTableView;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;NSMutableArray&nbsp;*dataArray;&nbsp;</span></li><li><span>}&nbsp;</span></li><li class="alt"><span>@property&nbsp;(nonatomic,&nbsp;retain)&nbsp;UITableView&nbsp;*testTableView;&nbsp;</span></li><li><span>@property&nbsp;(nonatomic,&nbsp;retain)&nbsp;NSMutableArray&nbsp;*dataArray;&nbsp;</span></li><li class="alt"><span>@end&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li class="alt"><span>-&nbsp;(<span class="keyword">void</span><span>)viewDidLoad&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;[super&nbsp;viewDidLoad];&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;dataArray&nbsp;=&nbsp;[[NSMutableArray&nbsp;alloc]&nbsp;initWithObjects:@<span class="string">"1"</span><span>,@</span><span class="string">"2"</span><span>,@</span><span class="string">"3"</span><span>,@</span><span class="string">"4"</span><span>,@</span><span class="string">"5"</span><span>,nil];&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<div>这里笔者定义了并实现了一个一维的可变数组.为什么要用可变数组呢?因为我们要删除里面的数据呀.</div>
+<div>&nbsp;</div>
+<div>第二步,展示数据.</div>
+<div>&nbsp;</div>
+<pre><ol class="dp-cpp"><li class="alt"><span><span>-&nbsp;(NSInteger)numberOfSectionsInTableView:(UITableView&nbsp;*)tableView&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Return&nbsp;the&nbsp;number&nbsp;of&nbsp;sections.</span><span>&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;1;&nbsp;</span></span></li><li><span>}&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li class="alt"><span>-&nbsp;(NSInteger)tableView:(UITableView&nbsp;*)tableView&nbsp;numberOfRowsInSection:(NSInteger)section&nbsp;{&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Return&nbsp;the&nbsp;number&nbsp;of&nbsp;rows&nbsp;in&nbsp;the&nbsp;section.</span><span>&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;[dataArray&nbsp;count];&nbsp;</span></span></li><li><span>}&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//&nbsp;Customize&nbsp;the&nbsp;appearance&nbsp;of&nbsp;table&nbsp;view&nbsp;cells.</span><span>&nbsp;</span></span></li><li><span>-&nbsp;(UITableViewCell&nbsp;*)tableView:(UITableView&nbsp;*)tableView&nbsp;cellForRowAtIndexPath:(NSIndexPath&nbsp;*)indexPath&nbsp;{&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;NSString&nbsp;*CellIdentifier&nbsp;=&nbsp;@</span><span class="string">"Cell"</span><span>;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;UITableViewCell&nbsp;*cell&nbsp;=&nbsp;[tableView&nbsp;dequeueReusableCellWithIdentifier:CellIdentifier];&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(cell&nbsp;==&nbsp;nil)&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;=&nbsp;[[[UITableViewCell&nbsp;alloc]&nbsp;initWithStyle:UITableViewCellStyleDefault&nbsp;reuseIdentifier:CellIdentifier]&nbsp;autorelease];&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Configure&nbsp;the&nbsp;cell...</span><span>&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cell.textLabel.text&nbsp;=&nbsp;[dataArray&nbsp;objectAtIndex:indexPath.row];&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;cell;&nbsp;</span></span></li><li><span>}&nbsp;</span></li></ol></pre>
+<div>通过实现上面三个代理方法向UITableView中添加了数据.</div>
+<p><a target="_blank" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/220940480.jpg"><img onload="if(this.width&gt;650) this.width=650;" border="0" alt="图1" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/220940480.jpg" onabort="" onblur="" onchange="" onclick="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></a></p>
+<div>&nbsp;</div>
+<div>通过上面两步就实现了数据展示工作,接下就实现关键的数据删除了.</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<pre><ol class="dp-cpp"><li class="alt"><span><span>-&nbsp;(</span><span class="datatypes">BOOL</span><span>)tableView:(UITableView&nbsp;*)tableView&nbsp;canEditRowAtIndexPath:(NSIndexPath&nbsp;*)indexPath&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;YES;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li class="alt"><span>-&nbsp;(<span class="keyword">void</span><span>)tableView:(UITableView&nbsp;*)tableView&nbsp;commitEditingStyle:(UITableViewCellEditingStyle)editingStyle&nbsp;forRowAtIndexPath:(NSIndexPath&nbsp;*)indexPath&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(editingStyle&nbsp;==&nbsp;UITableViewCellEditingStyleDelete)&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[dataArray&nbsp;removeObjectAtIndex:indexPath.row];&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Delete&nbsp;the&nbsp;row&nbsp;from&nbsp;the&nbsp;data&nbsp;source.</span><span>&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[testTableView&nbsp;deleteRowsAtIndexPaths:[NSArray&nbsp;arrayWithObject:indexPath]&nbsp;withRowAnimation:UITableViewRowAnimationFade];&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;</span><span class="keyword">if</span><span>&nbsp;(editingStyle&nbsp;==&nbsp;UITableViewCellEditingStyleInsert)&nbsp;{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Create&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;the&nbsp;appropriate&nbsp;class,&nbsp;insert&nbsp;it&nbsp;into&nbsp;the&nbsp;array,&nbsp;and&nbsp;add&nbsp;a&nbsp;new&nbsp;row&nbsp;to&nbsp;the&nbsp;table&nbsp;view.</span><span>&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;}&nbsp;</span></li></ol></pre>
+<div>&nbsp;启用上面两个代理,并增加数据删除操作:</div>
+<div>[dataArray removeObjectAtIndex:indexPath.row];</div>
+<div>&nbsp;在一条数据上向右划动一下.</div>
+<p><a target="_blank" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/221005566.jpg"><img onload="if(this.width&gt;650) this.width=650;" border="0" alt="" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/221005566.jpg" onabort="" onblur="" onchange="" onclick="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></a></p>
+<div>&nbsp;点Delete.</div>
+<p><a target="_blank" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/221023603.jpg"><img onload="if(this.width&gt;650) this.width=650;" border="0" alt="" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/221023603.jpg" onabort="" onblur="" onchange="" onclick="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></a></p>
+<div>&nbsp;是不是就成功删除了一条数据呢?</div>
+<div>&nbsp;按理说故事讲到这里也就讲完了.但是笔者想延伸一下.注意看图二划动以后的"Delete",你有没有想把这个东东改掉的冲动呢?比如改成:下载?其实很简单,其实下面这个代理方法:</div>
+<div>&nbsp;</div>
+<pre><ol class="dp-cpp"><li class="alt"><span><span>-&nbsp;(NSString&nbsp;*)tableView:(UITableView&nbsp;*)tableView&nbsp;titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath&nbsp;*)indexPath{&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;@</span><span class="string">"下载"</span><span>;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<div>再划动一下,是不是变了呢?</div>
+<p><a target="_blank" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/221051329.jpg"><img onload="if(this.width&gt;650) this.width=650;" border="0" alt="" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/221051329.jpg" onabort="" onblur="" onchange="" onclick="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></a></p>
+<p>&nbsp;</p>
+<p>相关文章:</p>
+<p><span class="Apple-style-span" style="color: rgb(44, 44, 44); font-family: SimSun; font-size: 20px; font-weight: bold; line-height: 20px; background-color: rgb(255, 255, 255); "><a target="_blank" href="http://rainbird.blog.51cto.com/211214/636270">UITableView多选删除,类似mail中的多选删除效果</a></span></p>
+<p>&nbsp;</p>
+<p>具体代码见附件</p><p>本文出自 “<a href="http://rainbird.blog.51cto.com/">rainbird</a>” 博客，请务必保留此出处<a href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/UITableView划动删除的实现 - rainbird - 51CTO技术博客.html">http://rainbird.blog.51cto.com/211214/634587</a></p>
+    		</div><!--正文 end-->
+<script type="text/javascript">
+	var kevent = 'onabort|onblur|onchange|onclick|ondblclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload';
+	var aevent = kevent.split('|');
+
+	jQuery('.showContent img').each(function(){
+		var nimg = this;
+		jQuery.each(aevent, function(i, n){
+			if (n!='onload') {
+				jQuery(nimg).attr(n, '');
+			} else {
+				if (jQuery(nimg).attr(n) != 'if(this.width>650) this.width=650;') {
+					jQuery(nimg).attr(n, '');
+				}
+			}
+		});
+	});
+</script>
+<script type="text/javascript" charset="utf-8">
+var encodetitle = encodeURI('一篇很棒的博文分享给大家：《UITableView划动删除的实现》');
+
+function show51share(){
+
+	window.open('http://t.51cto.com/index.php?m=share&url=http://rainbird.blog.51cto.com/211214/634587&type=l&count=&relateUid=&appkey=3843950324&title=' + encodetitle);
+}
+</script>		
+<div class="m_sharebtn clear">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tbody><tr>
+		<td width="11%" height="43" align="center" valign="middle"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/ssk.png" alt="分享至"></td>
+		<td width="77%" align="left" valign="top">
+<!-- 			
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+<script>
+var bds_config = {'wbUid':1706976420};
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false, 'bdPic':'http://blog.51cto.com/attachment/201305/173413310.jpg',"bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+ -->
+
+<div class="bdsharebuttonbox bdshare-button-style1-32" data-bd-bind="1404099837746"><a href="http://rainbird.blog.51cto.com/#" class="bds_more" data-cmd="more"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="http://rainbird.blog.51cto.com/#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2065779340"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"http://blog.51cto.com/attachment/201305/173413310.jpg","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+	<!-- Baidu Button END --></td>
+		<td width="12%" align="right" valign="middle"><a href="javascript:favorBox('open');" title="一键收藏，随时查看，分享好友！"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/favorite_add_small.gif" border="0" alt="一键收藏，随时查看，分享好友！"></a></td>
+	  </tr>
+	</tbody></table>
+
+</div>			
+    		<div class="showBottom">
+            <!--<div class="reviews"><span class="fl" style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">003100、六安瓜片</a>
+
+            </span><div id="favourdiv" class="support01">2人</div>
+              <span class="fl">了这篇文章</span></div>-->
+              <table width="720" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td align="right"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/icon01.png" width="15" height="16"> <span style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">003100、六安瓜片</a></span></td>
+    <td width="70" align="left"><div style="line-height:28px;" id="favourdiv" class="support01">2人</div></td>
+    <td width="60" align="left">了这篇文章</td>
+  </tr>
+</tbody></table>
+
+	<br><div class="ml10"><b>附件下载：</b><br>　　<a aid="28040" href="javascript:;" class="dialog_link"><img border="0" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/plusfile.gif">UITableCellSwapDelete</a></div>
+	
+
+
+
+
+            <div class="showType">类别：<a href="http://rainbird.blog.51cto.com/211214/d-17" class="operlink">iphone</a>┆阅读(<span id="readNum">31065</span>)┆评论(<span id="cmtNum">1</span>)
+
+
+┆
+<a href="http://rainbird.blog.51cto.com/">返回博主首页</a>┆<a href="http://blog.51cto.com/">返回博客首页</a></div>
+            <div class="prevNext">
+
+			上一篇 <a href="http://rainbird.blog.51cto.com/211214/633312" class="operlink" title="在手机显示1.4版介绍">在手机显示1.4版介绍</a>
+
+
+			下一篇 <a href="http://rainbird.blog.51cto.com/211214/635540" class="operlink" title="在手机显示 WiFi的使用">在手机显示 WiFi的使用</a>
+
+
+            </div>
+
+            </div>
+
+	  </div><!--showBottom end-->
+      </div><!--modCon-->
+    <span class="modBot"></span>
+    </div><!--artShow end-->
+    <span class="blank"></span>
+	
+	<div class="relatedArt box">
+<a href="javascript:;"><img src=""></a>
+</div>
+	
+
+
+    <div class="relatedArt box">
+    <div class="title" name="zhuanti" id="zhuanti"><h2>相关文章</h2></div>
+    <div class="modCon">
+<ul>
+
+<li><a href="http://285746555.blog.51cto.com/2966432/624295" title="IOS同步请求和异步请求的区别" target="_blank">IOS同步请求和异步请求的区别</a></li>
+
+
+<li><a href="http://285746555.blog.51cto.com/2966432/625078" title="关于内存释放的一点疑惑" target="_blank">关于内存释放的一点疑惑</a></li>
+
+
+<li><a href="http://xiaominghimi.blog.51cto.com/2614927/632985" title="【iOS-Cocos2d游戏开发之五】【2】多触点与触屏事件详解（单一监听、事件分发）" target="_blank">【iOS-Cocos2d游戏开发之五】【2】多触点与..</a></li>
+
+
+<li><a href="http://xiaominghimi.blog.51cto.com/2614927/627504" title="【iOS-Cocos2d 游戏开发之二】Cocos2D 游戏开发资源贴" target="_blank">【iOS-Cocos2d 游戏开发之二】Cocos2D 游戏..</a></li>
+
+
+<li><a href="http://xiaominghimi.blog.51cto.com/2614927/628678" title="【iOS-Cocos2d开发之三】CCScene切换的所有特效，以及设置屏幕横竖屏！" target="_blank">【iOS-Cocos2d开发之三】CCScene切换的所有..</a></li>
+
+
+<li><a href="http://life173.blog.51cto.com/2035365/630005" title="cocos2d游戏开发，常用工具集合" target="_blank">cocos2d游戏开发，常用工具集合</a></li>
+
+
+
+</ul>
+
+
+
+<span class="blank6"></span>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div><!--相关文章 end-->
+
+
+<div class="artComm box">
+    <div class="title"><a name="replay"></a><h2>文章评论</h2></div>
+    <div class="modCon" id="artcomment">
+		<div>  &nbsp;</div><a name="417511"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid0"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[1楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://guapian.blog.51cto.com/" class="operlink" ref="nofollow"><b>六安瓜片</b></a></label><label style="float:right">&nbsp;<a href="http://rainbird.blog.51cto.com/#" class="repost operlink" user_name="六安瓜片" parentid="417511">回复</a></label></div></div><div align="right">2011-08-13 10:15:26</div><div class="commentcontent">看来博主在移动开发领域已经很牛了</div></div><br><div>  &nbsp;</div>
+    </div><!--modCon-->
+        <span class="modBot"></span>
+</div><!--commBox end-->
+<a href="" id="com_top_top"></a>
+<form action="http://rainbird.blog.51cto.com/comment.php?" method="post" name="form1" id="form1" onsubmit="return commentSubmit(this,&quot;&quot;);">
+<span class="blank1"></span>
+<div class="box writeComm" style="min-height:30px;">
+<a name="comment"></a>
+<input type="hidden" name="action" value="comment">
+<input id="commenttid" type="hidden" name="tid" value="634587">
+<input type="hidden" name="com_count_ajax" id="com_count_ajax" value="1">
+
+ <div class="title">
+	<h2 class="fl">发表评论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+	<span class="fl"><a class="mred" target="_blank" href="http://bbs.51cto.com/thread-1112772-1.html">SAP论坛上海 报名参会就得充值卡！</a></span>
+	<style type="text/css">
+		a.mred:link{ color:#ff0000; text-decoration:underline;}
+		a.mred:visited{color:#ff0000;}
+		a.mred:hover{color:#ff0000;}
+		a.mred:active{color:#ff0000;}
+	</style>
+</div>
+ <div class="modCon">
+
+ <div class="commForm">
+<dl>
+<dt>昵&nbsp;&nbsp;称：</dt>
+<dd>
+
+<input type="text" id="commentusername" name="username" value="" class="commInput fl"><span><a href="http://home.51cto.com/index.php?reback=http%253A%252F%252Frainbird.blog.51cto.com%252F211214%252F634587" style="text-decoration:underline">登录</a>&nbsp;&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http://blog.51cto.com" target="_blank" style="text-decoration: underline;">快速注册</a></span>
+
+
+
+</dd>
+</dl>
+
+
+
+<dl id="commentyanzheng">
+
+
+<dt>验证码：</dt>
+<dd><input class="code" type="text" value="" id="commentauthnum" name="authnum" onclick="displaysecunum();">
+
+  <img width="78" class="fl" height="29" id="secunum" onclick="refimg()" style="display:none;"><p class="fl"><span style="display:none;" id="spanfont">点击图片可刷新验证码</span><span style="display:inline;" id="clickfont">请点击后输入验证码</span><span class="pl5"><a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank" style="text-decoration: underline;">博客过2级，无需填写验证码</a></span></p></dd>
+</dl>
+<dl>
+<dt>内&nbsp;&nbsp;容：</dt>
+<dd>
+<textarea class="writeCommCon f12" id="commentcontent" name="content"></textarea>
+</dd>
+</dl>
+</div>
+<div class="writeCommBot">
+  <input type="hidden" name="parentid" value="" id="parentid">
+  <input class="commBtn fl" name="submit" type="button" id="commentsubmit" value="" onclick="commentSubmitend2()">
+
+ <p class="fl" style="display:none;"><input class="fl" type="checkbox" name="favour" id="favour" checked="" value="1"><span class="fl">同时赞一个</span></p>
+
+</div>
+<span class="blank"></span>
+
+</div><!--modCon-->
+<span class="modBot"></span>
+</div>
+</form>
+
+<iframe id="iframe1" name="iframe1" width="0" height="0"></iframe>
+<!--发表评论 end-->
+</div>
+</div>
+<div id="f_close_box" style="display:none;width:150px; height:300px; position:fixed; top:42%;left:0; z-index:100; _position:absolute; _margin-top: 0; _top:expression(documentElement.scrollTop+(documentElement.clientHeight-this.offsetHeight)/2+50);">
+
+	<img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/blog-wx.jpg" border="0" usemap="#Map1">
+    <map name="Map1" id="Map1">
+      <area shape="rect" coords="124,7,143,25" href="javascript:void(0);" onclick="document.getElementById(&#39;f_close_box&#39;).style.display=&#39;none&#39;;">
+    </map>
+    
+</div>
+<script language="javascript">
+	function refimg(){
+		var randval = Math.random();
+		document.getElementById("secunum").src="/seccode.php?rnum="+randval;
+	}
+	function displaysecunum()
+	{
+		var displaystr = document.getElementById("secunum").style.display;
+		if(displaystr == 'none')
+		{
+			refimg();
+			document.getElementById("clickfont").style.display = 'none';
+			document.getElementById("secunum").style.display = 'inline';
+			document.getElementById("spanfont").style.display = 'inline';
+		}
+	}
+
+	function showMsn(){
+		document.getElementById("c02").style.display = "none";
+		document.getElementById("c01").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+	function showBBS(){
+		document.getElementById("c01").style.display = "none";
+		document.getElementById("c02").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+
+	//资源页面，分享按钮
+	function copyShareUrl(title){
+
+		if (window.clipboardData){
+
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				copy = "推荐：" + title + "http://rainbird.blog.51cto.com/211214/634587";
+				var alertText = "复制成功，你可以粘贴到MSN或QQ中发给好友。";
+			}
+			else
+			{
+				copy = "[url=" + "http://rainbird.blog.51cto.com/211214/634587" + "][u]" + title + "[/u][/url]";
+				var alertText = "复制成功，你可以粘贴到论坛分享给坛友。";
+			}
+			window.clipboardData.clearData();
+			window.clipboardData.setData("Text", copy);
+			alert(alertText);
+		}
+		else if (window.netscape){
+			alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。");
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				document.getElementById("shareTextQM").value = "推荐：" + title + "http://rainbird.blog.51cto.com/211214/634587";
+				document.getElementById("shareTextQM").select();
+			}
+			else
+			{
+				document.getElementById("shareTextBBS").value = "[url=" + "http://rainbird.blog.51cto.com/211214/634587" + "][u]" + title + "[/u][/url]";
+                document.getElementById("shareTextBBS").select();
+			}
+		}
+		return false;
+	}
+	function select_login(){
+		document.getElementById('fixed').style.display='';
+	}
+	function commentcheck()
+	{
+		if(document.form1.content.value == "")
+		{
+			alert("评论内容为空!");
+			document.form1.content.focus();
+			return false;
+		}
+	}
+	function changename(){
+
+	var memberid=0;
+	memberid="";
+
+	if(document.getElementById('commentniming').checked){
+		document.getElementById('commentusername').disabled=false;
+		document.getElementById('commentusername').value='';
+		document.getElementById("indexhidden").style.display="none";
+		document.getElementById("commentindex").value='';
+		document.getElementById("commentyanzheng").style.display="";
+	}else{
+		document.getElementById('commentusername').disabled=true;
+		document.getElementById('commentusername').value="";
+		document.getElementById("indexhidden").style.display="";
+		document.getElementById("commentindex").value="http://.blog.51cto.com";
+		if(memberid>8)
+		{
+			document.getElementById("commentyanzheng").style.display="none";
+		}
+	}
+	}
+	function openFavoulist()
+	{
+		window.open ('http://blog.51cto.com/mod/favourlist.php?tid=634587','newwindow','height=300,width=500,top=400,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no,z-look=yes');
+	}
+
+	var e_zti = document.getElementById('zti');//有专题锚点
+	var maodian = window.location.href;//锚点
+	if (e_zti) {
+		//e_zti.href= (/[#]+/.test(maodian)) ? maodian : maodian + "#zhuanti";
+	}
+</script>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/jquery-1.7.1.min.js"></script>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/jquery.cookie.js"></script>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/jquery.messager.js"></script>
+<link href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/blog_top.css" rel="stylesheet" type="text/css">
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/blog_top_list.php" type="text/javascript" language="javascript"></script>
+<style>
+.backToTop {
+    display: none;
+	WIDTH: 45px;
+	height:45px;
+	BOTTOM: 20px;
+     position: fixed;
+    _position: absolute;
+    right: 140px;
+    bottom: 10px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=60);
+	text-indent:-9999px;
+}
+.tops { background:url(/images/topq.jpg) no-repeat center center; }
+</style>
+<script type="text/javascript">
+(function() {
+    var backToTopTxt = "返回顶部", backToTopEle = $('<div class="backToTop tops"></div>').appendTo($("body"))
+        .text(backToTopTxt).attr("title", backToTopTxt).click(function() {
+            $("html, body").animate({ scrollTop: 0 }, 520);
+    }), backToTopFun = function() {
+        var st = $(document).scrollTop(), winh = $(window).height();
+        (st > 0)? backToTopEle.show(): backToTopEle.hide();    
+        //IE6下的定位
+        if (!window.XMLHttpRequest) {
+            backToTopEle.css("top", st + winh - 60);    
+        }
+    };
+    $(window).bind("scroll", backToTopFun);
+    $(function() { backToTopFun(); });
+})();
+</script><div class="backToTop tops" title="返回顶部" style="display: block;">返回顶部</div>
+
+<link type="text/css" href="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+<script type="text/javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/down.js"></script>	
+	<!-- ui-dialog -->
+	<form action="http://rainbird.blog.51cto.com/ext/down_att.php" id="down_form" method="post">
+	
+	</form>
+
+
+
+
+
+
+<div class="clear"></div>
+<!-- <script>
+jQuery(function(){
+	var html= "<div id=\"sogou_se_tgbar\" style=\"text-align:center;margin:0px auto 2px auto;clear:both;background:url(http://home.51cto.com/public/images/notice/sogou_se_tgbar_bg_final1.gif) repeat-x;width:950px;color:#000;font-size:13px;height:36px;z-index:21474836471\"><div style=\"float:left;cursor:pointer;width:910px;text-align:center;border-left:solid #efbf00 1px;height:32px; line-height:32px;txt-align:center;\"><span style=\"\">	<a href=\"http://51ctoblog.blog.51cto.com/26414/1093282\">【新年祝福征集】51CTO社区年底嘉年华活动正在征集博主祝福语，祝福以红包的形式随机的赠送给访问51CTO的网友 点此送祝福>></a></span></div><div onclick=\"document.getElementById('sogou_se_tgbar').style.display = 'none';\" style=\"float:right;width:20px;cursor:pointer;height:28px;padding:4px 8px 0px 8px;border-right:solid #efbf00 1px\"><img style=\"border:none;margin:4px 0px 0px 0px;\" src=\"http://home.51cto.com/public/images/notice/sogou_se_tgbar_close_final1.gif\"></div></div>"
+	jQuery('body').prepend(html);
+})
+</script> -->
+
+<div id="footer">
+  <div id="innerFooter">
+	<center>
+		<small>
+			Copyright By 51CTO.COM 版权所有<br><br>
+			<a href="http://blog.51cto.com/" target="_blank"><img src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/copyright.jpg"></a>
+	  </small>
+	</center>
+  </div>
+</div>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/index.php" charset="utf-8"></script>
+<div style="display:none">
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/count.js"></script><script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/count.php"></script>
+
+<iframe frameborder="0" scrolling="no" width="0" height="0" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/pageview.html"></iframe>
+</div>
+<div style="display:none;"><script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/stat.php" language="JavaScript"></script><script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=4274540" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/pic.gif"></a><div>
+<script src="./UITableView划动删除的实现 - rainbird - 51CTO技术博客_files/poptop.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38670657-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-dialog" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-dialog">附件下载</span><a href="http://rainbird.blog.51cto.com/#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="dialog" class="di ui-dialog-content ui-widget-content">
+		请输入验证码：<br>
+		<input type="text" id="input_code" name="input_code" style="width:80px;height:23px;" value="">
+		<img width="78" title="单击更换验证码！" height="29" style="display: inline;float: left;" id="imgcode" class="fl" src="">
+		<input type="hidden" name="aid" id="aid" value="">
+	</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button">确认</button></div></div></div></body></html>
