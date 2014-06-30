@@ -1,0 +1,716 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0063)http://www.cocoachina.com/applenews/devnews/2014/0615/8830.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>避免滥用单例 -  CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区</title>
+	<meta name="keywords" content="单例,iOS开发iPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发">
+	<meta name="description" content="单例是整个Cocoa中被广泛使用的核心设计模式之一。事实上，苹果开发者库把单例作为" cocoa核心竞争力"之一。作为一个ios开发者，我们经常和单例打交道。="" -="" cocoachina="" 开发讨论区="" 最热的ios开发论坛|="" 最热的mac开发论坛="" |="" 最热的iphone开发论坛="" 最热的ipad开发论坛"="">
+    <meta name="baidu-tc-cerfication" content="3300a939a1098c27e94457b75a0bb8c1">
+   	<link href="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/style-min.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" async="" charset="utf-8" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/core.php"></script><script type="text/javascript" async="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/ga.js"></script><script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0 - CocoaChina全站" href="http://www.cocoachina.com/cms/rss.php">
+	<script language="javascript" type="text/javascript" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/dedeajax2-min.js"></script>
+<script type="text/javascript" async="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/embed.js" charset="UTF-8"></script><script type="text/javascript" async="" charset="utf-8" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/pingguokaifazwz.js"></script><link href="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/pingguokaifazwz_style.css" rel="stylesheet" type="text/css"><script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/bcore.min.js" type="text/javascript"></script><script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/PageView.do" charset="utf-8"></script><link type="text/css" rel="stylesheet" href="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/embed.default.css"></head>
+<body class="narrow">
+<div class="top">
+	<div id="topshow" class="t-wrap"><ul class="t-shortc clearfix"><li><a href="http://www.cocoachina.com/" class="t-l1">CocoaChina首页</a></li><li><a href="http://e.weibo.com/cocoachina" class="t-l2" target="_blank">新浪微博</a></li><li><a href="http://t.qq.com/cocoachina88" target="_blank" class="t-l3">腾讯微博</a></li><li><a style="background:none;color:#fff;font-size:14px;text-indent:0;line-height:24px" href="http://open.cocoachina.com/" target="_blank">Cocos开发者平台</a></li></ul><div class="t-login">游客，您好！&nbsp;&nbsp;<a href="http://www.cocoachina.com/bbs/login.php" style="font-weight:bold">登录</a> 或 <a href="http://www.cocoachina.com/bbs/register.php" style="font-weight:bold">注册</a></div></div>
+</div>
+
+<div class="header">
+	<div class="h-wrap">
+    	<div class="h-logo">
+        	<a href="http://www.cocoachina.com/" class="logo"></a>
+            
+            <div class="cc-ad1">
+            	
+            </div>
+        </div>
+        
+        <div class="h-nav">
+        	<div class="h-navr">
+            	<div class="h-navl">
+                	<ul id="nav-lv0" class="hn-lv1 clearfix">
+                    	<li class="first"><a data-lv="1-1" href="http://www.cocoachina.com/" class="cur">首页</a></li>
+                        <li><a data-lv="1-2" href="http://www.cocoachina.com/newbie/">新手</a></li>
+                        <li><a data-lv="1-3" href="http://www.cocoachina.com/ask" target="_blank">问答</a></li>
+                        <li><a data-lv="1-4" href="http://www.cocoachina.com/bbs" target="_blank">论坛</a></li>
+                        <li><a data-lv="1-5" href="http://www.cocoachina.com/bbs/thread.php?fid=41" target="_blank">Cocos2d-X</a></li>
+                        <li><a data-lv="1-6" href="http://d.cocoachina.com/" target="_blank">开发者中心</a></li>
+                    </ul>
+                    <div id="nav-box0" class="hn-lv2">
+                    	<ul class="ul1 clearfix" style="display:block">
+                            <li><a data-lv="1-1-1" href="http://www.cocoachina.com/special/swift/" target="_blank"><span>Swift专题</span></a></li>
+                            <li><a data-lv="1-1-2" href="http://www.cocoachina.com/applenews/index.html"><span>资讯</span></a></li>
+                            <li><a data-lv="1-1-3" href="http://www.cocoachina.com/appstore/index.html"><span>市场</span></a></li>
+                            <li><a data-lv="1-1-4" href="http://www.cocoachina.com/devchannel/index.html"><span>开发</span></a></li>
+                            <li><a data-lv="1-1-5" href="http://www.cocoachina.com/iphonedev/index.html"><span>iPhone开发</span></a></li>
+                            <li><a data-lv="1-1-6" href="http://www.cocoachina.com/iphonedev/iPadkaifa/index.html"><span>iPad开发</span></a></li>
+                            <li><a data-lv="1-1-7" href="http://www.cocoachina.com/gamedev/index.html"><span>游戏开发</span></a></li>
+                            <li><a data-lv="1-1-8" href="http://www.cocoachina.com/special/index.html" target="_blank"><span>专题</span></a></li>
+                            <li><a data-lv="1-1-9" href="http://devcon.cocoachina.com/party/" target="_blank"><span>线下聚会</span></a></li>
+                            <li><a data-lv="1-1-10" href="http://www.cocoachina.com/calendar/" target="_blank"><span>新闻日历</span></a></li>
+                        </ul>
+                        <ul class="ul1 clearfix">
+                        	<li><a data-lv="1-2-1" href="http://www.cocoachina.com/newbie/basic/"><span>基础知识</span></a></li>
+                            <li><a data-lv="1-2-2" href="http://www.cocoachina.com/newbie/env/"><span>开发环境</span></a></li>
+                            <li><a data-lv="1-2-3" href="http://www.cocoachina.com/newbie/tutorial/"><span>起步教学</span></a></li>
+                            <li><a data-lv="1-2-4" href="http://www.cocoachina.com/special/fornew.html" target="_blank"><span>新手专题</span></a></li>
+                            <li><a data-lv="1-2-5" href="http://www.cocoachina.com/newbie/maps/Introduction.html" target="_blank"><span>从今天开始学习开发iOS应用开发</span></a></li>
+                        </ul>
+                        <ul class="ul1 clearfix">
+                        	<li><a data-lv="1-3-1" href="http://www.cocoachina.com/ask/questions" target="_blank"><span>最新问题</span></a></li>
+                            <li><a data-lv="1-3-2" href="http://www.cocoachina.com/ask/questions/index/all?tab=hot" target="_blank"><span>热门问题</span></a></li>
+                            <li><a data-lv="1-3-3" href="http://www.cocoachina.com/ask/users" target="_blank"><span>用户</span></a></li>
+                            <li><a data-lv="1-3-4" href="http://www.cocoachina.com/ask/questions/index/unanswered" target="_blank"><span>未解答提问</span></a></li>
+                            <li><a data-lv="1-3-5" href="http://www.cocoachina.com/ask/questions/ask" target="_blank"><span>我要提问</span></a></li>
+                        </ul>
+                        <ul class="ul1 clearfix">
+                        	<li><a data-lv="1-4-1" href="http://www.cocoachina.com/bbs/thread.php?fid-2.html"><span>苹果开发</span></a></li>
+							<li><a data-lv="1-4-1" href="http://www.cocoachina.com/bbs/thread.php?fid-57.html"><span>Swfit专区</span></a></li>
+                            <li><a data-lv="1-4-2" href="http://www.cocoachina.com/bbs/thread.php?fid-21.html"><span>新手区</span></a></li>
+                            <li><a data-lv="1-4-3" href="http://www.cocoachina.com/bbs/thread.php?fid-14.html"><span>市场销售区</span></a></li>
+                            <li><a data-lv="1-4-4" href="http://www.cocoachina.com/bbs/thread.php?fid-23.html"><span>美术区</span></a></li>
+                            <li><a data-lv="1-4-5" href="http://www.cocoachina.com/bbs/thread.php?fid=18"><span>游戏开发区</span></a></li>
+                            <li><a data-lv="1-4-6" href="http://www.cocoachina.com/bbs/thread.php?fid-5.html"><span>议事大厅</span></a></li>
+                            <li><a data-lv="1-4-7" href="http://www.cocoachina.com/bbs/thread.php?fid-26.html"><span>招聘外包区</span></a></li>
+                        </ul>
+						<ul class="ul1 clearfix">
+							<li><a data-lv="1-5-1" href="http://www.cocoachina.com/bbs/thread.php?fid=48" target="_blank"><span>CocoStudio</span></a></li>
+                        </ul>
+                        <ul class="ul1 clearfix">
+                        	<li><a data-lv="1-6-1" href="http://code.cocoachina.com/" target="_blank"><span>代码库</span></a></li>
+                            <li><a data-lv="1-6-2" href="http://d.cocoachina.com/job/job_list/" target="_blank"><span>招聘</span></a></li>
+                            <li><a data-lv="1-6-3" href="http://d.cocoachina.com/task/lists/" target="_blank"><span>外包</span></a></li>
+                            <li><a data-lv="1-6-4" href="http://d.cocoachina.com/brand/" target="_blank"><span>App Store应用排行</span></a></li>
+                            <li><a data-lv="1-6-5" href="http://d.cocoachina.com/promocode/" target="_blank"><span>发码</span></a></li>
+                            <li><a data-lv="1-6-6" href="http://d.cocoachina.com/signature/" target="_blank"><span>签名</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="search" style="">
+                    	<form id="searchform" action="http://www.cocoachina.com/cms/plus/search.php" name="formsearch" method="post" target="_blank">
+                            <input type="hidden" name="kwtype" value="0">
+    						<input type="hidden" name="searchtype" value="titlekeyword">
+                            <input name="keyword" type="text" value="站内搜索" style="width:190px;padding:5px;height:26px" onclick="this.select()"><input type="image" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/searchbtn.png" data-lv="1-7">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="middle" style="">
+	<div class="m-wrap">
+<script language="javascript">
+    function IsPC() { 
+		var userAgentInfo = navigator.userAgent; 
+		var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPod"); 
+		var flag = true; 
+		for (var v = 0; v < Agents.length; v++) { 
+		if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; } 
+		} 
+		return flag; 
+	}
+    if (!IsPC()){
+           window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=8830"; 
+    }
+</script>
+        <div class="m-cols clearfix">
+        	<div class="m-rcol fr">
+            	<div class="mr-fast">
+                	<h2>开发者通道</h2>
+                    <ul class="clearfix">
+                    	<li><a href="http://brand.cocoachina.com/" target="_blank"><span class="rf1">排行榜</span></a></li>
+                        <li><a href="http://d.cocoachina.com/code/" target="_blank"><span class="rf2">代码库</span></a></li>
+                        <li class="rlast"><a href="http://d.cocoachina.com/books/" target="_blank"><span class="rf3">图书库</span></a></li>
+                        <li><a href="http://d.cocoachina.com/sites/" target="_blank"><span class="rf4">网站库</span></a></li>
+                        <li><a href="http://d.cocoachina.com/promocode/" target="_blank"><span class="rf5">发码区</span></a></li>
+                        <li class="rlast"><a href="http://d.cocoachina.com/tools/" target="_blank"><span class="rf6">工具库</span></a></li>
+                        <li><a href="http://d.cocoachina.com/job" target="_blank"><span class="rf7">招聘区</span></a></li>
+                        <li><a href="http://d.cocoachina.com/task/lists" target="_blank"><span class="rf8">外包区</span></a></li>
+                        <li class="rlast"><a href="http://ask.cocoachina.com/" target="_blank"><span class="rf9">问答区</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="mr-ads">
+                	<h2>关注CocoaChina</h2>
+                    <div class="clearfix mr-cont">
+                    	<p class="fl">
+                        	<img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/cocoachina-weixin-100.jpg" width="100" height="100" alt="关注CocoaChina微信 获取每日文章推荐"><br>
+                            关注微信
+                        </p>
+                        <p class="fl">
+                        	<img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/cocoachina-mobile-100.jpg" width="100" height="100" alt="扫一扫 浏览CocoaChina移动版"><br>
+                            移动版
+                        </p>
+                    </div>
+              	</div>
+                <div class="mr-ads-btm"></div>
+                
+                <div class="mr-rpo">
+                	<ul class="mrpo-nav clearfix">
+                    	<li class="first cur"><a>最近更新</a></li>
+                        <li class="last cur"><div></div></li>
+                    </ul>
+                    <div class="mrpo-list">
+                    	<ul>
+                        	<li class="first">
+                            	<div class="col1">1</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0619/8887.html" class="mrpol-ttl" title="论坛源码推荐（6月19日）：用Swift编写的Twitter启动动画 iOS 7图片和视频管理控件">论坛源码推荐（6月19日）：用Swift编写的Twitter启动动画 iOS 7图片和视频管理控件</a>
+                          			<p>2014-06-19</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">2</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0619/8885.html" class="mrpol-ttl" title="Swift中的标准函数">Swift中的标准函数</a>
+                          			<p>2014-06-19</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">3</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0619/8884.html" class="mrpol-ttl" title="简析Swift和C的交互">简析Swift和C的交互</a>
+                          			<p>2014-06-19</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">4</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0619/8883.html" class="mrpol-ttl" title="如何在iOS 8中使用Swift和Xcode 6制作精美的UI组件">如何在iOS 8中使用Swift和Xcode 6制作精美的UI组件</a>
+                          			<p>2014-06-19</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">5</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0619/8882.html" class="mrpol-ttl" title="AutoLayout相关概念介绍和动画demo">AutoLayout相关概念介绍和动画demo</a>
+                          			<p>2014-06-19</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">6</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0618/8874.html" class="mrpol-ttl" title="论坛源码推荐（6月18日）：下拉手势实现多个操作 用Swift编写的打砖块游戏">论坛源码推荐（6月18日）：下拉手势实现多个操作 用Swift编写的打砖块游戏</a>
+                          			<p>2014-06-18</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">7</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0618/8873.html" class="mrpol-ttl" title="Swift の 函数式编程">Swift の 函数式编程</a>
+                          			<p>2014-06-18</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">8</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0618/8869.html" class="mrpol-ttl" title="objc category的秘密">objc category的秘密</a>
+                          			<p>2014-06-18</p>
+                               	</div>
+                            </li>
+<li>
+                            	<div class="col1">9</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0617/8860.html" class="mrpol-ttl" title="论坛源码推荐（6月17日）：用Swift编写的Twitter框架  iOS 7条形码扫描">论坛源码推荐（6月17日）：用Swift编写的Twitter框架  iOS 7条形码扫描</a>
+                          			<p>2014-06-17</p>
+                               	</div>
+                            </li>
+<li class="last">
+                            	<div class="col1">10</div>
+                            	<div>
+                                	<a href="http://www.cocoachina.com/applenews/devnews/2014/0617/8859.html" class="mrpol-ttl" title="Objective-C中的扩展类型信息">Objective-C中的扩展类型信息</a>
+                          			<p>2014-06-17</p>
+                               	</div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="mrpo-btm"></div>
+                </div>
+                
+                
+                <div class="mr-app mr-cca">
+                	<div class="mr-app2">
+                    	<div class="mr-app3">
+                        	<ul id="nav-lv1" class="mra-nav clearfix">
+                            	<li class="first cur"><a>推荐内容</a></li>
+                                <li class="last"><a>热点内容</a></li>
+                            </ul>
+                            <div id="nav-lv2" class="mra-list mra-list1">
+                            	<ul style="display:block">
+                                	<li class="first">
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0613/8807.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-1406130959150-L.png" alt="WWDC2014观感兼回答iOS初学者的困惑"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0613/8807.html" class="col5">WWDC2014观感兼回答iOS初学者的困惑</a>
+                                    </li>
+<li>
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0611/8770.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-1406111326210-L.png" alt="CocoaChina专题：从今天开始学习Swift！"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0611/8770.html" class="col5">CocoaChina专题：从今天开始学习Swift！</a>
+                                    </li>
+<li>
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0609/8737.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370-1406091032050-L.jpg" alt="ReactiveCocoa2实战"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0609/8737.html" class="col5">ReactiveCocoa2实战</a>
+                                    </li>
+<li>
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0609/8728.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8369-14060Z92424529.png" alt="Swift语言亮点：站在Objective-C开发人员的角度看"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0609/8728.html" class="col5">Swift语言亮点：站在Objective-C开发人员的角度看</a>
+                                    </li>
+<li class="last">
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0604/8663.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-140604093H10-L.png" alt="Swift备忘单和快速参考（持续更新...）"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0604/8663.html" class="col5">Swift备忘单和快速参考（持续更新...）</a>
+                                    </li>
+
+                                </ul>
+                                
+                                <ul style="display:none">
+                                	<li class="first">
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2013/0709/6560.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4673-130F9110U90-L.jpg" alt="2013年iOS开发者薪资调查报告"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2013/0709/6560.html" class="col5">2013年iOS开发者薪资调查报告</a>
+                                    </li>
+<li>
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0603/8653.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-1406031003520-L.png" alt="来自苹果的编程语言——Swift简介"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0603/8653.html" class="col5">来自苹果的编程语言——Swift简介</a>
+                                    </li>
+<li>
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2014/0224/7868.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-140224112044E5.gif" alt="iOS 7最佳实践：一个天气App案例"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2014/0224/7868.html" class="col5">iOS 7最佳实践：一个天气App案例</a>
+                                    </li>
+<li>
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2013/0918/7022.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-13091QH2360-L.jpg" alt="那些不能错过的Xcode插件"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2013/0918/7022.html" class="col5">那些不能错过的Xcode插件</a>
+                                    </li>
+<li class="last">
+                                    	<a href="http://www.cocoachina.com/applenews/devnews/2013/0628/6502.html" class="col4"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/4196-13062Q556180-L.jpg" alt="iOS 7人机交互指南译文汇总"></a>
+                                        <a href="http://www.cocoachina.com/applenews/devnews/2013/0628/6502.html" class="col5">iOS 7人机交互指南译文汇总</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div> <!--right column-->
+        
+        
+        	<div class="mlist">
+            	<div class="cornertm">
+                	<div class="cornertl">
+                    	<div class="cornertr" id="channelinfos">
+                        	<a href="http://www.cocoachina.com/">主页</a><span> &gt; </span><a href="http://www.cocoachina.com/applenews/">资讯频道</a><span> &gt; </span><a href="http://www.cocoachina.com/applenews/devnews/">开发相关</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+ 
+                	
+                	<h2 class="arcd-ttl">避免滥用单例</h2>
+		
+                    <p class="arcd-info"><span>发布于：2014-06-15 10:59</span><span>阅读数：<script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/count.php" type="text/javascript" language="javascript"></script>2475</span>          	
+					</p>
+                    <div class="arcd-sum">
+                    	<p class="p1">单例是整个Cocoa中被广泛使用的核心设计模式之一。事实上，苹果开发者库把单例作为"Cocoa核心竞争力"之一。作为一个iOS开发者，我们经常和单例打交道。</p>
+                        
+                        <span class="pun pun1">“</span><span class="pun pun2">”</span>
+                    </div>
+                </div>
+            	<div class="cornerbm c10"><div class="cornerbl c11"><div class="cornerbr c12"></div></div></div>
+            
+            	<div class="detail">
+            		<div class="tags">
+                    	<a href="javascript:void(0)" onclick="ts(&#39;article&#39;,1)" class="font f1"></a>
+                    	<a href="javascript:void(0)" onclick="ts(&#39;article&#39;,-1)" class="font f2"></a>
+                    	<a id="read" href="javascript:void(0);" class="font f3">阅读器</a>
+                        
+                    	<p style="min-height:35px"><a href="http://www.cocoachina.com/cms/tags.php?/iOS%E5%BC%80%E5%8F%91/" target="_blank">iOS开发</a><a href="http://www.cocoachina.com/cms/tags.php?/%E5%8D%95%E4%BE%8B/" target="_blank">单例</a></p>
+
+                    </div>
+                    
+                    <div class="dtl-arc">
+                    	<div class="dtl-txt">
+                    		<div id="article">
+							
+							<p style="text-align: center"><img style="cursor: pointer" alt="" width="500" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111826_1.jpg"></p>
+<p>本文转自<a target="_blank" href="http://blog.codingcoder.com/singletons/"><span style="color: #0000ff">放慢脚步</span></a>，翻译自<a target="_blank" href="http://www.objc.io/issue-13/singletons.html"><span style="color: #0000ff">Avoiding Singleton Abuse</span></a>，感谢原作者<a target="_blank" href="https://twitter.com/stephenpoletto"><span style="color: #0000ff">Stephen Poletto</span></a>的精彩文章。</p>
+<p>&nbsp;</p>
+<p>单例是整个Cocoa中被广泛使用的核心设计模式之一。事实上，苹果开发者库把单例作为"Cocoa核心竞争力"之一。作为一个iOS开发者，我们经常和单例打交道，比如UIApplication和NSFileManager等等。我们在开源项目、苹果示例代码和StackOverflow中见过了无数使用单例的例子。Xcode 甚至有一个默认的 "Dispatch Once" 代码片段(code snippet)，可以使我们异常简单在代码中添加一个单例：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>+&nbsp;(instancetype)sharedInstance &nbsp;</span></span></li><li><span>{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">static</span><span>&nbsp;dispatch_once_t&nbsp;once; &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">static</span><span>&nbsp;id&nbsp;sharedInstance; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;dispatch_once(&amp;once,&nbsp;^{ &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sharedInstance&nbsp;=&nbsp;[[self&nbsp;alloc]&nbsp;init]; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}); &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;sharedInstance; &nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<p>由于这些原因，单例在iOS开发中随处可见。问题是，它们很容易被滥用。</p>
+<p><br>
+尽管有些人认为单例是 '反模式,' '魔鬼,' 和 '<a target="_blank" href="http://misko.hevery.com/2008/08/17/singletons-are-pathological-liars/"><span style="color: #0000ff">病态的说谎者'</span></a>，但是我不能完全的排除单例所带来的好处。相反，我会展示一些使用单例所带来的问题，这样下一次你使用 dispatch_once 代码片段的自动补全功能时，三思一下它的影响。</p>
+<p><br>
+<strong>全局状态<br>
+</strong>大多数的开发者都认同使用全局可变的状态是不好的行为。有状态使得程序难以理解和难以调试。我们这些面向对象的程序员在最小化代码的有状态性方面，有很多还需要向函数式编程学习的地方。</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>@implementation&nbsp;SPMath&nbsp;{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;NSUInteger&nbsp;_a; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;NSUInteger&nbsp;_b; &nbsp;</span></li><li><span>} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>-&nbsp;(NSUInteger)computeSum &nbsp;</span></li><li class="alt"><span>{ &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;_a&nbsp;+&nbsp;_b; &nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<p>在上面这个简单的数学库的实现中，程序员需要在调用 computeSum前正确的设置实例变量_a and _b。这样有以下问题：</p>
+<p><br>
+1、computeSum 没有显示的通过使用参数的形式声明它依赖于_a 和 _b的状态。与仅仅通过查看函数声明就可以知道这个函数的输出依赖于哪些变量不同的是，另一个开发者必须查看这个函数的具体实现才能明白这个函数依赖那些变量。隐藏依赖是不好的。<br>
+&nbsp;</p>
+<p>2、当修改_a and _b的数值为调用 computeSum做准备时，程序员需要保证这些修改不会影响任何其他依赖于这两个变量的代码的正确性。而这在多线程的环境中是尤其困难的。</p>
+<p><br>
+把下面的代码和上面的例子做对比:</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>+&nbsp;(NSUInteger)computeSumOf:(NSUInteger)a&nbsp;plus:(NSUInteger)b &nbsp;</span></span></li><li><span>{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;a&nbsp;+&nbsp;b; &nbsp;</span></li><li><span>}&nbsp;</span></li></ol></pre>
+<p>这里，对变量a 和 b 的依赖被显示的声明了。我们不需要为了调用这个方法而去改变实例变量的状态。并且我们也不需要担心调用这个函数会留下持久的副作用。我们甚至可以把这个方法声明为类方法，这样就显示的告诉了代码的阅读者这个方法不会修改任何实例的状态。</p>
+<p><br>
+那么，这个例子和单例相比又有什么关系呢？用 Miško Hevery 的话来说，"<a target="_blank" href="http://misko.hevery.com/2008/08/25/root-cause-of-singletons/"><span style="color: #0000ff">单例就是披着羊皮的全局状态</span></a>" 。一个单例可以在不需要显示声明对其依赖的情况下，被使用在任何地方。就像变量_a 和 _b 在 computeSum 内部被使用了，却没有被显示声明一样，程序的任意模块都可以调用[SPMySingleton sharedInstance] 并且访问这个单例。这意味着任何和这个单例交互产生的副作用都会影响程序其他地方的任意代码。</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>@</span><span class="keyword">interface</span><span>&nbsp;SPSingleton&nbsp;:&nbsp;NSObject &nbsp;</span></span></li><li><span>&nbsp;</span></li><li class="alt"><span>+&nbsp;(instancetype)sharedInstance; &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>-&nbsp;(NSUInteger)badMutableState; &nbsp;</span></li><li><span>-&nbsp;(</span><span class="keyword">void</span><span>)setBadMutableState:(NSUInteger)badMutableState; &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>@end &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>@implementation&nbsp;SPConsumerA &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>-&nbsp;(</span><span class="keyword">void</span><span>)someMethod &nbsp;</span></li><li class="alt"><span>{ &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span>&nbsp;([[SPSingleton&nbsp;sharedInstance]&nbsp;badMutableState])&nbsp;{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//&nbsp;... </span><span>&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;</span></li><li class="alt"><span>} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@end &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@implementation&nbsp;SPConsumerB &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>-&nbsp;(</span><span class="keyword">void</span><span>)someOtherMethod &nbsp;</span></li><li><span>{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[[SPSingleton&nbsp;sharedInstance]&nbsp;setBadMutableState:0]; &nbsp;</span></li><li><span>} &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>@end&nbsp;</span></li></ol></pre>
+<p>在上面的代码中，SPConsumerA and SPConsumerB是两个完全独立的模块。但是SPConsumerB 可以通过使用单例提供的共享状态来影响 SPConsumerA 的行为。这种情况应该只能发生在consumer B显示引用了A，显示建立了它们两者之间的关系时。由于这里使用了单例，单例的全局性和有状态性，导致隐式的在两个看起来完全不相关的模块之间建立了耦合。</p>
+<p><br>
+让我们来看一个更具体的例子，并且暴露一个使用全局可变状态的额外问题。我们想要在我们的应用中构建一个网页查看器(web viewer)。我们构建了一个简单的 URL cache来支持这个网页查看器：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>@</span><span class="keyword">interface</span><span>&nbsp;SPURLCache &nbsp;</span></span></li><li><span>&nbsp;</span></li><li class="alt"><span>+&nbsp;(SPCache&nbsp;*)sharedURLCache; &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>-&nbsp;(</span><span class="keyword">void</span><span>)storeCachedResponse:(NSCachedURLResponse&nbsp;*)cachedResponse&nbsp;forRequest:(NSURLRequest&nbsp;*)request; &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@end&nbsp;&nbsp;&nbsp;&nbsp;</span></li></ol></pre>
+<p>&nbsp;这个开发者开始写了一些单元测试来保证代码在不同的情况下都能达到预期。首先，他写了一个测试用例来保证网页查看器在没有设备链接时能够展示出错误信息。然后他写了一个测试用例来保证网页查看器能够正确的处理服务器错误。最后，他为成功情况时写了一个测试用例，来保证返回的网络内容能够被正确的显示出来。这个开发者运行了所有的测试用例，并且它们都如预期一样正确。赞！</p>
+<p><br>
+几个月以后，这些测试用例开始出现失败，尽管网页查看器的代码从它写完后就从来没有再改动过！到底发生了什么？</p>
+<p><br>
+原来，有人改变了测试的顺序。处理成功的那个测试用例首先被运行，然后再运行其他两个。处理错误的那两个测试用例现在竟然成功了，和预期不一样，因为 URL cache 这个单例把不同测试用例之间的response缓存起来了。<br>
+&nbsp;</p>
+<p>持久化状态是单元测试的敌人，因为单元测试在各个测试用例相互独立的情况下才有效。如果状态从一个测试用例传递到了另外一个，这样就和测试用例的执行顺序就有关系了。有bug的测试用例是非常糟糕的事情，特别是那些有时候能通过测试，有时候又不能通过测试的。</p>
+<p><br>
+<strong>对象的生命周期</strong><br>
+另外一个关键问题就是单例的生命周期。当你在程序中添加一个单例时，很容易会认为 “它们永远只能有一个实例”。但是在很多我看到过的iOS代码中，这种假定都可能被打破。</p>
+<p><br>
+比如，假设我们正在构建一个应用，在这个应用里用户可以看到他们的好友列表。他们的每个朋友都有一张个人信息的图片，并且我们想使我们的应用能够下载并且在设备上缓存这些图片。 使用dispatch_once 代码片段，我们可以写一个SPThumbnailCache单例：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>@</span><span class="keyword">interface</span><span>&nbsp;SPThumbnailCache&nbsp;:&nbsp;NSObject &nbsp;</span></span></li><li><span>&nbsp;</span></li><li class="alt"><span>+&nbsp;(instancetype)sharedThumbnailCache; &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>-&nbsp;(</span><span class="keyword">void</span><span>)cacheProfileImage:(NSData&nbsp;*)imageData&nbsp;forUserId:(NSString&nbsp;*)userId; &nbsp;</span></li><li><span>-&nbsp;(NSData&nbsp;*)cachedProfileImageForUserId:(NSString&nbsp;*)userId; &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>@end&nbsp;</span></li></ol></pre>
+<p>我们继续构建我们的应用，一切看起来都很正常，直到有一天，当我们决定去实现‘注销’功能时，这样用户可以在应用中进行账号切换。突然我们发现我们将要面临一个讨厌的问题：用户相关的状态存储在全局单例中。当用户注销后，我们希望能够清理掉所有的硬盘上的持久化状态。否则，我们将会把这些被遗弃的数据残留在用户的设备上，浪费宝贵的硬盘空间。对于用户登出又登录了一个新的账号这种情况，我们也想能够对这个新用户使用一个全新的SPThumbnailCache 实例。<br>
+问题在于按照定义单例被认为是“创建一次，永久有效”的实例。你可以想到一些对于上述问题的解决方案。或许我们可以在用户登出时移除这个单例：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span class="keyword">static</span><span>&nbsp;SPThumbnailCache&nbsp;*sharedThumbnailCache; &nbsp;</span></span></li><li><span>&nbsp;</span></li><li class="alt"><span>+&nbsp;(instancetype)sharedThumbnailCache &nbsp;</span></li><li><span>{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span>&nbsp;(!sharedThumbnailCache)&nbsp;{ &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sharedThumbnailCache&nbsp;=&nbsp;[[self&nbsp;alloc]&nbsp;init]; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;sharedThumbnailCache; &nbsp;</span></li><li class="alt"><span>} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>+&nbsp;(</span><span class="keyword">void</span><span>)tearDown &nbsp;</span></li><li><span>{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//&nbsp;The&nbsp;SPThumbnailCache&nbsp;will&nbsp;clean&nbsp;up&nbsp;persistent&nbsp;states&nbsp;when&nbsp;deallocated </span><span>&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;sharedThumbnailCache&nbsp;=&nbsp;nil; &nbsp;</span></li><li class="alt"><span>}&nbsp;</span></li></ol></pre>
+<p>这是一个明显的对单例模式的滥用，但是它可以工作，对吧？</p>
+<p><br>
+我们当然可以使用这种方式去解决，但是代价实在是太大了。我们不能使用简单的、能够保证线程安全和所有的调用 [SPThumbnailCache sharedThumbnailCache] 的地方都会访问同一个实例的dispatch_once解决方案了。现在我们需要对使用thumbnail cache时的代码的执行顺序非常小心。假设当用户正在执行登出操作时，有一些后台任务正在执行把图片保存到缓存中的操作:</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,&nbsp;0),&nbsp;^{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;[[SPThumbnailCache&nbsp;sharedThumbnailCache]&nbsp;cacheProfileImage:newImage&nbsp;forUserId:userId]; &nbsp;</span></li><li class="alt"><span>});&nbsp;</span></li></ol></pre>
+<p>我们需要保证在所有的后台任务完成前， tearDown一定不能被执行。这保证了newImage可以被正确的清理掉。或者，我们需要保证在thumbnail cache被移除时，后台缓存任务一定要被取消掉。否则，一个新的 thumbnail cache 的实例将会被延迟创建，并且之前用户的数据 (newImage对象)会被存储在它里面。</p>
+<p><br>
+由于对于单例实例来说它没有明确的所有者，(比如，单例自己管理自己的生命周期)，永远“关闭”一个单例变得非常的困难。</p>
+<p><br>
+分析到这里，我希望你能够意识到，“这个thumbnail cache从来就不应该作为一个单例”！问题在于一个对象得生命周期可能在项目的最初阶段没有被很好得考虑清楚。举一个具体的例子，Dropbox 的 iOS 客户端曾经只支持一个账号登录。它以这样的状态存在了数年，直到有一天我们希望能够同时支持<a target="_blank" href="https://www.dropbox.com/business/two-dropboxes"><span style="color: #0000ff">多个用户账号</span></a>登录(既包括个人账号也包括企业账号)。突然之间，我们以前的的假设“只能够同时有一个用户处于登录状态”就不成立了。 假定一个对象的生命周期和应用的生命周期一致，会限制你的代码的灵活扩展，早晚有一天当产品的需求产生变化时，你会为当初的这个假定付出代价的。</p>
+<p><br>
+这里我们得到的教训是，单例应该只用来保存全局的状态，并且不能和任何作用域绑定。如果这些状态的作用域比一个完整的应用程序的生命周期要短，那么这个状态就不应该使用单例来管理。用一个单例来管理用户绑定的状态，是代码的坏味道，你应该认真的重新评估你的对象图的设计。</p>
+<p><br>
+<strong>避免使用单例</strong><br>
+既然单例对局部作用域的状态有这么多的坏处，那么我们应该怎样避免使用它们呢？</p>
+<p><br>
+让我们来重温一下上面的例子。既然我们的 thumbnail cache 的缓存状态是和具体的用户绑定的，那么让我们来定义一个user对象吧：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>@</span><span class="keyword">interface</span><span>&nbsp;SPUser&nbsp;:&nbsp;NSObject &nbsp;</span></span></li><li><span>&nbsp;</span></li><li class="alt"><span>@property&nbsp;(nonatomic,&nbsp;readonly)&nbsp;SPThumbnailCache&nbsp;*thumbnailCache; &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@end &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@implementation&nbsp;SPUser &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>-&nbsp;(instancetype)init &nbsp;</span></li><li><span>{ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span>&nbsp;((self&nbsp;=&nbsp;[</span><span class="keyword">super</span><span>&nbsp;init]))&nbsp;{ &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_thumbnailCache&nbsp;=&nbsp;[[SPThumbnailCache&nbsp;alloc]&nbsp;init]; &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//&nbsp;Initialize&nbsp;other&nbsp;user-specific&nbsp;state... </span><span>&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;self; &nbsp;</span></li><li class="alt"><span>} &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@end&nbsp;</span></li></ol></pre>
+<p>我们现在用一个对象来作为一个经过认证的用户会话(authenticated user session)的模型类，并且我们可以把所有和用户相关的状态存储在这个对象中。现在假设我们有一个view controller来展现好友列表：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>@</span><span class="keyword">interface</span><span>&nbsp;SPFriendListViewController&nbsp;:&nbsp;UIViewController &nbsp;</span></span></li><li><span>&nbsp;</span></li><li class="alt"><span>-&nbsp;(instancetype)initWithUser:(SPUser&nbsp;*)user; &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>@end&nbsp;</span></li></ol></pre>
+<p>我们可以显示的把经过认证的 user 对象作为参数传递给这个view controller。这种把依赖性传递给依赖对象的技术正式的叫法是<a target="_blank" href="http://en.wikipedia.org/wiki/Dependency_injection"><span style="color: #0000ff">依赖注入</span></a>，并且它有很多优点：</p>
+<p><br>
+1、对于阅读这个SPFriendListViewController头文件的读者来说，可以很清楚的知道它只有在有登录用户的情况下才会被展示。</p>
+<p><br>
+2、这个 SPFriendListViewController只要还在使用中，就可以强引用 user 对象。举例来说，对于前面的例子，我们可以像下面这样在后台任务中保存一个图片到thumbnail cache中：</p>
+<pre><ol class="dp-c"><li class="alt"><span><span>dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,&nbsp;0),&nbsp;^{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[_user.thumbnailCache&nbsp;cacheProfileImage:newImage&nbsp;forUserId:userId]; &nbsp;</span></li><li class="alt"><span>&nbsp;});&nbsp;</span></li></ol></pre>
+<p>这种后台任务仍然意义重大，当第一个实例失效时，应用其他地方的代码可以创建和使用一个全新的SPUser对象，而不会阻塞用户交互。</p>
+<p><br>
+为了更详细的说明一下第二点，让我们画一下在使用依赖注入之前和之后的对象图。<br>
+&nbsp;</p>
+<p>假设我们的SPFriendListViewController是当前window的root view controller。使用单例时，我们的对象图看起来如下所示：</p>
+<div style="text-align: center"><img style="cursor: pointer" alt="" width="350" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111147_1.png"></div>
+<p>view controller自己，以及自定义的image view，都会和sharedThumbnailCache产生交互。当用户登出后，我们想要清理root view controller并且退出到登录页面：</p>
+<p style="text-align: center"><img style="cursor: pointer" alt="" width="400" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111223_1.png"></p>
+<p>这里的问题在于这个friend list view controller可能仍然在执行代码(由于后台操作的原因)，并且可能因此仍然有一些调用被挂起到 sharedThumbnailCache上。</p>
+<p><br>
+和使用依赖注入的解决方案对比一下：</p>
+<div style="text-align: center"><img style="cursor: pointer" alt="" width="350" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111255_1.png"></div>
+<p>简单起见，假设 SPApplicationDelegate 管理SPUser 的实例 (在实践中，你可能会把这些用户状态的管理工作交给另外一个对象来做，这样可以使你的 application delegate <a target="_blank" href="http://www.objc.io/issue-1/lighter-view-controllers.html"><span style="color: #0000ff">简化</span></a>)。当展现friend list view controller时，会传递进去一个user的引用。这个引用也会向下传递给profile image views。现在，当用户登出时，我们的对象图如下所示：</p>
+<div style="text-align: center"><img style="cursor: pointer" alt="" width="400" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111356_1.png"></div>
+<p>这个对象图看起来和使用单例时很像。那么，这有什么大不了的呢？</p>
+<p><br>
+关键问题是作用域。在单例那种情况中，sharedThumbnailCache 仍然可以被程序的任意模块访问。假如用户快速的登录了一个新的账号。该用户也想看看他的好友列表，这也就意味着需要再一次的和 thumbnail cache 产生交互：</p>
+<div style="text-align: center"><img style="cursor: pointer" alt="" width="400" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111433_1.png"></div>
+<p>当用户登录一个新账号，我们应该能够构建并且与全新的SPThumbnailCache交互，而不需要再在销毁老的thumbnail cache上花费精力。基于对象管理的典型规则，老的view controllers和老的 thumbnail cache 应该能够自己在后台延迟被清理掉。简而言之，我们应该隔离用户A相关联的状态和用户B相关联的状态：</p>
+<div style="text-align: center"><img style="cursor: pointer" alt="" width="300" onclick="" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/8370_140615111457_1.png"></div>
+<p><strong>结论</strong></p>
+<p>希望这篇文章中的内容没有特别新奇之处。人们已经对单例的滥用抱怨了很多年了，并且我们也都知道全局状态是很不好的事情。但是在iOS开发的世界中，单例的使用是如此的普遍以至于我们有时候忘记了我们多年来在其他面向对象编程中学到的教训。</p>
+<p>&nbsp;</p>
+<p>这一切的关键点是，在面向对象编程中我们想要最小化可变状态的作用域。但是单例却站在了相反的对立面，因为它们使可变的状态可以被程序中的任何地方访问。下一次你想使用单例时，我希望你能够好好考虑一下使用依赖注入作为替代方案。</p></div>
+                            
+                            <div style="border-top:1px solid #ccc;margin-top:30px;line-height:1.8;padding-top:10px">
+                            	<p>CocoaChina是全球最大的苹果开发中文社区，官方微信每日定时推送各种精彩的研发教程资源和工具，介绍app推广营销经验，最新企业招聘和外包信息，以及Cocos2d引擎、Cocostudio开发工具包的最新动态及培训信息。关注微信可以第一时间了解最新产品和服务动态，微信在手，天下我有！</p>
+                                <p style="margin-top:15px">请搜索微信号“CocoaChina”关注我们！</p>
+                                <p style="text-align:center"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/cocoachina_weixin.jpg" width="444" height="120" alt="搜索CocoaChina微信公众号：CocoaChina"></p>
+                            </div>
+                            
+                            <div class="arc-opt">
+                            	
+                                <div class="fl"><a class="praise store fl" href="javascript:void(0)" onclick="add_favors(8830,&#39;避免滥用单例&#39;)"></a></div><div id="newdigg" class="fl"><a href="javascript:void(0)" onclick="postDigg(&#39;good&#39;,8830)" class="praise fl" title="支持就要顶一下">(6)</a></div>
+								
+                          	</div>
+		<div class="clearfixed">
+        
+<div class="bdsharebuttonbox" data-tag="share_1">
+	<a class="bds_tsina" data-cmd="tsina"></a>
+	<a class="bds_tqq" data-cmd="tqq"></a>
+	<a class="bds_qzone" data-cmd="qzone"></a>
+	<a class="bds_weixin" data-cmd="weixin"></a>
+	<a class="bds_sqq" data-cmd="sqq"></a>
+	<a class="bds_bdhome" data-cmd="bdhome"></a>
+</div>
+<script>
+	window._bd_share_config = {
+		common : {
+			bdText : '避免滥用单例 - 来自CocoaChina苹果开发中文站@CocoaChina ',	
+			bdDesc : "单例是整个Cocoa中被广泛使用的核心设计模式之一。事实上，苹果开发者库把单例作为"Cocoa核心竞争力"之一。作为一个iOS开发者，我们经常和单例打交道。",	
+			bdUrl : "http://www.cocoachina.com/applenews/devnews/2014/0615/8830.html", 	
+			bdPic : 'http://www.cocoachina.com/cms/uploads/allimg/140615/8370-1406151100320-L.jpg'
+		},
+		share : [{
+			"bdSize" : 32
+		}],
+		slide : [{	   
+			bdImg : 0,
+			bdPos : "right",
+			bdTop : 100
+		}],
+		image : [{
+			viewType : 'list',
+			viewPos : 'top',
+			viewColor : 'black',
+			viewSize : '24',
+			viewList : ['tsina','tqq','qzone','weixin','sqq']
+		}]
+	}
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+   </div>
+   
+   <!--bai fen dian-->
+   <div id="dt_Rec"></div>
+             <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread" id="ds-thread"><div id="ds-reset"><div class="ds-meta" style="display: none;"><a href="javascript:void(0)" class="ds-like-thread-button ds-rounded"><span class="ds-icon ds-icon-heart"></span> <span class="ds-thread-like-text">喜欢</span><span class="ds-thread-cancel-like">取消喜欢</span></a><span class="ds-like-panel"></span></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);"><span class="ds-highlight">2</span>条评论</a></li><li class="ds-tab"><a class="ds-comments-tab-weibo" href="javascript:void(0);"><span class="ds-highlight">1</span>条新浪微博</a></li></ul></div><ul class="ds-comments"><li class="ds-post" data-post-id="1207805826530603435"><div class="ds-post-self" data-post-id="1207805826530603435" data-thread-id="1207805826530562436" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="7436242"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/100" alt="虎先生"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-user-id="7436242" data-qqt-account="">虎先生</span></div><p>不能滥用单例模式，不能迷信单例模式。</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-06-15T16:20:22+08:00" title="2014年6月15日 下午4:20:22">6月15日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1207805826530603534"><div class="ds-post-self" data-post-id="1207805826530603534" data-thread-id="1207805826530562436" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="3464714"><a rel="nofollow author" target="_blank" href="http://weibo.com/3019451990" onclick="this.href=&#39;http://cocoachina.duoshuo.com/user-url/?user_id=3464714&#39;;" title="瞎扯大魔王"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/1" alt="瞎扯大魔王"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/3019451990" onclick="this.href=&#39;http://cocoachina.duoshuo.com/user-url/?user_id=3464714&#39;;" rel="nofollow" target="_blank" data-user-id="3464714">瞎扯大魔王</a></div><p>恩，单例 是最容易被滥用的了。</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-06-16T09:26:33+08:00" title="2014年6月16日 上午9:26:33">6月16日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://cocoachina.duoshuo.com/login/weibo/" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://cocoachina.duoshuo.com/login/qq/" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://cocoachina.duoshuo.com/login/renren/" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a href="http://cocoachina.duoshuo.com/login/douban/" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://cocoachina.duoshuo.com/login/kaixin/" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://cocoachina.duoshuo.com/login/netease/" rel="nofollow" class="ds-service-link ds-netease">网易</a></li><li><a href="http://cocoachina.duoshuo.com/login/sohu/" rel="nofollow" class="ds-service-link ds-sohu">搜狐</a></li><li><a href="http://cocoachina.duoshuo.com/login/baidu/" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://cocoachina.duoshuo.com/login/google/" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/noavatar_default.png" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1207805826530562436">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="53b11454815d9"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">www.cocoachina.com正在使用多说</a></p></div></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cocoachina"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+                        </div>
+
+
+                    </div><!--detail-->
+                    
+                  
+
+
+            </div> <!--列表-->
+
+        </div>
+
+<div id="coco-store" style="display:none">
+	<div class="storebox">
+    	<h5>提示</h5>
+        <h3>已经收藏该篇文章</h3>
+        <p class="p1"><a href="http://www.cocoachina.com/bbs/u.php?action=favor&tag=1">去我的收藏夹</a></p>
+        <p class="p2"><a href="http://www.cocoachina.com/bbs/login.php">请登录</a></p>
+    </div>
+</div>        
+<script language="javascript" type="text/javascript" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/dedeajax2.js"></script>
+<script type="text/javascript">
+$(function() {
+	//getDigg(8830);
+})
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg'); 
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/cms/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+	DedeXHTTP = null;
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/cms/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+</script>
+<script type="text/javascript">
+	
+	var _channels = [];
+	$(function() {
+		var _host = window.location.host;
+		var _tempi = 0;
+		$("#channelinfos a").each(function() {
+			if( _tempi > 0 ) {
+				var _tempa = [];
+				_tempa.push($(this).html()+"");
+				_tempa.push("http://"+_host+$(this).attr("href"));
+				_channels.push(_tempa);
+			}
+			_tempi++;
+		})
+	})
+
+	
+	window["_BFD"] = window["_BFD"] || {};
+	_BFD.BFD_INFO = {
+	
+	
+		"title":"避免滥用单例",   //文章标题
+	
+		"id":"8830",   //文章id
+	
+		"url":"http://www.cocoachina.com/applenews/devnews/2014/0615/8830.html",   //文章链接
+	
+		"category":_channels,   //文章类别
+	
+		"ptime":"1402801171",   //文章发表时间，时间戳格式
+	
+		"author":"qiancheng",   //文章作者
+			
+		"user_id":"0", //网站当前用户id，如果未登录就为0或空字符串
+		
+		"page_type":"detail", //当前页面全称，请勿修改
+		
+		"image_link":"http://www.cocoachina.com/cms/uploads/allimg/140615/8370-1406151100320-L.jpg", //标题图片地址
+		
+		"description":"单例是整个Cocoa中被广泛使用的核心设计模式之一。事实上，苹果开发者库把单例作为"Cocoa核心竞争力"之一。作为一个iOS开发者，我们经常和单例打交道。", // 内容简介
+		
+		"vcnt":"2232" //阅读人数
+	};
+</script>
+	</div>
+</div> <!--middle-->
+
+<div class="footer">
+	<div class="f-wrap clearfix">
+    	<div class="fl f-ls">
+        	<a href="http://www.cocoachina.com/"><img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/f-logo.png" width="200" height="72" alt="CocoaChina苹果开发中文站"></a><br>
+            <a href="http://www.cocoachina.com/cms/data/sitemap.html" class="fl-link" target="_blank">网站地图</a><br>
+            <a href="http://www.cocoachina.com/aboutus/index.html" class="fl-link fl-l2" target="_blank">关于我们</a><br>
+            <a href="http://www.cocoachina.com/contactus/index.html" class="fl-link fl-l2" target="_blank">联系我们</a><br>
+            <div>
+            	合作云平台: <a href="http://126.am/8XrTA0" target="_blank">又拍云</a><br>
+				京公网安备 11010502011183<br>
+                <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备 11006519号 　京ICP证 100954号</a><br>
+                Copyright © 2008-2013 CocoaChina.com
+            </div>
+        </div>
+        
+        <div class="f-rs">
+        	<ul class="fr-list">
+            	<li>
+                	<h4><a href="http://www.cocoachina.com/applenews/index.html">资讯频道</a></h4>
+                    
+                   		<a href="http://www.cocoachina.com/applenews/devnews/" tilte="开发相关">开发相关</a>
+                    
+                   		<a href="http://www.cocoachina.com/applenews/apple/" tilte="苹果相关">苹果相关</a>
+                    
+                </li>
+                <li>
+                	<h4><a href="http://www.cocoachina.com/devchannel/index.html">开发者频道</a></h4>
+                    
+                   		<a href="http://www.cocoachina.com/macdev/" tilte="Mac开发">Mac开发</a>
+                    
+                   		<a href="http://www.cocoachina.com/iphonedev/" tilte="iPhone开发">iPhone开发</a>
+                    
+                   		<a href="http://www.cocoachina.com/newbie/" tilte="新手教学">新手教学</a>
+                    
+                   		<a href="http://www.cocoachina.com/gamedev/" tilte="游戏开发">游戏开发</a>
+                    
+                   		<a href="http://www.cocoachina.com/gamedev/misc/" tilte="开发综合">开发综合</a>
+                    
+                   		<a href="http://www.cocoachina.com/macdev/uiue/" tilte="用户体验">用户体验</a>
+                    
+                   		<a href="http://www.cocoachina.com/iphonedev/iPadkaifa/" tilte="iPad开发">iPad开发</a>
+                    
+                </li>
+                <li>
+                	<h4><a href="http://www.cocoachina.com/appstore/index.html">市场频道</a></h4>
+                    
+                   		<a href="http://www.cocoachina.com/appstore/top/" tilte="AppStore研究">AppStore研究</a>
+                    
+                   		<a href="http://www.cocoachina.com/appreview/" tilte="会员作品">会员作品</a>
+                    
+                   		<a href="http://www.cocoachina.com/appstore/sales/" tilte="软件销售">软件销售</a>
+                    
+                   		<a href="http://www.cocoachina.com/appstore/market/" tilte="市场推广">市场推广</a>
+                    
+                   		<a href="http://www.cocoachina.com/appstore/exp/" tilte="上线经验">上线经验</a>
+                    
+                   		<a href="http://www.cocoachina.com/appstore/case/" tilte="案例分析">案例分析</a>
+                    
+                </li>
+                <li>
+                	<h4><a href="http://www.cocoachina.com/downloads/index.html">下载频道</a></h4>
+                    
+                   		<a href="http://www.cocoachina.com/downloads/video/" tilte="教学视频">教学视频</a>
+                    
+                   		<a href="http://www.cocoachina.com/downloads/ebook/" tilte="电子文档">电子文档</a>
+                    
+                   		<a href="http://www.cocoachina.com/downloads/code/" tilte="源码下载">源码下载</a>
+                    
+                    <div>
+                    	<span>关注微信 每日推荐</span><br>
+                        <img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/cocoachina-weixin-100.jpg" width="100" height="100" alt="关注CocoaChina微信 获取每日文章推荐">
+                    </div>
+                </li>
+                <li class="last">
+                	<h4><a href="http://developer.cocoachina.com/">开发者中心</a></h4>
+                    <a href="http://developer.cocoachina.com/brand" title="应用排行-提供各国的应用排行数据">应用排行</a>
+                    <a href="http://developer.cocoachina.com/certificate" title="补充个人信息-成为CocoaChina认证开发者享受更多的开发者专业服务">补充个人信息</a>
+                    <a href="http://apps.cocoachina.com/" title="汇集了所有的CocoaChina会员作品的应用墙">华人应用大全</a>
+                    <div>
+                    	<span>扫一扫 浏览移动版</span><br>
+                        <img src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/cocoachina-mobile-100.jpg" width="100" height="100" alt="扫一扫 浏览CocoaChina移动版">
+                    </div>
+                </li>
+            </ul>
+            <div class="fr-fs">
+            	<h4>友情链接</h4>
+                <div class="clearfix"><ul><li><a href="http://www.maiyadi.com/" target="_blank">麦芽地</a> </li><li><a href="http://www.sykong.com/" target="_blank">手游那点事</a> </li><li><a href="http://www.cocos2d-x.org/" target="_blank">cocos2d-x</a> </li><li><a href="http://leiphone.com/" target="_blank">雷锋网</a> </li><li><a href="http://www.appshare.cn/" target="_blank">工程师爸爸</a> </li><li><a href="http://ipaddh.com/" target="_blank">iPad网址导航</a> </li><li><a href="http://cn.cocos2d-x.org/" target="_blank">Cocos引擎中文官网</a> </li><li><a href="http://www.nooidea.com/" target="_blank">Nooidea.com | 装傻充愣</a> </li><li><a href="http://www.macfans.com.cn/" target="_blank">苹果发烧友</a> </li><li><a href="http://www.9ria.com/" target="_blank">9RIA天地会</a> </li><li><a href="http://bbs.kenapple.com/" target="_blank">啃苹果论坛</a> </li><li><a href="http://www.mac52ipod.cn/" target="_blank">苹果fans</a> </li><li><a href="http://www.macfans.com.cn/" target="_blank">苹果发烧友</a> </li><li><a href="http://xiuxiu.iphone.meitu.com/" target="_blank">美图秀秀 iPhone 版</a> </li><li><a href="https://developer.apple.com/" target="_blank">苹果开发者中心</a> </li><li><a href="http://www.ityran.com/" target="_blank">泰然网</a> </li><li><a href="http://hi.hiing.net/" target="_blank">维以不永伤</a> </li><li><a href="http://www.macidea.com/" target="_blank">远景苹果主题</a> </li><li><a href="http://gamerboom.com/" target="_blank">游戏邦</a> </li><li><a href="http://www.iapps.im/" target="_blank">爱应用</a> </li></ul></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="javascript:void(0);" id="back2top" style="display: inline;">顶部</a>
+
+<script language="javascript" src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/bbsauth_new2013.php" type="text/javascript"></script>
+<script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/jquery.colorbox-min.js" type="text/javascript"></script>
+<script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/script-min.js" type="text/javascript"></script><script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/h.js" type="text/javascript"></script>
+<!--[if IE 6]>
+<script src="/cms/templets/js_new/DD_belatedPNG.js"></script>
+<script>
+  DD_belatedPNG.fix('*');
+</script>
+<![endif]-->
+<script src="./避免滥用单例 - CocoaChina 苹果开发中文站 - 最热的iPhone开发社区 最热的苹果开发社区 最热的iPad开发社区_files/c.php" language="JavaScript"></script>
+
+</div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><iframe allowtransparency="true" id="add_speed_bfd" frameborder="0" scrolling="no" style="height: 0px; width: 0px; float: none; position: absolute; overflow: hidden; z-index: 333333; margin: 0px; padding: 0px; border: 0px none; background: none;"></iframe></body></html>
