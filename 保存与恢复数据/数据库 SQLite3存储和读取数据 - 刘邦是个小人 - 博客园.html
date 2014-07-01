@@ -1,0 +1,493 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0066)http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935176.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>数据库  SQLite3存储和读取数据 - 刘邦是个小人 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/style.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/jy578154186/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/jy578154186/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/jy578154186/wlwmanifest.xml">
+<script async="" type="text/javascript" src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/gpt.js"></script><script src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'jy578154186', cb_enable_mathjax=false;</script>
+<script src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<script async="" type="text/javascript" src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/pubads_impl_42.js"></script><script type="text/javascript" src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/osd.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/jy578154186/">刘邦是个小人</a><br>
+		
+	</div>
+</div>
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/jy578154186/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e5%88%98%e9%82%a6%e6%98%af%e4%b8%aa%e5%b0%8f%e4%ba%ba">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/jy578154186/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/jy578154186/rss"><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a>
+</div>
+<div id="mytopmenu">
+	
+		
+<div class="blogStats">随笔 - 59&nbsp;
+文章 - 0&nbsp;评论 - 3&nbsp;trackbacks - 0
+</div>
+	
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2014/06/01&#39;);return false;">&lt;</a></td><td align="center">2014年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2014/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalTodayDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/jy578154186/">刘邦是个小人</a><br>园龄：<a href="http://home.cnblogs.com/u/jy578154186/" title="入园时间：2012-09-24">1年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/jy578154186/followers/">12</a><br>关注：<a href="http://home.cnblogs.com/u/jy578154186/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;b55ff579-3a06-e211-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-sidecolumn">
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+
+
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/jy578154186/p/">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/jy578154186/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/jy578154186/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/jy578154186/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/jy578154186/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/jy578154186/tag/iOS/">iOS</a>(8)</li><li><a href="http://www.cnblogs.com/jy578154186/tag/object-C/">object-C</a>(1)</li><li><a href="http://www.cnblogs.com/jy578154186/tag/UITextField/">UITextField</a>(1)</li><li><a href="http://www.cnblogs.com/jy578154186/tag/UIViewController/">UIViewController</a>(1)</li><li><a href="http://www.cnblogs.com/jy578154186/tag/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">单例模式</a>(1)</li><li><a href="http://www.cnblogs.com/jy578154186/tag/block/">block</a>(1)</li>
+</ul>
+</div>
+<!--done-->
+
+		<h1 class="catListTitle">随笔分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/jy578154186/category/417321.html">iOS(35)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/jy578154186/category/417322.html">object-C(4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/jy578154186/category/455182.html">数据库(5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/jy578154186/category/455181.html">网络编程(6)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2013/03.html">2013年3月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2013/02.html">2013年2月 (25)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2013/01.html">2013年1月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2012/12.html">2012年12月 (12)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2012/11.html">2012年11月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2012/10.html">2012年10月 (12)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/jy578154186/archive/2012/09.html">2012年9月 (2)</a></li>
+			
+				</ul>
+			
+	
+<div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2934853.html#2920732">1. Re:iOS  Storyboard全解析</a></li>
+    <li class="recent_comment_body">非常不错！赞</li>
+    <li class="recent_comment_author">--夏雪冬日</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/jy578154186/archive/2012/11/24/2785643.html#2883451">2. Re:iOS  Socket用法</a></li>
+    <li class="recent_comment_body">服务端和客户端代码看不到啊。。。。。。</li>
+    <li class="recent_comment_author">--wwwang89</li>
+</ul>
+</div>
+</div>
+</div><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/jy578154186/archive/2012/09/30/2709130.html">1. iOS  block的用法(11409)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935394.html">2. iOS  CoreData(4217)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2934853.html">3. iOS  Storyboard全解析(3802)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935152.html">4. iOS  NSFileManager文件系统的管理(2396)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2012/12/12/2815268.html">5. iOS  正确使用UIViewController(2325)</a></li></ul></div>
+</div>
+</div><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/jy578154186/archive/2012/11/24/2785643.html">1. iOS  Socket用法(2)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2934853.html">2. iOS  Storyboard全解析(1)</a></li></ul></div>
+</div></div><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935401.html">1. iOS  UITableView的重用机制(3)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935394.html">2. iOS  CoreData(3)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/26/2933995.html">3. iOS  ***各种网络编程面试总结****(2)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2013/01/09/2852837.html">4. iOS  项目生成ipa格式文件(1)</a></li><li><a href="http://www.cnblogs.com/jy578154186/archive/2012/11/24/2785643.html">5. iOS  Socket用法(1)</a></li></ul></div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>		
+	
+</div>
+<div id="centercontent">
+	
+
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="cb_post_title_url" class="postTitle2" href="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园.html">数据库  SQLite3存储和读取数据</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><div class="article_title">&nbsp;
+<h3><span class="link_title"><a href="http://blog.csdn.net/zhuzhihai1988/article/details/7876089">使用SQLite3存储和读取数据</a></span></h3>
+</div>
+<div class="article_manage">&nbsp;</div>
+<div id="article_content" class="article_content">
+<p>转载：<a href="http://m.oschina.net/blog/57626">http://m.oschina.net/blog/57626</a></p>
+<p>SQLite3是嵌入在iOS中的关系型数据库，对于存储大规模的数据很有效。SQLite3使得不必将每个对象都加到内存中。</p>
+<p>基本操作：</p>
+<h2>sqlite 的方法</h2>
+<p>sqlite3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*db, 数据库句柄，跟文件句柄FILE很类似</p>
+<p>sqlite3_stmt &nbsp; &nbsp; &nbsp;*stmt, 这个相当于ODBC的Command对象，用于保存编译好的SQL语句<br>sqlite3_open(), &nbsp; 打开数据库，没有数据库时创建。<br>sqlite3_exec(), &nbsp; 执行非查询的sql语句<br>Sqlite3_step(), 在调用sqlite3_prepare后，使用这个函数在记录集中移动。<br>Sqlite3_close(), 关闭数据库文件<br>还有一系列的函数，用于从记录集字段中获取数据，如<br>sqlite3_column_text(), 取text类型的数据。<br>sqlite3_column_blob（），取blob类型的数据<br>sqlite3_column_int(), 取int类型的数据</p>
+
+
+<br>
+<p>（1）打开或者创建数据库</p>
+<pre name="code">sqlite3 *database;
+int result = sqlite3_open("/path/databaseFile", &amp;database);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>如果/path/databaseFile不存在，则创建它，否则打开它。如果result的值是SQLITE_OK，则表明我们的操作成功。</p>
+<p>注意上述语句中数据库文件的地址字符串前面没有@字符，它是一个C字符串。将NSString字符串转成C字符串的方法是：</p>
+<pre name="code">const char *cString = [nsString UTF8String];</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>（2）关闭数据库</p>
+<pre name="code">sqlite3_close(database);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>（3）创建一个表格</p>
+<pre name="code">char *errorMsg;
+const char *createSQL = "CREATE TABLE IF NOT EXISTS PEOPLE (ID INTEGER PRIMARY KEY AUTOINCREMENT, FIELD_DATA TEXT)";
+int result = sqlite3_exec(database, createSQL, NULL, NULL, &amp;errorMsg);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>执行之后，如果result的值是SQLITE_OK，则表明执行成功；否则，错误信息存储在errorMsg中。</p>
+<p>sqlite3_exec这个方法可以执行那些没有返回结果的操作，例如创建、插入、删除等。</p>
+<p>（4）查询操作</p>
+<pre name="code">NSString *query = @"SELECT ID, FIELD_DATA FROM FIELDS ORDER BY ROW";
+sqlite3_stmt *statement;
+int result = sqlite3_prepare_v2(database, [query UTF8String], -1, &amp;statement, nil);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>如果result的值是SQLITE_OK，则表明准备好statement，接下来执行查询：</p>
+<p>&nbsp;</p>
+<pre name="code">while (sqlite3_step(statement) == SQLITE_ROW) {
+    int rowNum = sqlite3_column_int(statement, 0);
+    char *rowData = (char *)sqlite3_column_text(statement, 1);
+    NSString *fieldValue = [[NSString alloc] initWithUTF8String:rowData];
+    // Do something with the data here
+}
+sqlite3_finalize(statement);</pre>
+<p>&nbsp;</p>
+使用过其他数据库的话应该很好理解这段语句，这个就是依次将每行的数据存在statement中，然后根据每行的字段取出数据。
+<p>&nbsp;</p>
+<p>（5）使用约束变量</p>
+<p>实际操作时经常使用叫做约束变量的东西来构造SQL字符串，从而进行插入、查询或者删除等。</p>
+<p>例如，要执行带两个约束变量的插入操作，第一个变量是int类型，第二个是C字符串：</p>
+<pre name="code">char *sql = "insert into oneTable values (?, ?);";
+sqlite3_stmt *stmt;
+if (sqlite3_prepare_v2(database, sql, -1, &amp;stmt, nil) == SQLITE_OK) {
+    sqlite3_bind_int(stmt, 1, 235);
+    sqlite3_bind_text(stmt, 2, "valueString", -1, NULL);
+}
+if (sqlite3_step(stmt) != SQLITE_DONE)
+    NSLog(@"Something is Wrong!");
+sqlite3_finalize(stmt);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>这里，sqlite3_bind_int(stmt, 1, 235);有三个参数：</p>
+<p>第一个是sqlite3_stmt类型的变量，在之前的sqlite3_prepare_v2中使用的。</p>
+<p>第二个是所约束变量的标签index。</p>
+<p>第三个参数是要加的值。</p>
+<p>有一些函数多出两个变量，例如</p>
+<pre name="code">sqlite3_bind_text(stmt, 2, "valueString", -1, NULL);</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>这句，第四个参数代表第三个参数中需要传递的长度。对于C字符串来说，-1表示传递全部字符串。</p>
+<p>第五个参数是一个回调函数，比如执行后做内存清除工作。</p>
+<p>接下来，做个小例子吧！</p>
+<p>1、运行Xcode 4.3，新建一个Single View Application，名称为SQLite3 Test：</p>
+<p><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/132502_h049_164134.png" alt="" width="414" height="173"></p>
+<p>2、连接SQLite3库：</p>
+<p>按照下图中的红色数字的顺序找到加号：</p>
+<p><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/154106_gOhs_164134.jpg" alt="" width="640" height="174"></p>
+<p>单击这个加号，打开窗口，在搜索栏输入sqlite3：</p>
+<p><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/150629_1vbQ_164134.png" alt="" width="322" height="370"></p>
+<p>选择libsqlite3.dylib，单击Add，添加到工程。</p>
+<p>3、进行界面设计。打开ViewController.xib，使用Interface Builder设计界面如下：</p>
+<p><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/133601_2S9o_164134.png" alt="" width="308" height="423"></p>
+<p>设置四个文本框的tag分别是1、2、3、4。</p>
+<p>4、在ViewController.h中添加属性和方法：</p>
+<pre name="code">@property (copy, nonatomic) NSString *databaseFilePath;
+
+- (void)applicationWillResignActive:(NSNotification *)notification;</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>5、打开ViewController.m，向其中添加代码：</p>
+<p>5.1 在开头添加代码：</p>
+<pre name="code">#import "sqlite3.h"
+#define kDatabaseName @"database.sqlite3"</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>5.2 在@implementation之后添加代码：</p>
+<pre name="code">@synthesize databaseFilePath;</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>5.3 在viewDidLoad方法中添加代码：</p>
+<pre name="code">- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    //获取数据库文件路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    self.databaseFilePath = [documentsDirectory stringByAppendingPathComponent:kDatabaseName];
+    //打开或创建数据库
+    sqlite3 *database;
+    if (sqlite3_open([self.databaseFilePath UTF8String] , &amp;database) != SQLITE_OK) {
+        sqlite3_close(database);
+        NSAssert(0, @"打开数据库失败！");
+    }
+    //创建数据库表
+    NSString *createSQL = @"CREATE TABLE IF NOT EXISTS FIELDS (TAG INTEGER PRIMARY KEY, FIELD_DATA TEXT);";
+    char *errorMsg;
+    if (sqlite3_exec(database, [createSQL UTF8String], NULL, NULL, &amp;errorMsg) != SQLITE_OK) {
+        sqlite3_close(database);
+        NSAssert(0, @"创建数据库表错误: %s", errorMsg);
+    }
+    //执行查询
+    NSString *query = @"SELECT TAG, FIELD_DATA FROM FIELDS ORDER BY TAG";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &amp;statement, nil) == SQLITE_OK) {
+        //依次读取数据库表格FIELDS中每行的内容，并显示在对应的TextField
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            //获得数据
+            int tag = sqlite3_column_int(statement, 0);
+            char *rowData = (char *)sqlite3_column_text(statement, 1);
+            //根据tag获得TextField
+            UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
+            //设置文本
+            textField.text = [[NSString alloc] initWithUTF8String:rowData];
+        }
+        sqlite3_finalize(statement);
+    }
+    //关闭数据库
+    sqlite3_close(database);
+    //当程序进入后台时执行写入数据库操作
+    UIApplication *app = [UIApplication sharedApplication];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillResignActive:)
+     name:UIApplicationWillResignActiveNotification
+     object:app];
+}</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>5.4 在@end之前实现方法：</p>
+<pre name="code">//程序进入后台时的操作，实现将当前显示的数据写入数据库
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    //打开数据库
+    sqlite3 *database;
+    if (sqlite3_open([self.databaseFilePath UTF8String], &amp;database)
+        != SQLITE_OK) {
+        sqlite3_close(database);
+        NSAssert(0, @"打开数据库失败！");
+    }
+    //向表格插入四行数据
+    for (int i = 1; i &lt;= 4; i++) { 
+        //根据tag获得TextField
+        UITextField *textField = (UITextField *)[self.view viewWithTag:i];
+        //使用约束变量插入数据
+        char *update = "INSERT OR REPLACE INTO FIELDS (TAG, FIELD_DATA) VALUES (?, ?);";
+        sqlite3_stmt *stmt;
+        if (sqlite3_prepare_v2(database, update, -1, &amp;stmt, nil) == SQLITE_OK) {
+            sqlite3_bind_int(stmt, 1, i);
+            sqlite3_bind_text(stmt, 2, [textField.text UTF8String], -1, NULL);
+        }
+        char *errorMsg = NULL;
+        if (sqlite3_step(stmt) != SQLITE_DONE)
+            NSAssert(0, @"更新数据库表FIELDS出错: %s", errorMsg);
+        sqlite3_finalize(stmt);
+    }
+    //关闭数据库
+    sqlite3_close(database);
+}</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>6、实现关闭键盘，参考<a class="ui-link" href="http://my.oschina.net/plumsoft/blog/42545" rel="nofollow" target="_blank">《iOS开发4：关闭键盘》</a>中的第2步。其中，backgroundTap方法如下：</p>
+<pre name="code">//关闭键盘
+- (IBAction)backgroundTap:(id)sender {
+    for (int i = 1; i &lt;= 4; i++) {
+        UITextField *textField = (UITextField *)[self.view viewWithTag:i];
+        [textField resignFirstResponder];
+    }
+}</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>7、运行程序：</p>
+<p>刚运行时显示如下面左图：</p>
+<p><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/150512_32pr_164134.png" alt="" width="297" height="558">&nbsp; &nbsp;<img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/150524_ZvzX_164134.png" alt="" width="297" height="558"></p>
+<p>在各个文本框输入内容，如上面右图。然后按Home键，这样，就执行了写入数据的操作。</p>
+<p>第一次运行程序时，在SandBox的Documents目录下出现数据库文件database.sqlite3：</p>
+<p><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/150552_LUXF_164134.png" alt="" width="471" height="98"></p>
+<p>此时退出程序，再次运行，则显示的就是上次退出时的值。</p>
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/jy578154186/category/455182.html">数据库</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e5%88%98%e9%82%a6%e6%98%af%e4%b8%aa%e5%b0%8f%e4%ba%ba" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/jy578154186/" target="_blank"><img src="./数据库 SQLite3存储和读取数据 - 刘邦是个小人 - 博客园_files/u451278.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/jy578154186/">刘邦是个小人</a><br>
+<a href="http://home.cnblogs.com/u/jy578154186/followees">关注 - 0</a><br>
+<a href="http://home.cnblogs.com/u/jy578154186/followers">粉丝 - 12</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935171.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935171.html" title="发布于2013-02-27 14:48">数据库  Sqlite在多线程下的应用</a><br><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935247.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935247.html" title="发布于2013-02-27 15:24">网络编程  Http协议详解</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2013-02-27 14:49</span> <a href="http://www.cnblogs.com/jy578154186/">刘邦是个小人</a> 阅读(<span id="post_view_count">937</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2935176" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935176.html#" onclick="AddToWz(2935176);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=129138,cb_entryId=2935176,cb_blogApp=currentBlogApp,cb_blogUserGuid='b55ff579-3a06-e211-aa3f-842b2b196315',cb_entryCreatedDate='2013/2/27 14:49:00';loadViewCount(cb_entryId);</script>
+
+<a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935176.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/jy578154186/archive/2013/02/27/2935176.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = true;var googletag = googletag || {};googletag.cmd = googletag.cmd || [];
+    fixPostBodyFormat();
+</script>
+<div id="ad_under_post_holder">
+<script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +'//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+<script type="text/javascript">
+    try {
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1346480159711-0').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    <script type="text/javascript">
+    try{
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1346480159711-0'); });
+    } catch (e) { }
+    </script>
+    <div id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/211731/" target="_blank">Windows 9重心回归桌面！</a><br> ·  <a href="http://news.cnblogs.com/n/211730/" target="_blank">腾讯出手：微信搅局智能硬件的逻辑</a><br> ·  <a href="http://news.cnblogs.com/n/211729/" target="_blank">微软Cortana预测世界杯 神准堪比章鱼保罗</a><br> ·  <a href="http://news.cnblogs.com/n/211728/" target="_blank">三大语音助手为何不支持完全语音控制？</a><br> ·  <a href="http://news.cnblogs.com/n/211726/" target="_blank">谷歌宣布今年9月关闭社交服务Orkut</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/201982/" target="_blank">Amazon前技术副总裁解剖完美技术面试</a><br> ·  <a href="http://kb.cnblogs.com/page/211181/" target="_blank">程序员的自我修养——操作系统篇</a><br> ·  <a href="http://kb.cnblogs.com/page/211458/" target="_blank">五个广泛流传的对大龄程序员的误解</a><br> ·  <a href="http://kb.cnblogs.com/page/198313/" target="_blank">程序员的“横向发展”</a><br> ·  <a href="http://kb.cnblogs.com/page/205063/" target="_blank">破窗理论</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    $.ajax({ url: 'http://counter.cnblogs.com/blog/post/' + cb_entryId, type: 'get', dataType: 'script', cache: true });
+});
+</script>
+</div>
+
+	
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2014 刘邦是个小人 Powered by: <a href="http://www.cnblogs.com/" class="footerlink">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/" class="footerlink">沪江博客</a><br>
+</div>
+</div>
+
+
+
+
+
+<iframe id="google_osd_static_frame_2527684653177" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe></body></html>

@@ -1,0 +1,13 @@
+sqlite3_exec(
+  sqlite3*,                                  /* 一个被打开的数据库*/
+  const char *sql,                           /* SQL语句, */
+  int (*callback)(void*,int,char**,char**),  /* 回调函数－－一般设置为NULL */
+  void *,                                    /* 回调函数的第一个参数---一般设置为NULL */
+  char **errmsg                              /* outter,先定义char *messageErr,然后传入&messagerErr即可 */
+);
+
+创建 table
+
+insert record
+
+
